@@ -48,3 +48,14 @@
     display: none;
   }
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: var(--opacity-0);
+    transform: translateX(var(--space-negative-8));
+  }
+  to {
+    opacity: var(--opacity-100);
+    transform: translateX(var(--space-0));
+  }
+}

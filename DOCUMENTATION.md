@@ -4,7 +4,7 @@
 
 - [x] PROMPT 0: Análise e Planejamento Inicial
 - [x] PROMPT 1: Estrutura Base e Configuração
-- [ ] PROMPT 2: Sistema de Layout e Navegação Desktop
+- [x] PROMPT 2: Sistema de Layout e Navegação Desktop
 - [ ] PROMPT 3: Sistema de Layout e Navegação Mobile
 - [ ] PROMPT 4: Context Global e Gerenciamento de Estado
 - [ ] PROMPT 5: Cards de Resumo Financeiro
@@ -168,26 +168,66 @@ N/A - Análise e planejamento, sem código ainda
 
 ## PROMPT 2: Sistema de Layout e Navegação Desktop
 
-**Status:** ⏳ | **Data:** - | **Build:** -
+**Status:** ✅ | **Data:** 2025-01-XX | **Build:** ✅ (2 tentativas)
 
-### Objetivo
-Implementar Sidebar desktop com estados expandido/colapsado, tooltips, item ativo e transições suaves.
+### Implementado
+- Componente Sidebar com altura total do viewport (h-screen)
+- Estado expandido: logo completo "mycash+", nomes das seções, perfil completo com nome e email
+- Estado colapsado: apenas ícone do logo, ícones das seções, apenas avatar do perfil
+- Botão circular na borda direita para alternar estados (ícone muda: chevron-left/right)
+- Transições suaves entre estados (duration-300 ease-in-out)
+- Ajuste fluido da margem esquerda do conteúdo principal via spacer div
+- Sistema de tooltip que aparece ao passar mouse quando colapsado (delay de 300ms)
+- Item ativo com fundo preto (bg-neutral-1100), texto branco e ícone verde-limão (#15BE78)
+- Hook useSidebar para gerenciar estado (com persistência em localStorage)
+- Componente Layout que integra Sidebar e Outlet do React Router
+- Componentes UI base: Icon e Avatar
+- Responsividade: Sidebar apenas em desktop (≥1280px via lg:), não renderiza em <1280px
 
-### Tarefas
-- [ ] Criar componente Sidebar com altura total do viewport
-- [ ] Implementar estado expandido (logo completo, nomes, perfil completo)
-- [ ] Implementar estado colapsado (apenas ícones)
-- [ ] Botão circular na borda direita para alternar estados
-- [ ] Transições suaves entre estados
-- [ ] Ajuste fluido da margem esquerda do conteúdo principal
-- [ ] Sistema de tooltip para itens quando colapsado
-- [ ] Item ativo com fundo preto, texto branco e ícone verde-limão
-- [ ] Usar exclusivamente variáveis do design system
+### Tokens Utilizados
+
+**Semânticas:**
+- Cores: Brand (azul para logo), Success (verde-limão para ícone ativo)
+- Espaçamentos: Container padding (px-6), gaps entre elementos
+
+**Primitivas:**
+- Cores: `neutral-0` (branco), `neutral-1100` (preto), `neutral-200` (hover), `neutral-300` (bordas), `neutral-600` (texto inativo), `neutral-900` (tooltip), `green-600` (ícone ativo), `brand-500` (logo)
+- Espaçamentos: `px-4`, `px-6`, `py-4`, `mb-1`, `mr-3`, `h-12`, `h-16`, `w-64` (expandido), `w-20` (colapsado)
+- Shapes: `rounded-lg`, `rounded-full`
+- Tipografia: `text-sm`, `text-lg`, `font-medium`, `font-semibold`, `font-bold`
+- Sombras: `shadow-lg` (botão toggle e tooltip)
+
+### Conversões Realizadas
+- Nenhuma conversão necessária - todos os valores usam tokens primitivos do design system
+
+### Arquivos Criados
+- `src/hooks/useSidebar.ts` - Hook para gerenciar estado expandido/colapsado
+- `src/components/ui/Icon/Icon.tsx` - Componente de ícones SVG
+- `src/components/ui/Icon/index.ts` - Export do Icon
+- `src/components/ui/Avatar/Avatar.tsx` - Componente de avatar
+- `src/components/ui/Avatar/index.ts` - Export do Avatar
+- `src/components/layout/Sidebar/Sidebar.tsx` - Componente principal da Sidebar
+- `src/components/layout/Sidebar/SidebarLogo.tsx` - Logo da Sidebar
+- `src/components/layout/Sidebar/SidebarNavItem.tsx` - Item de navegação com tooltip
+- `src/components/layout/Sidebar/SidebarUserInfo.tsx` - Informações do usuário
+- `src/components/layout/Sidebar/index.ts` - Exports da Sidebar
+- `src/components/layout/Layout.tsx` - Layout wrapper com Sidebar e Outlet
+- `src/components/layout/index.ts` - Exports do layout
+- `src/styles/globals.css` - Adicionada animação fadeIn para tooltip
+
+### Arquivos Modificados
+- `src/App.tsx` - Integrado Layout com React Router
+- `src/pages/*.tsx` - Ajustado para remover min-h-screen duplicado
+
+### Build
+✅ Sucesso (tentativas: 2)
+- Primeira tentativa: Erros TypeScript (imports não usados, tipos)
+- Segunda tentativa: ✅ Sucesso após correções
 
 ### Requisitos de Responsividade
-- Desktop (≥1024px): Sidebar visível
-- Tablet (641-1023px): Sidebar não renderiza
-- Mobile (≤640px): Sidebar não renderiza
+- Desktop (≥1280px): Sidebar visível com estados expandido/colapsado
+- Tablet (<1280px): Sidebar não renderiza (hidden lg:flex)
+- Mobile (<1280px): Sidebar não renderiza
 
 ---
 
