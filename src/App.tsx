@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { FinanceProvider } from './contexts'
 import { Layout } from './components/layout'
 import DashboardPage from './pages/DashboardPage'
 import CardsPage from './pages/CardsPage'
@@ -8,6 +9,7 @@ import GoalsPage from './pages/GoalsPage'
 
 function App() {
   return (
+    <FinanceProvider>
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
@@ -19,6 +21,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </FinanceProvider>
   )
 }
 

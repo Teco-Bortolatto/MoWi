@@ -1,0 +1,1838 @@
+{
+  "version": "1.0.4",
+  "metadata": {},
+  "collections": [
+    {
+      "name": "Página1",
+      "modes": [
+        {
+          "name": "value",
+          "variables": [
+            {
+              "name": "color/neutral/0",
+              "type": "color",
+              "isAlias": false,
+              "value": "#FFFFFF"
+            },
+            {
+              "name": "color/neutral/100",
+              "type": "color",
+              "isAlias": false,
+              "value": "#F9FAFB"
+            },
+            {
+              "name": "color/neutral/200",
+              "type": "color",
+              "isAlias": false,
+              "value": "#F3F4F6"
+            },
+            {
+              "name": "color/neutral/300",
+              "type": "color",
+              "isAlias": false,
+              "value": "#E5E7EB"
+            },
+            {
+              "name": "color/neutral/400",
+              "type": "color",
+              "isAlias": false,
+              "value": "#D1D5DB"
+            },
+            {
+              "name": "color/neutral/500",
+              "type": "color",
+              "isAlias": false,
+              "value": "#9CA3AF"
+            },
+            {
+              "name": "color/neutral/600",
+              "type": "color",
+              "isAlias": false,
+              "value": "#6B7280"
+            },
+            {
+              "name": "color/neutral/700",
+              "type": "color",
+              "isAlias": false,
+              "value": "#4B5563"
+            },
+            {
+              "name": "color/neutral/800",
+              "type": "color",
+              "isAlias": false,
+              "value": "#374151"
+            },
+            {
+              "name": "color/neutral/900",
+              "type": "color",
+              "isAlias": false,
+              "value": "#1F2937"
+            },
+            {
+              "name": "color/neutral/1000",
+              "type": "color",
+              "isAlias": false,
+              "value": "#111827"
+            },
+            {
+              "name": "color/neutral/1100",
+              "type": "color",
+              "isAlias": false,
+              "value": "#080B12"
+            },
+            {
+              "name": "color/brand/100",
+              "type": "color",
+              "isAlias": false,
+              "value": "#E6E9F7"
+            },
+            {
+              "name": "color/brand/200",
+              "type": "color",
+              "isAlias": false,
+              "value": "#B0BBE6"
+            },
+            {
+              "name": "color/brand/300",
+              "type": "color",
+              "isAlias": false,
+              "value": "#8A9ADA"
+            },
+            {
+              "name": "color/brand/400",
+              "type": "color",
+              "isAlias": false,
+              "value": "#546CC9"
+            },
+            {
+              "name": "color/brand/500",
+              "type": "color",
+              "isAlias": false,
+              "value": "#0023AF"
+            },
+            {
+              "name": "color/brand/600",
+              "type": "color",
+              "isAlias": false,
+              "value": "#0023AF"
+            },
+            {
+              "name": "color/brand/700",
+              "type": "color",
+              "isAlias": false,
+              "value": "#00209F"
+            },
+            {
+              "name": "color/brand/800",
+              "type": "color",
+              "isAlias": false,
+              "value": "#00197C"
+            },
+            {
+              "name": "color/brand/900",
+              "type": "color",
+              "isAlias": false,
+              "value": "#001360"
+            },
+            {
+              "name": "color/brand/1000",
+              "type": "color",
+              "isAlias": false,
+              "value": "#000F4A"
+            },
+            {
+              "name": "color/purple/100",
+              "type": "color",
+              "isAlias": false,
+              "value": "#F4ECFE"
+            },
+            {
+              "name": "color/purple/200",
+              "type": "color",
+              "isAlias": false,
+              "value": "#E8D8FD"
+            },
+            {
+              "name": "color/purple/300",
+              "type": "color",
+              "isAlias": false,
+              "value": "#D2B1FB"
+            },
+            {
+              "name": "color/purple/400",
+              "type": "color",
+              "isAlias": false,
+              "value": "#BB8BF9"
+            },
+            {
+              "name": "color/purple/500",
+              "type": "color",
+              "isAlias": false,
+              "value": "#A564F7"
+            },
+            {
+              "name": "color/purple/600",
+              "type": "color",
+              "isAlias": false,
+              "value": "#8E3DF5"
+            },
+            {
+              "name": "color/purple/700",
+              "type": "color",
+              "isAlias": false,
+              "value": "#7231C4"
+            },
+            {
+              "name": "color/purple/800",
+              "type": "color",
+              "isAlias": false,
+              "value": "#552593"
+            },
+            {
+              "name": "color/purple/900",
+              "type": "color",
+              "isAlias": false,
+              "value": "#391862"
+            },
+            {
+              "name": "color/purple/1000",
+              "type": "color",
+              "isAlias": false,
+              "value": "#1C0C31"
+            },
+            {
+              "name": "color/pink/100",
+              "type": "color",
+              "isAlias": false,
+              "value": "#FDEAF9"
+            },
+            {
+              "name": "color/pink/200",
+              "type": "color",
+              "isAlias": false,
+              "value": "#FAD5F2"
+            },
+            {
+              "name": "color/pink/300",
+              "type": "color",
+              "isAlias": false,
+              "value": "#F6ABE5"
+            },
+            {
+              "name": "color/pink/400",
+              "type": "color",
+              "isAlias": false,
+              "value": "#F182D9"
+            },
+            {
+              "name": "color/pink/500",
+              "type": "color",
+              "isAlias": false,
+              "value": "#ED58CC"
+            },
+            {
+              "name": "color/pink/600",
+              "type": "color",
+              "isAlias": false,
+              "value": "#E82EBF"
+            },
+            {
+              "name": "color/pink/700",
+              "type": "color",
+              "isAlias": false,
+              "value": "#BA2599"
+            },
+            {
+              "name": "color/pink/800",
+              "type": "color",
+              "isAlias": false,
+              "value": "#8B1C73"
+            },
+            {
+              "name": "color/pink/900",
+              "type": "color",
+              "isAlias": false,
+              "value": "#5D124C"
+            },
+            {
+              "name": "color/pink/1000",
+              "type": "color",
+              "isAlias": false,
+              "value": "#2E0926"
+            },
+            {
+              "name": "color/red/100",
+              "type": "color",
+              "isAlias": false,
+              "value": "#FDE9EB"
+            },
+            {
+              "name": "color/red/200",
+              "type": "color",
+              "isAlias": false,
+              "value": "#FAD2D6"
+            },
+            {
+              "name": "color/red/300",
+              "type": "color",
+              "isAlias": false,
+              "value": "#F5A5AD"
+            },
+            {
+              "name": "color/red/400",
+              "type": "color",
+              "isAlias": false,
+              "value": "#F07884"
+            },
+            {
+              "name": "color/red/500",
+              "type": "color",
+              "isAlias": false,
+              "value": "#EB4B5B"
+            },
+            {
+              "name": "color/red/600",
+              "type": "color",
+              "isAlias": false,
+              "value": "#E61E32"
+            },
+            {
+              "name": "color/red/700",
+              "type": "color",
+              "isAlias": false,
+              "value": "#B81828"
+            },
+            {
+              "name": "color/red/800",
+              "type": "color",
+              "isAlias": false,
+              "value": "#8A121E"
+            },
+            {
+              "name": "color/red/900",
+              "type": "color",
+              "isAlias": false,
+              "value": "#5C0C14"
+            },
+            {
+              "name": "color/red/1000",
+              "type": "color",
+              "isAlias": false,
+              "value": "#2E060A"
+            },
+            {
+              "name": "color/orange/100",
+              "type": "color",
+              "isAlias": false,
+              "value": "#FFF3E7"
+            },
+            {
+              "name": "color/orange/200",
+              "type": "color",
+              "isAlias": false,
+              "value": "#FFE7CE"
+            },
+            {
+              "name": "color/orange/300",
+              "type": "color",
+              "isAlias": false,
+              "value": "#FFCE9D"
+            },
+            {
+              "name": "color/orange/400",
+              "type": "color",
+              "isAlias": false,
+              "value": "#FFB66C"
+            },
+            {
+              "name": "color/orange/500",
+              "type": "color",
+              "isAlias": false,
+              "value": "#FF9D3B"
+            },
+            {
+              "name": "color/orange/600",
+              "type": "color",
+              "isAlias": false,
+              "value": "#FF850A"
+            },
+            {
+              "name": "color/orange/700",
+              "type": "color",
+              "isAlias": false,
+              "value": "#CC6A08"
+            },
+            {
+              "name": "color/orange/800",
+              "type": "color",
+              "isAlias": false,
+              "value": "#995006"
+            },
+            {
+              "name": "color/orange/900",
+              "type": "color",
+              "isAlias": false,
+              "value": "#663504"
+            },
+            {
+              "name": "color/orange/1000",
+              "type": "color",
+              "isAlias": false,
+              "value": "#331B02"
+            },
+            {
+              "name": "color/yellow/100",
+              "type": "color",
+              "isAlias": false,
+              "value": "#FEF7E7"
+            },
+            {
+              "name": "color/yellow/200",
+              "type": "color",
+              "isAlias": false,
+              "value": "#FEEECF"
+            },
+            {
+              "name": "color/yellow/300",
+              "type": "color",
+              "isAlias": false,
+              "value": "#FDDD9F"
+            },
+            {
+              "name": "color/yellow/400",
+              "type": "color",
+              "isAlias": false,
+              "value": "#FBCD70"
+            },
+            {
+              "name": "color/yellow/500",
+              "type": "color",
+              "isAlias": false,
+              "value": "#FABC40"
+            },
+            {
+              "name": "color/yellow/600",
+              "type": "color",
+              "isAlias": false,
+              "value": "#F9AB10"
+            },
+            {
+              "name": "color/yellow/700",
+              "type": "color",
+              "isAlias": false,
+              "value": "#C7890D"
+            },
+            {
+              "name": "color/yellow/800",
+              "type": "color",
+              "isAlias": false,
+              "value": "#95670A"
+            },
+            {
+              "name": "color/yellow/900",
+              "type": "color",
+              "isAlias": false,
+              "value": "#644406"
+            },
+            {
+              "name": "color/yellow/1000",
+              "type": "color",
+              "isAlias": false,
+              "value": "#322203"
+            },
+            {
+              "name": "color/green/100",
+              "type": "color",
+              "isAlias": false,
+              "value": "#E8F9F2"
+            },
+            {
+              "name": "color/green/200",
+              "type": "color",
+              "isAlias": false,
+              "value": "#D0F2E4"
+            },
+            {
+              "name": "color/green/300",
+              "type": "color",
+              "isAlias": false,
+              "value": "#A1E5C9"
+            },
+            {
+              "name": "color/green/400",
+              "type": "color",
+              "isAlias": false,
+              "value": "#73D8AE"
+            },
+            {
+              "name": "color/green/500",
+              "type": "color",
+              "isAlias": false,
+              "value": "#44CB93"
+            },
+            {
+              "name": "color/green/600",
+              "type": "color",
+              "isAlias": false,
+              "value": "#15BE78"
+            },
+            {
+              "name": "color/green/700",
+              "type": "color",
+              "isAlias": false,
+              "value": "#119860"
+            },
+            {
+              "name": "color/green/800",
+              "type": "color",
+              "isAlias": false,
+              "value": "#0D7248"
+            },
+            {
+              "name": "color/green/900",
+              "type": "color",
+              "isAlias": false,
+              "value": "#084C30"
+            },
+            {
+              "name": "color/green/1000",
+              "type": "color",
+              "isAlias": false,
+              "value": "#042618"
+            },
+            {
+              "name": "color/blue/100",
+              "type": "color",
+              "isAlias": false,
+              "value": "#EAF3FD"
+            },
+            {
+              "name": "color/blue/200",
+              "type": "color",
+              "isAlias": false,
+              "value": "#D4E7FC"
+            },
+            {
+              "name": "color/blue/300",
+              "type": "color",
+              "isAlias": false,
+              "value": "#AAD0F9"
+            },
+            {
+              "name": "color/blue/400",
+              "type": "color",
+              "isAlias": false,
+              "value": "#7FB8F5"
+            },
+            {
+              "name": "color/blue/500",
+              "type": "color",
+              "isAlias": false,
+              "value": "#55A1F2"
+            },
+            {
+              "name": "color/blue/600",
+              "type": "color",
+              "isAlias": false,
+              "value": "#2A89EF"
+            },
+            {
+              "name": "color/blue/700",
+              "type": "color",
+              "isAlias": false,
+              "value": "#226EBF"
+            },
+            {
+              "name": "color/blue/800",
+              "type": "color",
+              "isAlias": false,
+              "value": "#19528F"
+            },
+            {
+              "name": "color/blue/900",
+              "type": "color",
+              "isAlias": false,
+              "value": "#113760"
+            },
+            {
+              "name": "color/blue/1000",
+              "type": "color",
+              "isAlias": false,
+              "value": "#081B30"
+            },
+            {
+              "name": "space/0",
+              "type": "number",
+              "isAlias": false,
+              "value": 0
+            },
+            {
+              "name": "space/2",
+              "type": "number",
+              "isAlias": false,
+              "value": 2
+            },
+            {
+              "name": "space/4",
+              "type": "number",
+              "isAlias": false,
+              "value": 4
+            },
+            {
+              "name": "space/6",
+              "type": "number",
+              "isAlias": false,
+              "value": 6
+            },
+            {
+              "name": "space/8",
+              "type": "number",
+              "isAlias": false,
+              "value": 8
+            },
+            {
+              "name": "space/12",
+              "type": "number",
+              "isAlias": false,
+              "value": 12
+            },
+            {
+              "name": "space/16",
+              "type": "number",
+              "isAlias": false,
+              "value": 16
+            },
+            {
+              "name": "space/20",
+              "type": "number",
+              "isAlias": false,
+              "value": 20
+            },
+            {
+              "name": "space/24",
+              "type": "number",
+              "isAlias": false,
+              "value": 24
+            },
+            {
+              "name": "space/32",
+              "type": "number",
+              "isAlias": false,
+              "value": 32
+            },
+            {
+              "name": "space/40",
+              "type": "number",
+              "isAlias": false,
+              "value": 40
+            },
+            {
+              "name": "space/48",
+              "type": "number",
+              "isAlias": false,
+              "value": 48
+            },
+            {
+              "name": "space/56",
+              "type": "number",
+              "isAlias": false,
+              "value": 56
+            },
+            {
+              "name": "space/64",
+              "type": "number",
+              "isAlias": false,
+              "value": 64
+            },
+            {
+              "name": "space/72",
+              "type": "number",
+              "isAlias": false,
+              "value": 72
+            },
+            {
+              "name": "space/80",
+              "type": "number",
+              "isAlias": false,
+              "value": 80
+            },
+            {
+              "name": "space/88",
+              "type": "number",
+              "isAlias": false,
+              "value": 88
+            },
+            {
+              "name": "space/96",
+              "type": "number",
+              "isAlias": false,
+              "value": 96
+            },
+            {
+              "name": "space/104",
+              "type": "number",
+              "isAlias": false,
+              "value": 104
+            },
+            {
+              "name": "space/112",
+              "type": "number",
+              "isAlias": false,
+              "value": 112
+            },
+            {
+              "name": "space/120",
+              "type": "number",
+              "isAlias": false,
+              "value": 120
+            },
+            {
+              "name": "space/128",
+              "type": "number",
+              "isAlias": false,
+              "value": 128
+            },
+            {
+              "name": "space/negative/2",
+              "type": "number",
+              "isAlias": false,
+              "value": -2
+            },
+            {
+              "name": "space/negative/4",
+              "type": "number",
+              "isAlias": false,
+              "value": -4
+            },
+            {
+              "name": "space/negative/6",
+              "type": "number",
+              "isAlias": false,
+              "value": -6
+            },
+            {
+              "name": "space/negative/8",
+              "type": "number",
+              "isAlias": false,
+              "value": -8
+            },
+            {
+              "name": "space/negative/12",
+              "type": "number",
+              "isAlias": false,
+              "value": -12
+            },
+            {
+              "name": "space/negative/16",
+              "type": "number",
+              "isAlias": false,
+              "value": -16
+            },
+            {
+              "name": "space/negative/20",
+              "type": "number",
+              "isAlias": false,
+              "value": -20
+            },
+            {
+              "name": "space/negative/24",
+              "type": "number",
+              "isAlias": false,
+              "value": -24
+            },
+            {
+              "name": "space/negative/32",
+              "type": "number",
+              "isAlias": false,
+              "value": -32
+            },
+            {
+              "name": "space/negative/40",
+              "type": "number",
+              "isAlias": false,
+              "value": -40
+            },
+            {
+              "name": "space/negative/44",
+              "type": "number",
+              "isAlias": false,
+              "value": -44
+            },
+            {
+              "name": "space/negative/48",
+              "type": "number",
+              "isAlias": false,
+              "value": -48
+            },
+            {
+              "name": "size/0",
+              "type": "number",
+              "isAlias": false,
+              "value": 0
+            },
+            {
+              "name": "size/2",
+              "type": "number",
+              "isAlias": false,
+              "value": 2
+            },
+            {
+              "name": "size/4",
+              "type": "number",
+              "isAlias": false,
+              "value": 4
+            },
+            {
+              "name": "size/6",
+              "type": "number",
+              "isAlias": false,
+              "value": 6
+            },
+            {
+              "name": "size/8",
+              "type": "number",
+              "isAlias": false,
+              "value": 8
+            },
+            {
+              "name": "size/12",
+              "type": "number",
+              "isAlias": false,
+              "value": 12
+            },
+            {
+              "name": "size/16",
+              "type": "number",
+              "isAlias": false,
+              "value": 16
+            },
+            {
+              "name": "size/20",
+              "type": "number",
+              "isAlias": false,
+              "value": 20
+            },
+            {
+              "name": "size/24",
+              "type": "number",
+              "isAlias": false,
+              "value": 24
+            },
+            {
+              "name": "size/32",
+              "type": "number",
+              "isAlias": false,
+              "value": 32
+            },
+            {
+              "name": "size/40",
+              "type": "number",
+              "isAlias": false,
+              "value": 40
+            },
+            {
+              "name": "size/48",
+              "type": "number",
+              "isAlias": false,
+              "value": 48
+            },
+            {
+              "name": "size/56",
+              "type": "number",
+              "isAlias": false,
+              "value": 56
+            },
+            {
+              "name": "size/64",
+              "type": "number",
+              "isAlias": false,
+              "value": 64
+            },
+            {
+              "name": "size/72",
+              "type": "number",
+              "isAlias": false,
+              "value": 72
+            },
+            {
+              "name": "size/80",
+              "type": "number",
+              "isAlias": false,
+              "value": 80
+            },
+            {
+              "name": "size/88",
+              "type": "number",
+              "isAlias": false,
+              "value": 88
+            },
+            {
+              "name": "size/96",
+              "type": "number",
+              "isAlias": false,
+              "value": 96
+            },
+            {
+              "name": "size/104",
+              "type": "number",
+              "isAlias": false,
+              "value": 104
+            },
+            {
+              "name": "size/112",
+              "type": "number",
+              "isAlias": false,
+              "value": 112
+            },
+            {
+              "name": "size/120",
+              "type": "number",
+              "isAlias": false,
+              "value": 120
+            },
+            {
+              "name": "size/128",
+              "type": "number",
+              "isAlias": false,
+              "value": 128
+            },
+            {
+              "name": "size/160",
+              "type": "number",
+              "isAlias": false,
+              "value": 160
+            },
+            {
+              "name": "size/320",
+              "type": "number",
+              "isAlias": false,
+              "value": 320
+            },
+            {
+              "name": "size/640",
+              "type": "number",
+              "isAlias": false,
+              "value": 640
+            },
+            {
+              "name": "size/720",
+              "type": "number",
+              "isAlias": false,
+              "value": 720
+            },
+            {
+              "name": "size/1024",
+              "type": "number",
+              "isAlias": false,
+              "value": 1024
+            },
+            {
+              "name": "size/1280",
+              "type": "number",
+              "isAlias": false,
+              "value": 1280
+            },
+            {
+              "name": "size/1440",
+              "type": "number",
+              "isAlias": false,
+              "value": 1440
+            },
+            {
+              "name": "shape/0",
+              "type": "number",
+              "isAlias": false,
+              "value": 0
+            },
+            {
+              "name": "shape/2",
+              "type": "number",
+              "isAlias": false,
+              "value": 2
+            },
+            {
+              "name": "shape/4",
+              "type": "number",
+              "isAlias": false,
+              "value": 4
+            },
+            {
+              "name": "shape/6",
+              "type": "number",
+              "isAlias": false,
+              "value": 6
+            },
+            {
+              "name": "shape/8",
+              "type": "number",
+              "isAlias": false,
+              "value": 8
+            },
+            {
+              "name": "shape/12",
+              "type": "number",
+              "isAlias": false,
+              "value": 12
+            },
+            {
+              "name": "shape/16",
+              "type": "number",
+              "isAlias": false,
+              "value": 16
+            },
+            {
+              "name": "shape/20",
+              "type": "number",
+              "isAlias": false,
+              "value": 20
+            },
+            {
+              "name": "shape/24",
+              "type": "number",
+              "isAlias": false,
+              "value": 24
+            },
+            {
+              "name": "shape/32",
+              "type": "number",
+              "isAlias": false,
+              "value": 32
+            },
+            {
+              "name": "shape/100",
+              "type": "number",
+              "isAlias": false,
+              "value": 100
+            },
+            {
+              "name": "opacity/0",
+              "type": "number",
+              "isAlias": false,
+              "value": 0
+            },
+            {
+              "name": "opacity/10",
+              "type": "number",
+              "isAlias": false,
+              "value": 10
+            },
+            {
+              "name": "opacity/20",
+              "type": "number",
+              "isAlias": false,
+              "value": 20
+            },
+            {
+              "name": "opacity/30",
+              "type": "number",
+              "isAlias": false,
+              "value": 30
+            },
+            {
+              "name": "opacity/40",
+              "type": "number",
+              "isAlias": false,
+              "value": 40
+            },
+            {
+              "name": "opacity/50",
+              "type": "number",
+              "isAlias": false,
+              "value": 50
+            },
+            {
+              "name": "opacity/60",
+              "type": "number",
+              "isAlias": false,
+              "value": 60
+            },
+            {
+              "name": "opacity/70",
+              "type": "number",
+              "isAlias": false,
+              "value": 70
+            },
+            {
+              "name": "opacity/80",
+              "type": "number",
+              "isAlias": false,
+              "value": 80
+            },
+            {
+              "name": "opacity/90",
+              "type": "number",
+              "isAlias": false,
+              "value": 90
+            },
+            {
+              "name": "opacity/100",
+              "type": "number",
+              "isAlias": false,
+              "value": 100
+            },
+            {
+              "name": "font/size/display/large",
+              "type": "number",
+              "isAlias": false,
+              "value": 96
+            },
+            {
+              "name": "font/size/display/medium",
+              "type": "number",
+              "isAlias": false,
+              "value": 64
+            },
+            {
+              "name": "font/size/display/small",
+              "type": "number",
+              "isAlias": false,
+              "value": 44
+            },
+            {
+              "name": "font/size/display/x-small",
+              "type": "number",
+              "isAlias": false,
+              "value": 36
+            },
+            {
+              "name": "font/size/heading/xx-large",
+              "type": "number",
+              "isAlias": false,
+              "value": 40
+            },
+            {
+              "name": "font/size/heading/x-large",
+              "type": "number",
+              "isAlias": false,
+              "value": 36
+            },
+            {
+              "name": "font/size/heading/large",
+              "type": "number",
+              "isAlias": false,
+              "value": 32
+            },
+            {
+              "name": "font/size/heading/medium",
+              "type": "number",
+              "isAlias": false,
+              "value": 28
+            },
+            {
+              "name": "font/size/heading/small",
+              "type": "number",
+              "isAlias": false,
+              "value": 24
+            },
+            {
+              "name": "font/size/heading/x-small",
+              "type": "number",
+              "isAlias": false,
+              "value": 20
+            },
+            {
+              "name": "font/size/label/large",
+              "type": "number",
+              "isAlias": false,
+              "value": 18
+            },
+            {
+              "name": "font/size/label/medium",
+              "type": "number",
+              "isAlias": false,
+              "value": 16
+            },
+            {
+              "name": "font/size/label/small",
+              "type": "number",
+              "isAlias": false,
+              "value": 14
+            },
+            {
+              "name": "font/size/label/x-small",
+              "type": "number",
+              "isAlias": false,
+              "value": 12
+            },
+            {
+              "name": "font/size/paragraph/large",
+              "type": "number",
+              "isAlias": false,
+              "value": 18
+            },
+            {
+              "name": "font/size/paragraph/medium",
+              "type": "number",
+              "isAlias": false,
+              "value": 16
+            },
+            {
+              "name": "font/size/paragraph/small",
+              "type": "number",
+              "isAlias": false,
+              "value": 14
+            },
+            {
+              "name": "font/size/paragraph/x-small",
+              "type": "number",
+              "isAlias": false,
+              "value": 12
+            },
+            {
+              "name": "font/weight/bold",
+              "type": "number",
+              "isAlias": false,
+              "value": 700
+            },
+            {
+              "name": "font/weight/semibold",
+              "type": "number",
+              "isAlias": false,
+              "value": 600
+            },
+            {
+              "name": "font/weight/regular",
+              "type": "number",
+              "isAlias": false,
+              "value": 400
+            },
+            {
+              "name": "font/line-height/spaced",
+              "type": "number",
+              "isAlias": false,
+              "value": 170
+            },
+            {
+              "name": "font/line-height/default",
+              "type": "number",
+              "isAlias": false,
+              "value": 140
+            },
+            {
+              "name": "font/line-height/tight",
+              "type": "number",
+              "isAlias": false,
+              "value": 120
+            },
+            {
+              "name": "font/letter-spacing/spaced",
+              "type": "number",
+              "isAlias": false,
+              "value": 2.5
+            },
+            {
+              "name": "font/letter-spacing/default",
+              "type": "number",
+              "isAlias": false,
+              "value": 0
+            },
+            {
+              "name": "font/letter-spacing/tight",
+              "type": "number",
+              "isAlias": false,
+              "value": -1
+            },
+            {
+              "name": "shadow/color/neutral/0",
+              "type": "color",
+              "isAlias": false,
+              "value": "#080B1200"
+            },
+            {
+              "name": "shadow/color/neutral/2",
+              "type": "color",
+              "isAlias": false,
+              "value": "#080B1205"
+            },
+            {
+              "name": "shadow/color/neutral/4",
+              "type": "color",
+              "isAlias": false,
+              "value": "#080B120A"
+            },
+            {
+              "name": "shadow/color/neutral/16",
+              "type": "color",
+              "isAlias": false,
+              "value": "#080B1229"
+            },
+            {
+              "name": "shadow/color/neutral/24",
+              "type": "color",
+              "isAlias": false,
+              "value": "#080B123D"
+            },
+            {
+              "name": "shadow/color/neutral/32",
+              "type": "color",
+              "isAlias": false,
+              "value": "#080B1252"
+            },
+            {
+              "name": "shadow/color/neutral/100",
+              "type": "color",
+              "isAlias": false,
+              "value": "#080B12"
+            },
+            {
+              "name": "shadow/color/brand/0",
+              "type": "color",
+              "isAlias": false,
+              "value": "#3381FF00"
+            },
+            {
+              "name": "shadow/color/brand/2",
+              "type": "color",
+              "isAlias": false,
+              "value": "#3381FF05"
+            },
+            {
+              "name": "shadow/color/brand/4",
+              "type": "color",
+              "isAlias": false,
+              "value": "#3381FF0A"
+            },
+            {
+              "name": "shadow/color/brand/16",
+              "type": "color",
+              "isAlias": false,
+              "value": "#3381FF29"
+            },
+            {
+              "name": "shadow/color/brand/24",
+              "type": "color",
+              "isAlias": false,
+              "value": "#3381FF3D"
+            },
+            {
+              "name": "shadow/color/brand/32",
+              "type": "color",
+              "isAlias": false,
+              "value": "#3381FF52"
+            },
+            {
+              "name": "shadow/color/brand/100",
+              "type": "color",
+              "isAlias": false,
+              "value": "#3381FF"
+            },
+            {
+              "name": "shadow/offsetX/right/0",
+              "type": "number",
+              "isAlias": false,
+              "value": 0
+            },
+            {
+              "name": "shadow/offsetX/right/2",
+              "type": "number",
+              "isAlias": false,
+              "value": 2
+            },
+            {
+              "name": "shadow/offsetX/right/4",
+              "type": "number",
+              "isAlias": false,
+              "value": 4
+            },
+            {
+              "name": "shadow/offsetX/right/16",
+              "type": "number",
+              "isAlias": false,
+              "value": 16
+            },
+            {
+              "name": "shadow/offsetX/right/24",
+              "type": "number",
+              "isAlias": false,
+              "value": 24
+            },
+            {
+              "name": "shadow/offsetX/right/32",
+              "type": "number",
+              "isAlias": false,
+              "value": 32
+            },
+            {
+              "name": "shadow/offsetX/left/0",
+              "type": "number",
+              "isAlias": false,
+              "value": 0
+            },
+            {
+              "name": "shadow/offsetX/left/2",
+              "type": "number",
+              "isAlias": false,
+              "value": -2
+            },
+            {
+              "name": "shadow/offsetX/left/4",
+              "type": "number",
+              "isAlias": false,
+              "value": -4
+            },
+            {
+              "name": "shadow/offsetX/left/16",
+              "type": "number",
+              "isAlias": false,
+              "value": -16
+            },
+            {
+              "name": "shadow/offsetX/left/24",
+              "type": "number",
+              "isAlias": false,
+              "value": -24
+            },
+            {
+              "name": "shadow/offsetX/left/32",
+              "type": "number",
+              "isAlias": false,
+              "value": -32
+            },
+            {
+              "name": "shadow/offsetY/down/0",
+              "type": "number",
+              "isAlias": false,
+              "value": 0
+            },
+            {
+              "name": "shadow/offsetY/down/2",
+              "type": "number",
+              "isAlias": false,
+              "value": 2
+            },
+            {
+              "name": "shadow/offsetY/down/4",
+              "type": "number",
+              "isAlias": false,
+              "value": 4
+            },
+            {
+              "name": "shadow/offsetY/down/16",
+              "type": "number",
+              "isAlias": false,
+              "value": 16
+            },
+            {
+              "name": "shadow/offsetY/down/24",
+              "type": "number",
+              "isAlias": false,
+              "value": 24
+            },
+            {
+              "name": "shadow/offsetY/down/32",
+              "type": "number",
+              "isAlias": false,
+              "value": 32
+            },
+            {
+              "name": "shadow/offsetY/up/0",
+              "type": "number",
+              "isAlias": false,
+              "value": 0
+            },
+            {
+              "name": "shadow/offsetY/up/2",
+              "type": "number",
+              "isAlias": false,
+              "value": -2
+            },
+            {
+              "name": "shadow/offsetY/up/4",
+              "type": "number",
+              "isAlias": false,
+              "value": -4
+            },
+            {
+              "name": "shadow/offsetY/up/16",
+              "type": "number",
+              "isAlias": false,
+              "value": -16
+            },
+            {
+              "name": "shadow/offsetY/up/24",
+              "type": "number",
+              "isAlias": false,
+              "value": -24
+            },
+            {
+              "name": "shadow/offsetY/up/32",
+              "type": "number",
+              "isAlias": false,
+              "value": -32
+            },
+            {
+              "name": "shadow/blur/0",
+              "type": "number",
+              "isAlias": false,
+              "value": 0
+            },
+            {
+              "name": "shadow/blur/2",
+              "type": "number",
+              "isAlias": false,
+              "value": 2
+            },
+            {
+              "name": "shadow/blur/4",
+              "type": "number",
+              "isAlias": false,
+              "value": 4
+            },
+            {
+              "name": "shadow/blur/16",
+              "type": "number",
+              "isAlias": false,
+              "value": 16
+            },
+            {
+              "name": "shadow/blur/24",
+              "type": "number",
+              "isAlias": false,
+              "value": 24
+            },
+            {
+              "name": "shadow/blur/32",
+              "type": "number",
+              "isAlias": false,
+              "value": 32
+            },
+            {
+              "name": "shadow/spread/0",
+              "type": "number",
+              "isAlias": false,
+              "value": 0
+            },
+            {
+              "name": "shadow/spread/1",
+              "type": "number",
+              "isAlias": false,
+              "value": 1
+            },
+            {
+              "name": "shadow/spread/2",
+              "type": "number",
+              "isAlias": false,
+              "value": 2
+            },
+            {
+              "name": "shadow/spread/3",
+              "type": "number",
+              "isAlias": false,
+              "value": 3
+            },
+            {
+              "name": "shadow/spread/4",
+              "type": "number",
+              "isAlias": false,
+              "value": 4
+            },
+            {
+              "name": "Valor",
+              "type": "boolean",
+              "isAlias": false,
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Typography",
+      "modes": [
+        {
+          "name": "Style",
+          "variables": [
+            {
+              "name": "Display/Large",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 96,
+                "fontFamily": "Arial",
+                "fontWeight": "Bold",
+                "lineHeight": 104,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0,
+                "letterSpacingUnit": "PIXELS",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            },
+            {
+              "name": "Display/Medium",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 52,
+                "fontFamily": "Arial",
+                "fontWeight": "Bold",
+                "lineHeight": 62,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0,
+                "letterSpacingUnit": "PIXELS",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            },
+            {
+              "name": "Display/Small",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 44,
+                "fontFamily": "Arial",
+                "fontWeight": "Bold",
+                "lineHeight": 50,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0,
+                "letterSpacingUnit": "PERCENT",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            },
+            {
+              "name": "Display/XSmall",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 36,
+                "fontFamily": "Arial",
+                "fontWeight": "Bold",
+                "lineHeight": 40,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0,
+                "letterSpacingUnit": "PIXELS",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            },
+            {
+              "name": "Heading/XX Large",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 40,
+                "fontFamily": "Arial",
+                "fontWeight": "Bold",
+                "lineHeight": 52,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0,
+                "letterSpacingUnit": "PIXELS",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            },
+            {
+              "name": "Heading/Xlarge",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 36,
+                "fontFamily": "Arial",
+                "fontWeight": "Bold",
+                "lineHeight": 44,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0,
+                "letterSpacingUnit": "PIXELS",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            },
+            {
+              "name": "Heading/Large",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 32,
+                "fontFamily": "Arial",
+                "fontWeight": "Bold",
+                "lineHeight": 40,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0,
+                "letterSpacingUnit": "PIXELS",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            },
+            {
+              "name": "Heading/Medium",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 28,
+                "fontFamily": "Arial",
+                "fontWeight": "Bold",
+                "lineHeight": 36,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0,
+                "letterSpacingUnit": "PIXELS",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            },
+            {
+              "name": "Heading/Small",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 24,
+                "fontFamily": "Arial",
+                "fontWeight": "Bold",
+                "lineHeight": 32,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0,
+                "letterSpacingUnit": "PIXELS",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            },
+            {
+              "name": "Heading/XSmall",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 20,
+                "fontFamily": "Arial",
+                "fontWeight": "Bold",
+                "lineHeight": 28,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0,
+                "letterSpacingUnit": "PERCENT",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            },
+            {
+              "name": "Label/Large",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 18,
+                "fontFamily": "Arial",
+                "fontWeight": "Bold",
+                "lineHeight": 24,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0.30000001192092896,
+                "letterSpacingUnit": "PIXELS",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            },
+            {
+              "name": "Label/Medium",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 16,
+                "fontFamily": "Arial",
+                "fontWeight": "Bold",
+                "lineHeight": 20,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0.30000001192092896,
+                "letterSpacingUnit": "PIXELS",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            },
+            {
+              "name": "Label/Small",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 14,
+                "fontFamily": "Arial",
+                "fontWeight": "Bold",
+                "lineHeight": 16,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0.30000001192092896,
+                "letterSpacingUnit": "PIXELS",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            },
+            {
+              "name": "Label/Small",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 12,
+                "fontFamily": "Arial",
+                "fontWeight": "Bold",
+                "lineHeight": 16,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0.30000001192092896,
+                "letterSpacingUnit": "PIXELS",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            },
+            {
+              "name": "Paragraph/Large",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 18,
+                "fontFamily": "Arial",
+                "fontWeight": "Regular",
+                "lineHeight": 28,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0.30000001192092896,
+                "letterSpacingUnit": "PIXELS",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            },
+            {
+              "name": "Paragraph/Medium",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 16,
+                "fontFamily": "Arial",
+                "fontWeight": "Regular",
+                "lineHeight": 24,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0.30000001192092896,
+                "letterSpacingUnit": "PIXELS",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            },
+            {
+              "name": "Paragraph/Small",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 14,
+                "fontFamily": "Arial",
+                "fontWeight": "Regular",
+                "lineHeight": 20,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0.30000001192092896,
+                "letterSpacingUnit": "PIXELS",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            },
+            {
+              "name": "Paragraph/XSmall",
+              "type": "typography",
+              "isAlias": false,
+              "value": {
+                "fontSize": 12,
+                "fontFamily": "Arial",
+                "fontWeight": "Regular",
+                "lineHeight": 20,
+                "lineHeightUnit": "PIXELS",
+                "letterSpacing": 0.30000001192092896,
+                "letterSpacingUnit": "PIXELS",
+                "textCase": "ORIGINAL",
+                "textDecoration": "NONE"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
