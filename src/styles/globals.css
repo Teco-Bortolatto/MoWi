@@ -1,0 +1,50 @@
+@import './variables.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-neutral-200;
+  }
+  
+  body {
+    @apply bg-neutral-100 text-neutral-900;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Mobile-first: base font size */
+  html {
+    font-size: 16px;
+  }
+
+  /* Tablet: increase slightly */
+  @media (min-width: 768px) {
+    html {
+      font-size: 17px;
+    }
+  }
+
+  /* Desktop: full size */
+  @media (min-width: 1280px) {
+    html {
+      font-size: 18px;
+    }
+  }
+}
+
+@layer utilities {
+  /* Prevent horizontal overflow */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

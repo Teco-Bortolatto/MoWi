@@ -1,0 +1,349 @@
+/* Design System Variables - Converted from Figma variables.json */
+
+:root {
+  /* ============================================
+     COLORS - NEUTRAL
+     ============================================ */
+  --color-neutral-0: #FFFFFF;
+  --color-neutral-100: #F9FAFB;
+  --color-neutral-200: #F3F4F6;
+  --color-neutral-300: #E5E7EB;
+  --color-neutral-400: #D1D5DB;
+  --color-neutral-500: #9CA3AF;
+  --color-neutral-600: #6B7280;
+  --color-neutral-700: #4B5563;
+  --color-neutral-800: #374151;
+  --color-neutral-900: #1F2937;
+  --color-neutral-1000: #111827;
+  --color-neutral-1100: #080B12;
+
+  /* ============================================
+     COLORS - BRAND
+     ============================================ */
+  --color-brand-100: #E6E9F7;
+  --color-brand-200: #B0BBE6;
+  --color-brand-300: #8A9ADA;
+  --color-brand-400: #546CC9;
+  --color-brand-500: #0023AF;
+  --color-brand-600: #0023AF;
+  --color-brand-700: #00209F;
+  --color-brand-800: #00197C;
+  --color-brand-900: #001360;
+  --color-brand-1000: #000F4A;
+
+  /* ============================================
+     COLORS - GREEN (Success/Income)
+     ============================================ */
+  --color-green-100: #E8F9F2;
+  --color-green-200: #D0F2E4;
+  --color-green-300: #A1E5C9;
+  --color-green-400: #73D8AE;
+  --color-green-500: #44CB93;
+  --color-green-600: #15BE78;
+  --color-green-700: #119860;
+  --color-green-800: #0D7248;
+  --color-green-900: #084C30;
+  --color-green-1000: #042618;
+
+  /* ============================================
+     COLORS - RED (Danger/Expenses)
+     ============================================ */
+  --color-red-100: #FDE9EB;
+  --color-red-200: #FAD2D6;
+  --color-red-300: #F5A5AD;
+  --color-red-400: #F07884;
+  --color-red-500: #EB4B5B;
+  --color-red-600: #E61E32;
+  --color-red-700: #B81828;
+  --color-red-800: #8A121E;
+  --color-red-900: #5C0C14;
+  --color-red-1000: #2E060A;
+
+  /* ============================================
+     COLORS - PURPLE
+     ============================================ */
+  --color-purple-100: #F4ECFE;
+  --color-purple-200: #E8D8FD;
+  --color-purple-300: #D2B1FB;
+  --color-purple-400: #BB8BF9;
+  --color-purple-500: #A564F7;
+  --color-purple-600: #8E3DF5;
+  --color-purple-700: #7231C4;
+  --color-purple-800: #552593;
+  --color-purple-900: #391862;
+  --color-purple-1000: #1C0C31;
+
+  /* ============================================
+     COLORS - PINK
+     ============================================ */
+  --color-pink-100: #FDEAF9;
+  --color-pink-200: #FAD5F2;
+  --color-pink-300: #F6ABE5;
+  --color-pink-400: #F182D9;
+  --color-pink-500: #ED58CC;
+  --color-pink-600: #E82EBF;
+  --color-pink-700: #BA2599;
+  --color-pink-800: #8B1C73;
+  --color-pink-900: #5D124C;
+  --color-pink-1000: #2E0926;
+
+  /* ============================================
+     COLORS - ORANGE
+     ============================================ */
+  --color-orange-100: #FFF3E7;
+  --color-orange-200: #FFE7CE;
+  --color-orange-300: #FFCE9D;
+  --color-orange-400: #FFB66C;
+  --color-orange-500: #FF9D3B;
+  --color-orange-600: #FF850A;
+  --color-orange-700: #CC6A08;
+  --color-orange-800: #995006;
+  --color-orange-900: #663504;
+  --color-orange-1000: #331B02;
+
+  /* ============================================
+     COLORS - YELLOW
+     ============================================ */
+  --color-yellow-100: #FEF7E7;
+  --color-yellow-200: #FEEECF;
+  --color-yellow-300: #FDDD9F;
+  --color-yellow-400: #FBCD70;
+  --color-yellow-500: #FABC40;
+  --color-yellow-600: #F9AB10;
+  --color-yellow-700: #C7890D;
+  --color-yellow-800: #95670A;
+  --color-yellow-900: #644406;
+  --color-yellow-1000: #322203;
+
+  /* ============================================
+     COLORS - BLUE
+     ============================================ */
+  --color-blue-100: #EAF3FD;
+  --color-blue-200: #D4E7FC;
+  --color-blue-300: #AAD0F9;
+  --color-blue-400: #7FB8F5;
+  --color-blue-500: #55A1F2;
+  --color-blue-600: #2A89EF;
+  --color-blue-700: #226EBF;
+  --color-blue-800: #19528F;
+  --color-blue-900: #113760;
+  --color-blue-1000: #081B30;
+
+  /* ============================================
+     SPACING
+     ============================================ */
+  --space-0: 0px;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-56: 56px;
+  --space-64: 64px;
+  --space-72: 72px;
+  --space-80: 80px;
+  --space-88: 88px;
+  --space-96: 96px;
+  --space-104: 104px;
+  --space-112: 112px;
+  --space-120: 120px;
+  --space-128: 128px;
+
+  /* Negative spacing */
+  --space-negative-2: -2px;
+  --space-negative-4: -4px;
+  --space-negative-6: -6px;
+  --space-negative-8: -8px;
+  --space-negative-12: -12px;
+  --space-negative-16: -16px;
+  --space-negative-20: -20px;
+  --space-negative-24: -24px;
+  --space-negative-32: -32px;
+  --space-negative-40: -40px;
+  --space-negative-44: -44px;
+  --space-negative-48: -48px;
+
+  /* ============================================
+     SIZE
+     ============================================ */
+  --size-0: 0px;
+  --size-2: 2px;
+  --size-4: 4px;
+  --size-6: 6px;
+  --size-8: 8px;
+  --size-12: 12px;
+  --size-16: 16px;
+  --size-20: 20px;
+  --size-24: 24px;
+  --size-32: 32px;
+  --size-40: 40px;
+  --size-48: 48px;
+  --size-56: 56px;
+  --size-64: 64px;
+  --size-72: 72px;
+  --size-80: 80px;
+  --size-88: 88px;
+  --size-96: 96px;
+  --size-104: 104px;
+  --size-112: 112px;
+  --size-120: 120px;
+  --size-128: 128px;
+  --size-160: 160px;
+  --size-320: 320px;
+  --size-640: 640px;
+  --size-720: 720px;
+  --size-1024: 1024px;
+  --size-1280: 1280px;
+  --size-1440: 1440px;
+
+  /* ============================================
+     SHAPE (Border Radius)
+     ============================================ */
+  --shape-0: 0px;
+  --shape-2: 2px;
+  --shape-4: 4px;
+  --shape-6: 6px;
+  --shape-8: 8px;
+  --shape-12: 12px;
+  --shape-16: 16px;
+  --shape-20: 20px;
+  --shape-24: 24px;
+  --shape-32: 32px;
+  --shape-100: 100px;
+
+  /* ============================================
+     OPACITY
+     ============================================ */
+  --opacity-0: 0;
+  --opacity-10: 0.1;
+  --opacity-20: 0.2;
+  --opacity-30: 0.3;
+  --opacity-40: 0.4;
+  --opacity-50: 0.5;
+  --opacity-60: 0.6;
+  --opacity-70: 0.7;
+  --opacity-80: 0.8;
+  --opacity-90: 0.9;
+  --opacity-100: 1;
+
+  /* ============================================
+     TYPOGRAPHY - FONT SIZES
+     ============================================ */
+  --font-size-display-large: 96px;
+  --font-size-display-medium: 64px;
+  --font-size-display-small: 44px;
+  --font-size-display-x-small: 36px;
+  
+  --font-size-heading-xx-large: 40px;
+  --font-size-heading-x-large: 36px;
+  --font-size-heading-large: 32px;
+  --font-size-heading-medium: 28px;
+  --font-size-heading-small: 24px;
+  --font-size-heading-x-small: 20px;
+  
+  --font-size-label-large: 18px;
+  --font-size-label-medium: 16px;
+  --font-size-label-small: 14px;
+  --font-size-label-x-small: 12px;
+  
+  --font-size-paragraph-large: 18px;
+  --font-size-paragraph-medium: 16px;
+  --font-size-paragraph-small: 14px;
+  --font-size-paragraph-x-small: 12px;
+
+  /* ============================================
+     TYPOGRAPHY - FONT WEIGHTS
+     ============================================ */
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ============================================
+     TYPOGRAPHY - LINE HEIGHT
+     ============================================ */
+  --font-line-height-tight: 120%;
+  --font-line-height-default: 140%;
+  --font-line-height-spaced: 170%;
+
+  /* ============================================
+     TYPOGRAPHY - LETTER SPACING
+     ============================================ */
+  --font-letter-spacing-tight: -1px;
+  --font-letter-spacing-default: 0px;
+  --font-letter-spacing-spaced: 2.5px;
+
+  /* ============================================
+     SHADOWS - COLORS
+     ============================================ */
+  --shadow-color-neutral-0: #080B1200;
+  --shadow-color-neutral-2: #080B1205;
+  --shadow-color-neutral-4: #080B120A;
+  --shadow-color-neutral-16: #080B1229;
+  --shadow-color-neutral-24: #080B123D;
+  --shadow-color-neutral-32: #080B1252;
+  --shadow-color-neutral-100: #080B12;
+  
+  --shadow-color-brand-0: #3381FF00;
+  --shadow-color-brand-2: #3381FF05;
+  --shadow-color-brand-4: #3381FF0A;
+  --shadow-color-brand-16: #3381FF29;
+  --shadow-color-brand-24: #3381FF3D;
+  --shadow-color-brand-32: #3381FF52;
+  --shadow-color-brand-100: #3381FF;
+
+  /* ============================================
+     SHADOWS - OFFSETS
+     ============================================ */
+  --shadow-offset-x-right-0: 0px;
+  --shadow-offset-x-right-2: 2px;
+  --shadow-offset-x-right-4: 4px;
+  --shadow-offset-x-right-16: 16px;
+  --shadow-offset-x-right-24: 24px;
+  --shadow-offset-x-right-32: 32px;
+  
+  --shadow-offset-x-left-0: 0px;
+  --shadow-offset-x-left-2: -2px;
+  --shadow-offset-x-left-4: -4px;
+  --shadow-offset-x-left-16: -16px;
+  --shadow-offset-x-left-24: -24px;
+  --shadow-offset-x-left-32: -32px;
+  
+  --shadow-offset-y-down-0: 0px;
+  --shadow-offset-y-down-2: 2px;
+  --shadow-offset-y-down-4: 4px;
+  --shadow-offset-y-down-16: 16px;
+  --shadow-offset-y-down-24: 24px;
+  --shadow-offset-y-down-32: 32px;
+  
+  --shadow-offset-y-up-0: 0px;
+  --shadow-offset-y-up-2: -2px;
+  --shadow-offset-y-up-4: -4px;
+  --shadow-offset-y-up-16: -16px;
+  --shadow-offset-y-up-24: -24px;
+  --shadow-offset-y-up-32: -32px;
+
+  /* ============================================
+     SHADOWS - BLUR
+     ============================================ */
+  --shadow-blur-0: 0px;
+  --shadow-blur-2: 2px;
+  --shadow-blur-4: 4px;
+  --shadow-blur-16: 16px;
+  --shadow-blur-24: 24px;
+  --shadow-blur-32: 32px;
+
+  /* ============================================
+     SHADOWS - SPREAD
+     ============================================ */
+  --shadow-spread-0: 0px;
+  --shadow-spread-1: 1px;
+  --shadow-spread-2: 2px;
+  --shadow-spread-3: 3px;
+  --shadow-spread-4: 4px;
+}
