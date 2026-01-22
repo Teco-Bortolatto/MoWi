@@ -2,14 +2,15 @@
 interface AvatarProps {
   src?: string | null
   alt?: string
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'xs' | 'sm' | 'md' | 'lg'
   className?: string
 }
 
 const sizeMap = {
-  sm: 'var(--size-32)',
-  md: 'var(--size-40)',
-  lg: 'var(--size-48)',
+  xs: 'var(--size-avatar-xs)',
+  sm: 'var(--size-avatar-small)',
+  md: 'var(--size-avatar-medium)',
+  lg: 'var(--size-avatar-large)',
 }
 
 export function Avatar({ src, alt = 'Avatar', size = 'md', className = '' }: AvatarProps) {
@@ -24,7 +25,7 @@ export function Avatar({ src, alt = 'Avatar', size = 'md', className = '' }: Ava
         style={{
           width: avatarSize,
           height: avatarSize,
-          borderRadius: 'var(--shape-100)',
+          borderRadius: 'var(--shape-radius-avatar)',
         }}
       />
     )
@@ -37,16 +38,22 @@ export function Avatar({ src, alt = 'Avatar', size = 'md', className = '' }: Ava
         width: avatarSize,
         height: avatarSize,
         borderRadius: 'var(--shape-100)',
-        backgroundColor: 'var(--color-neutral-300)',
+        backgroundColor: 'var(--color-background-tertiary)',
+        overflow: 'hidden',
       }}
       aria-label={alt}
     >
       <span
         style={{
-          fontSize: size === 'sm' ? 'var(--font-size-label-x-small)' : 'var(--font-size-label-small)',
+          fontSize: size === 'xs' ? '10px' : size === 'sm' ? 'var(--font-size-text-caption)' : 'var(--font-size-text-label)',
           fontWeight: 'var(--font-weight-semibold)',
-          color: 'var(--color-neutral-600)',
-          lineHeight: 'var(--font-line-height-tight)',
+          color: 'var(--color-text-secondary)',
+          lineHeight: '1',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%',
+          height: '100%',
         }}
       >
         {alt.charAt(0).toUpperCase()}

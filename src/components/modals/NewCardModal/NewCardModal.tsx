@@ -1,0 +1,313 @@
+import { useState } from 'react'
+import { useFinance } from '../../../contexts'
+import { Modal } from '../../ui/Modal'
+import { Icon } from '../../ui/Icon'
+import { Button } from '../../ui/Button'
+import { formatCurrency } from '../../../utils/formatCurrency'
+
+interface NewCardModalProps {
+  isOpen: boolean
+  onClose: () => void
+}
+
+export function NewCardModal({ isOpen, onClose }: NewCardModalProps) {
+  const { addCreditCard, familyMembers } = useFinance()
+
+  const [name, setName] = useState('')
+  const [holderId, setHolderId] = useState<string | null>(null)
+  const [closingDay, setClosingDay] = useState(1)
+  const [dueDay, setDueDay] = useState(1)
+  const [limit, setLimit] = useState('')
+  const [lastDigits, setLastDigits] = useState('')
+  const [theme, setTheme] = useState<'black' | 'lime' | 'white'>('black')
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!name || !limit) return
+
+    const limitValue = parseFloat(limit.replace(/[^\d,]/g, '').replace(',', '.'))
+
+    if (isNaN(limitValue) || limitValue <= 0) return
+
+    addCreditCard({
+      name,
+      holderId: holderId || familyMembers[0]?.id || '',
+      closingDay,
+      dueDay,
+      limit: limitValue,
+      currentBill: 0,
+      theme,
+      lastDigits: lastDigits || null,
+    })
+
+    // Reset
+    setName('')
+    setHolderId(null)
+    setClosingDay(1)
+    setDueDay(1)
+    setLimit('')
+    setLastDigits('')
+    setTheme('black')
+
+    onClose()
+  }
+
+  const formatAmountInput = (value: string) => {
+    const numbers = value.replace(/[^\d]/g, '')
+    if (numbers === '') return ''
+    const cents = parseInt(numbers, 10)
+    return formatCurrency(cents / 100)
+  }
+
+  return (
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Novo cartão"
+      subtitle="Adicione um novo cartão de crédito."
+      icon={<Icon name="credit-card" size={20} color="var(--color-text-primary)" />}
+    >
+      <form onSubmit={handleSubmit}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-layout-component)' }}>
+          <div>
+            <label
+              style={{
+                display: 'block',
+                fontSize: 'var(--font-size-text-label)',
+                fontWeight: 'var(--font-weight-bold)',
+                color: 'var(--color-text-primary)',
+                marginBottom: 'var(--space-layout-element)',
+                fontFeatureSettings: "'liga' off",
+              }}
+            >
+              Apelido do cartão
+            </label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Ex: XP black"
+              required
+              style={{
+                width: '100%',
+                padding: 'var(--space-padding-input)',
+                borderRadius: 'var(--shape-radius-input)',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: 'var(--color-border-input-default)',
+                fontSize: 'var(--font-size-input-medium)',
+                color: 'var(--color-text-primary)',
+              }}
+            />
+          </div>
+
+          <div>
+            <label
+              style={{
+                display: 'block',
+                fontSize: 'var(--font-size-text-label)',
+                fontWeight: 'var(--font-weight-bold)',
+                color: 'var(--color-text-primary)',
+                marginBottom: 'var(--space-layout-element)',
+                fontFeatureSettings: "'liga' off",
+              }}
+            >
+              Limite total
+            </label>
+            <input
+              type="text"
+              value={limit}
+              onChange={(e) => setLimit(formatAmountInput(e.target.value))}
+              placeholder="R$ 0,00"
+              required
+              style={{
+                width: '100%',
+                padding: 'var(--space-padding-input)',
+                borderRadius: 'var(--shape-radius-input)',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: 'var(--color-border-input-default)',
+                fontSize: 'var(--font-size-input-medium)',
+                color: 'var(--color-text-primary)',
+              }}
+            />
+          </div>
+
+          <div className="grid grid-cols-2" style={{ gap: 'var(--space-layout-component)' }}>
+            <div>
+              <label
+                style={{
+                  display: 'block',
+                  fontSize: 'var(--font-size-text-label)',
+                  fontWeight: 'var(--font-weight-bold)',
+                  color: 'var(--color-text-primary)',
+                  marginBottom: 'var(--space-layout-element)',
+                  fontFeatureSettings: "'liga' off",
+                }}
+              >
+                Fechamento
+              </label>
+              <select
+                value={closingDay}
+                onChange={(e) => setClosingDay(parseInt(e.target.value, 10))}
+                style={{
+                  width: '100%',
+                  padding: 'var(--space-padding-input)',
+                  borderRadius: 'var(--shape-radius-input)',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: 'var(--color-border-input-default)',
+                  fontSize: 'var(--font-size-input-medium)',
+                  color: 'var(--color-text-primary)',
+                  backgroundColor: 'var(--color-background-input-default)',
+                }}
+              >
+                {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
+                  <option key={day} value={day}>
+                    Dia {day}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label
+                style={{
+                  display: 'block',
+                  fontSize: 'var(--font-size-text-label)',
+                  fontWeight: 'var(--font-weight-bold)',
+                  color: 'var(--color-text-primary)',
+                  marginBottom: 'var(--space-layout-element)',
+                  fontFeatureSettings: "'liga' off",
+                }}
+              >
+                Vencimento
+              </label>
+              <select
+                value={dueDay}
+                onChange={(e) => setDueDay(parseInt(e.target.value, 10))}
+                style={{
+                  width: '100%',
+                  padding: 'var(--space-padding-input)',
+                  borderRadius: 'var(--shape-radius-input)',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: 'var(--color-border-input-default)',
+                  fontSize: 'var(--font-size-input-medium)',
+                  color: 'var(--color-text-primary)',
+                  backgroundColor: 'var(--color-background-input-default)',
+                }}
+              >
+                {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
+                  <option key={day} value={day}>
+                    Dia {day}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label
+              style={{
+                display: 'block',
+                fontSize: 'var(--font-size-text-label)',
+                fontWeight: 'var(--font-weight-bold)',
+                color: 'var(--color-text-primary)',
+                marginBottom: 'var(--space-layout-element)',
+                fontFeatureSettings: "'liga' off",
+              }}
+            >
+              Responsável
+            </label>
+            <select
+              value={holderId || ''}
+              onChange={(e) => setHolderId(e.target.value || null)}
+              style={{
+                width: '100%',
+                padding: 'var(--space-padding-input)',
+                borderRadius: 'var(--shape-radius-input)',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: 'var(--color-border-input-default)',
+                fontSize: 'var(--font-size-input-medium)',
+                color: 'var(--color-text-primary)',
+                backgroundColor: 'var(--color-background-input-default)',
+              }}
+            >
+              {familyMembers.map((member: { id: string; name: string }) => (
+                <option key={member.id} value={member.id}>
+                  {member.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label
+              style={{
+                display: 'block',
+                fontSize: 'var(--font-size-text-label)',
+                fontWeight: 'var(--font-weight-bold)',
+                color: 'var(--color-text-primary)',
+                marginBottom: 'var(--space-layout-element)',
+                fontFeatureSettings: "'liga' off",
+              }}
+            >
+              Cor de identificação
+            </label>
+            <div className="flex gap-2">
+              {(['black', 'lime', 'white'] as const).map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => setTheme(t)}
+                  style={{
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: 'var(--shape-radius-avatar)',
+                    borderWidth: '2px',
+                    borderStyle: 'solid',
+                    borderColor: theme === t ? 'var(--color-border-button-primary)' : 'var(--color-border-default)',
+                    backgroundColor:
+                      t === 'black'
+                        ? 'var(--color-background-action-primary)'
+                        : t === 'lime'
+                        ? 'var(--color-brand-400)'
+                        : 'var(--color-background-surface)',
+                    cursor: 'pointer',
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="flex justify-end"
+          style={{
+            marginTop: 'var(--space-layout-container)',
+            gap: 'var(--space-layout-component)',
+          }}
+        >
+          <Button
+            type="button"
+            onClick={onClose}
+            variant="secondary"
+            size="medium"
+          >
+            Cancelar
+          </Button>
+          <Button
+            type="submit"
+            variant="primary"
+            size="medium"
+          >
+            Salvar
+          </Button>
+        </div>
+      </form>
+    </Modal>
+  )
+}

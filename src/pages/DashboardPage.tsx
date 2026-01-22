@@ -1,25 +1,79 @@
 import { DashboardHeader } from '../components/features/dashboard/DashboardHeader'
+import { BalanceCard, IncomeCard, ExpenseCard } from '../components/features/dashboard/SummaryCards'
+import { ExpensesByCategoryCarousel } from '../components/features/dashboard/ExpensesByCategoryCarousel'
+import { FinancialFlowChart } from '../components/features/dashboard/FinancialFlowChart'
+import { CreditCardsWidget } from '../components/features/dashboard/CreditCardsWidget'
+import { UpcomingExpensesWidget } from '../components/features/dashboard/UpcomingExpensesWidget'
+import { TransactionsTable } from '../components/features/dashboard/TransactionsTable'
 
 function DashboardPage() {
   return (
-    <div className="w-full min-h-screen" style={{ backgroundColor: 'var(--color-neutral-100)' }}>
-      <div className="w-full" style={{ maxWidth: '1400px', margin: '0 auto' }}>
+    <div className="w-full min-h-screen" style={{ backgroundColor: 'var(--color-background-dashboard)' }}>
+      <div
+        className="w-full flex flex-col lg:pt-0"
+        style={{
+          paddingTop: 'var(--space-header-height)',
+          paddingBottom: '0px',
+          paddingLeft: '16px',
+          paddingRight: '16px',
+          gap: '0px',
+        }}
+      >
         <DashboardHeader />
         <div
+          className="flex flex-col"
           style={{
-            paddingLeft: 'var(--space-16)',
-            paddingRight: 'var(--space-16)',
-            paddingBottom: 'var(--space-24)',
+            paddingTop: '0px',
+            paddingBottom: 'var(--space-layout-section)',
+            paddingLeft: '0px',
+            paddingRight: '0px',
+            width: '100%',
+            gap: 'var(--space-layout-section)',
           }}
         >
-          <p
+          {/* Grid Principal - Desktop (≥1280px) usa grid-template-areas */}
+          <div
+            className="dashboard-grid-container"
             style={{
-              fontSize: 'var(--font-size-label-small)',
-              color: 'var(--color-neutral-600)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'var(--space-layout-section)',
             }}
           >
-            Cards de resumo financeiro serão implementados no próximo prompt.
-        </p>
+            {/* Porcentagens / Donuts */}
+            <div className="dashboard-grid-porcentagens">
+              <ExpensesByCategoryCarousel />
+            </div>
+
+            {/* Cards de Saldo (Saldo, Receitas, Despesas) */}
+            <div className="dashboard-grid-cards-saldo">
+              <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: '16px' }}>
+                <BalanceCard />
+                <IncomeCard />
+                <ExpenseCard />
+              </div>
+            </div>
+
+            {/* Cartões e Contas - Ocupa 2 linhas no desktop */}
+            <div className="dashboard-grid-cartoes">
+              <CreditCardsWidget />
+            </div>
+
+            {/* Fluxo Financeiro */}
+            <div className="dashboard-grid-fluxo">
+              <FinancialFlowChart />
+            </div>
+
+            {/* Próximas Despesas */}
+            <div className="dashboard-grid-proximas">
+              <UpcomingExpensesWidget />
+            </div>
+
+            {/* Extrato Detalhado - Ocupa as duas colunas */}
+            <div className="dashboard-grid-extrato">
+              <TransactionsTable />
+            </div>
+          </div>
         </div>
       </div>
     </div>

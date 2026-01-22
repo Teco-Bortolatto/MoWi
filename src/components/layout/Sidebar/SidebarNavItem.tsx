@@ -33,17 +33,17 @@ export function SidebarNavItem({ path, label, icon, isExpanded }: SidebarNavItem
         style={{
           height: 'var(--size-48)',
           marginBottom: 'var(--space-4)',
-          borderRadius: 'var(--shape-8)',
+          borderRadius: '32px',
           paddingLeft: isExpanded ? 'var(--space-24)' : 'var(--space-16)',
           paddingRight: isExpanded ? 'var(--space-24)' : 'var(--space-16)',
           justifyContent: isExpanded ? 'flex-start' : 'center',
-          backgroundColor: isActive ? 'var(--color-neutral-1100)' : 'transparent',
-          color: isActive ? 'var(--color-neutral-0)' : 'var(--color-neutral-600)',
+          backgroundColor: isActive ? 'var(--color-background-action-primary)' : 'transparent',
+          color: isActive ? 'var(--color-background-action-secondary)' : 'var(--color-text-secondary)',
         }}
         onMouseEnter={(e) => {
           handleMouseEnter()
           if (!isActive) {
-            e.currentTarget.style.backgroundColor = 'var(--color-neutral-200)'
+            e.currentTarget.style.backgroundColor = 'var(--color-background-sidebar-hover)'
           }
         }}
         onMouseLeave={(e) => {
@@ -63,15 +63,15 @@ export function SidebarNavItem({ path, label, icon, isExpanded }: SidebarNavItem
           <Icon
             name={icon}
             size={20}
-            color={isActive ? 'var(--color-green-600)' : 'var(--color-neutral-600)'}
+            color={isActive ? 'var(--color-background-action-secondary)' : 'var(--color-neutral-600)'}
           />
         </div>
         {isExpanded && (
           <span
             style={{
-              fontSize: 'var(--font-size-label-medium)',
+              fontSize: 'var(--font-size-text-label)',
               fontWeight: 'var(--font-weight-semibold)',
-              color: isActive ? 'var(--color-neutral-0)' : 'var(--color-neutral-600)',
+              color: isActive ? 'var(--color-background-action-secondary)' : 'var(--color-text-secondary)',
               lineHeight: 'var(--font-line-height-default)',
               letterSpacing: 'var(--font-letter-spacing-default)',
             }}
@@ -93,21 +93,23 @@ export function SidebarNavItem({ path, label, icon, isExpanded }: SidebarNavItem
             paddingBottom: 'var(--space-8)',
             fontSize: 'var(--font-size-label-small)',
             borderRadius: 'var(--shape-8)',
-            backgroundColor: 'var(--color-neutral-900)',
-            color: 'var(--color-neutral-0)',
-            boxShadow: `var(--shadow-offset-x-right-4) var(--shadow-offset-y-down-4) var(--shadow-blur-16) var(--shadow-spread-0) var(--shadow-color-neutral-24)`,
+            backgroundColor: 'var(--color-background-action-primary)',
+            color: 'var(--color-text-action-primary)',
+            boxShadow: 'var(--shadow-card-elevated)',
             animation: 'fadeIn 0.2s ease-out',
+            top: '50%',
+            transform: 'translateY(-50%)',
           }}
         >
           {label}
           <div
-            className="absolute left-0 top-1/2 -translate-y-1/2"
+            className="absolute left-0 top-1/2"
             style={{
               transform: 'translate(-50%, -50%) rotate(45deg)',
               width: 'var(--space-8)',
               height: 'var(--space-8)',
-              marginLeft: 'var(--space-negative-4)',
-              backgroundColor: 'var(--color-neutral-900)',
+              backgroundColor: 'var(--color-background-action-primary)',
+              zIndex: -1,
             }}
           ></div>
         </div>

@@ -19,9 +19,9 @@ export function SidebarUserInfo({
         className="flex items-center justify-center border-t"
         style={{
           height: 'var(--size-64)',
-          paddingLeft: 'var(--space-16)',
-          paddingRight: 'var(--space-16)',
-          borderTopColor: 'var(--color-neutral-300)',
+          paddingLeft: 'var(--space-sidebar-padding)',
+          paddingRight: 'var(--space-sidebar-padding)',
+          borderTopColor: 'var(--color-border-default)',
           borderTopWidth: '1px',
           borderTopStyle: 'solid',
         }}
@@ -35,11 +35,11 @@ export function SidebarUserInfo({
     <div
       className="border-t"
       style={{
-        paddingLeft: 'var(--space-24)',
-        paddingRight: 'var(--space-24)',
-        paddingTop: 'var(--space-16)',
-        paddingBottom: 'var(--space-16)',
-        borderTopColor: 'var(--color-neutral-300)',
+        paddingLeft: 'var(--space-layout-section)',
+        paddingRight: 'var(--space-layout-section)',
+        paddingTop: 'var(--space-layout-component)',
+        paddingBottom: 'var(--space-layout-component)',
+        borderTopColor: 'var(--color-border-default)',
         borderTopWidth: '1px',
         borderTopStyle: 'solid',
       }}
@@ -61,9 +61,9 @@ export function SidebarUserInfo({
           <p
             className="truncate"
             style={{
-              fontSize: 'var(--font-size-label-small)',
+              fontSize: 'var(--font-size-text-label)',
               fontWeight: 'var(--font-weight-semibold)',
-              color: 'var(--color-neutral-900)',
+              color: 'var(--color-text-primary)',
               lineHeight: 'var(--font-line-height-default)',
               letterSpacing: 'var(--font-letter-spacing-default)',
             }}
@@ -73,9 +73,9 @@ export function SidebarUserInfo({
           <p
             className="truncate"
             style={{
-              fontSize: 'var(--font-size-label-x-small)',
+              fontSize: 'var(--font-size-text-caption)',
               fontWeight: 'var(--font-weight-regular)',
-              color: 'var(--color-neutral-600)',
+              color: 'var(--color-text-secondary)',
               lineHeight: 'var(--font-line-height-default)',
               letterSpacing: 'var(--font-letter-spacing-default)',
             }}

@@ -1,0 +1,286 @@
+/* ============================================
+   🎨 TOKENS SEMÂNTICOS - MoWi Design System
+   ============================================
+   Tokens semânticos mapeiam primitivos para contextos de uso
+   Formato: --{type}-{context}-{purpose}-{state?}
+   
+   Estrutura:
+   - Primitivos: valores crus (--color-neutral-100)
+   - Semânticos: propósito/contexto (--color-background-primary)
+   - Componentes: uso específico (--color-button-primary-bg)
+   ============================================ */
+
+:root {
+  /* ============================================
+     🎨 CORES SEMÂNTICAS - BACKGROUND
+     ============================================ */
+  
+  /* Backgrounds principais da aplicação */
+  --color-background-primary: var(--color-neutral-0);
+  --color-background-secondary: var(--color-neutral-100);
+  --color-background-tertiary: var(--color-neutral-200);
+  
+  /* Backgrounds de ação (botões, links) - USAR BRAND */
+  --color-background-action-primary: var(--color-brand-500);
+  --color-background-action-primary-hover: var(--color-brand-600);
+  --color-background-action-primary-active: var(--color-brand-700);
+  --color-background-action-secondary: var(--color-neutral-0);
+  --color-background-action-secondary-hover: var(--color-neutral-200);
+  --color-background-action-secondary-active: var(--color-neutral-300);
+  
+  /* Backgrounds de estado (feedback) */
+  --color-background-success: var(--color-green-100);
+  --color-background-error: var(--color-red-100);
+  --color-background-warning: var(--color-yellow-100);
+  --color-background-info: var(--color-brand-100);
+  
+  /* Backgrounds de superfície (cards, modals, dropdowns) */
+  --color-background-surface: var(--color-neutral-0);
+  --color-background-surface-elevated: var(--color-neutral-0);
+  --color-background-surface-hover: var(--color-neutral-50);
+  --color-background-surface-active: var(--color-neutral-100);
+  
+  /* Backgrounds de input */
+  --color-background-input-default: var(--color-neutral-0);
+  --color-background-input-hover: var(--color-neutral-50);
+  --color-background-input-focus: var(--color-neutral-0);
+  --color-background-input-disabled: var(--color-neutral-100);
+  --color-background-input-error: var(--color-red-50);
+  
+  /* Backgrounds de sidebar */
+  --color-background-sidebar: var(--color-neutral-0);
+  --color-background-sidebar-hover: var(--color-neutral-100);
+  --color-background-sidebar-active: var(--color-brand-100);
+  
+  /* Backgrounds de card */
+  --color-background-card: var(--color-neutral-0);
+  --color-background-card-hover: var(--color-neutral-50);
+  
+  /* Backgrounds de dashboard */
+  --color-background-dashboard: var(--color-neutral-100);
+  --color-background-dashboard-card: var(--color-neutral-0);
+  
+  /* ============================================
+     🎨 CORES SEMÂNTICAS - TEXT
+     ============================================ */
+  
+  /* Textos principais */
+  --color-text-primary: var(--color-neutral-1000);
+  --color-text-secondary: var(--color-neutral-600);
+  --color-text-tertiary: var(--color-neutral-500);
+  --color-text-disabled: var(--color-neutral-400);
+  --color-text-placeholder: var(--color-neutral-500);
+  
+  /* Textos de ação */
+  --color-text-action-primary: var(--color-neutral-0);
+  --color-text-action-secondary: var(--color-neutral-1000);
+  --color-text-action-link: var(--color-brand-500);
+  --color-text-action-link-hover: var(--color-brand-600);
+  
+  /* Textos de estado */
+  --color-text-success: var(--color-green-600);
+  --color-text-error: var(--color-red-600);
+  --color-text-warning: var(--color-yellow-600);
+  --color-text-info: var(--color-brand-500);
+  
+  /* Textos em backgrounds escuros */
+  --color-text-on-dark: var(--color-neutral-0);
+  --color-text-on-dark-secondary: var(--color-neutral-300);
+  
+  /* Textos em backgrounds de ação */
+  --color-text-on-action-primary: var(--color-neutral-0);
+  --color-text-on-action-secondary: var(--color-neutral-1000);
+  
+  /* Textos em cards especiais */
+  --color-text-on-card-dark: var(--color-neutral-0);
+  --color-text-on-card-lime: var(--color-neutral-1000);
+  
+  /* ============================================
+     🎨 CORES SEMÂNTICAS - BORDER
+     ============================================ */
+  
+  /* Bordas principais */
+  --color-border-default: var(--color-neutral-300);
+  --color-border-hover: var(--color-neutral-400);
+  --color-border-focus: var(--color-brand-500);
+  --color-border-disabled: var(--color-neutral-200);
+  
+  /* Bordas de estado */
+  --color-border-success: var(--color-green-600);
+  --color-border-error: var(--color-red-600);
+  --color-border-warning: var(--color-yellow-600);
+  --color-border-info: var(--color-brand-500);
+  
+  /* Bordas de input */
+  --color-border-input-default: var(--color-neutral-500);
+  --color-border-input-hover: var(--color-neutral-600);
+  --color-border-input-focus: var(--color-neutral-1000);
+  --color-border-input-error: var(--color-red-600);
+  --color-border-input-disabled: var(--color-neutral-300);
+  
+  /* Bordas de card */
+  --color-border-card: #D0D5DC;
+  --color-border-card-hover: var(--color-brand-500);
+  --color-border-card-focus: var(--color-brand-500);
+  
+  /* Bordas de botão */
+  --color-border-button-primary: var(--color-neutral-1000);
+  --color-border-button-secondary: var(--color-neutral-300);
+  --color-border-button-action: var(--color-brand-500);
+  
+  /* ============================================
+     📏 ESPAÇAMENTOS SEMÂNTICOS - LAYOUT
+     ============================================ */
+  
+  /* Espaçamentos de layout principal */
+  --space-layout-container: var(--space-32);
+  --space-layout-section: var(--space-24);
+  --space-layout-card: var(--space-24);
+  --space-layout-component: var(--space-16);
+  --space-layout-element: var(--space-8);
+  
+  /* Espaçamentos de padding */
+  --space-padding-container: var(--space-32);
+  --space-padding-section: var(--space-24);
+  --space-padding-card: var(--space-24);
+  --space-padding-modal: var(--space-24);
+  --space-padding-button-small: var(--space-8) var(--space-12);
+  --space-padding-button-medium: var(--space-12) var(--space-16);
+  --space-padding-button-large: var(--space-16) var(--space-24);
+  --space-padding-input: var(--space-16);
+  --space-padding-icon: var(--space-8);
+  
+  /* Espaçamentos de gap */
+  --space-gap-section: var(--space-24);
+  --space-gap-card: var(--space-16);
+  --space-gap-component: var(--space-12);
+  --space-gap-element: var(--space-8);
+  --space-gap-tight: var(--space-4);
+  --space-gap-loose: var(--space-32);
+  
+  /* Espaçamentos de margin */
+  --space-margin-section: var(--space-24);
+  --space-margin-card: var(--space-16);
+  --space-margin-component: var(--space-12);
+  --space-margin-element: var(--space-8);
+  
+  /* Espaçamentos específicos */
+  --space-header-height: var(--size-56);
+  --space-sidebar-padding: var(--space-8);
+  --space-dashboard-padding: var(--space-32);
+  
+  /* ============================================
+     📐 TAMANHOS SEMÂNTICOS - COMPONENTES
+     ============================================ */
+  
+  /* Tamanhos de botão */
+  --size-button-height-small: var(--size-32);
+  --size-button-height-medium: var(--size-40);
+  --size-button-height-large: var(--size-44);
+  --size-button-height-xlarge: var(--size-56);
+  --size-button-width-min: 164px;
+  
+  /* Tamanhos de input */
+  --size-input-height-small: var(--size-40);
+  --size-input-height-medium: var(--size-48);
+  --size-input-height-large: var(--size-56);
+  --size-input-search-height: var(--size-56);
+  
+  /* Tamanhos de ícone */
+  --size-icon-small: var(--size-16);
+  --size-icon-medium: var(--size-20);
+  --size-icon-large: var(--size-24);
+  --size-icon-xlarge: var(--size-32);
+  
+  /* Tamanhos de avatar */
+  --size-avatar-xs: var(--size-24);
+  --size-avatar-small: var(--size-32);
+  --size-avatar-medium: var(--size-44);
+  --size-avatar-large: var(--size-48);
+  
+  /* Tamanhos de sidebar */
+  --size-sidebar-width-expanded: 256px;
+  --size-sidebar-width-collapsed: 80px;
+  
+  /* Tamanhos de modal */
+  --size-modal-width-small: 400px;
+  --size-modal-width-medium: 500px;
+  --size-modal-width-large: 600px;
+  
+  /* Tamanhos de card */
+  --size-card-donut-width: 214px;
+  --size-card-donut-height: auto;
+  
+  /* ============================================
+     🔤 TIPOGRAFIA SEMÂNTICA
+     ============================================ */
+  
+  /* Títulos */
+  --font-size-heading-page: var(--font-size-heading-large);
+  --font-size-heading-section: var(--font-size-heading-small);
+  --font-size-heading-card: var(--font-size-heading-x-small);
+  --font-size-heading-widget: var(--font-size-heading-x-small);
+  --font-size-heading-label: var(--font-size-label-medium);
+  
+  /* Textos */
+  --font-size-text-body: var(--font-size-paragraph-medium);
+  --font-size-text-small: var(--font-size-paragraph-small);
+  --font-size-text-caption: var(--font-size-paragraph-x-small);
+  --font-size-text-label: var(--font-size-label-small);
+  
+  /* Botões */
+  --font-size-button-small: var(--font-size-label-small);
+  --font-size-button-medium: var(--font-size-label-medium);
+  --font-size-button-large: var(--font-size-label-large);
+  
+  /* Inputs */
+  --font-size-input-small: var(--font-size-paragraph-small);
+  --font-size-input-medium: var(--font-size-paragraph-medium);
+  --font-size-input-large: var(--font-size-paragraph-large);
+  
+  /* Valores monetários */
+  --font-size-value-large: var(--font-size-heading-medium);
+  --font-size-value-medium: var(--font-size-heading-small);
+  --font-size-value-small: var(--font-size-label-large);
+  
+  /* ============================================
+     🎭 FORMAS SEMÂNTICAS - BORDER RADIUS
+     ============================================ */
+  
+  /* Border radius de componentes */
+  --shape-radius-button: var(--shape-100);
+  --shape-radius-input: var(--shape-100);
+  --shape-radius-search: var(--shape-100);
+  --shape-radius-card: var(--shape-16);
+  --shape-radius-modal: var(--shape-16);
+  --shape-radius-badge: var(--shape-100);
+  --shape-radius-avatar: var(--shape-100);
+  --shape-radius-icon: var(--shape-8);
+  
+  /* ============================================
+     🌑 SOMBRAS SEMÂNTICAS
+     ============================================ */
+  
+  /* Sombras de elevação */
+  --shadow-elevation-0: none;
+  --shadow-elevation-1: var(--shadow-offset-x-right-0) var(--shadow-offset-y-down-2) var(--shadow-blur-4) var(--shadow-spread-0) var(--shadow-color-neutral-2);
+  --shadow-elevation-2: var(--shadow-offset-x-right-0) var(--shadow-offset-y-down-4) var(--shadow-blur-8) var(--shadow-spread-0) var(--shadow-color-neutral-4);
+  --shadow-elevation-3: var(--shadow-offset-x-right-0) var(--shadow-offset-y-down-16) var(--shadow-blur-24) var(--shadow-spread-0) var(--shadow-color-neutral-16);
+  --shadow-elevation-4: var(--shadow-offset-x-right-0) var(--shadow-offset-y-down-24) var(--shadow-blur-32) var(--shadow-spread-0) var(--shadow-color-neutral-24);
+  
+  /* Sombras de card */
+  --shadow-card-default: var(--shadow-elevation-0);
+  --shadow-card-hover: var(--shadow-elevation-2);
+  --shadow-card-elevated: var(--shadow-elevation-3);
+  
+  /* Sombras de modal */
+  --shadow-modal: var(--shadow-elevation-4);
+  --shadow-modal-backdrop: rgba(0, 0, 0, 0.5);
+  
+  /* Sombras de input */
+  --shadow-input-focus: var(--shadow-offset-x-right-0) var(--shadow-offset-y-down-0) var(--shadow-blur-0) var(--shadow-spread-2) var(--shadow-color-brand-2);
+  
+  /* Sombras de botão */
+  --shadow-button-hover: var(--shadow-elevation-1);
+  --shadow-button-active: var(--shadow-elevation-0);
+}

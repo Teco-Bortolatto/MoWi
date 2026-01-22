@@ -1,16 +1,19 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { FinanceProvider } from './contexts'
 import { Layout } from './components/layout'
+import { ScrollToTop } from './components/ScrollToTop'
 import DashboardPage from './pages/DashboardPage'
 import CardsPage from './pages/CardsPage'
 import TransactionsPage from './pages/TransactionsPage'
 import ProfilePage from './pages/ProfilePage'
 import GoalsPage from './pages/GoalsPage'
 
+
 function App() {
   return (
     <FinanceProvider>
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<DashboardPage />} />

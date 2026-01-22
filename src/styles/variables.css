@@ -5,6 +5,7 @@
      COLORS - NEUTRAL
      ============================================ */
   --color-neutral-0: #FFFFFF;
+  --color-neutral-50: #FDFDFD;
   --color-neutral-100: #F9FAFB;
   --color-neutral-200: #F3F4F6;
   --color-neutral-300: #E5E7EB;
@@ -18,14 +19,14 @@
   --color-neutral-1100: #080B12;
 
   /* ============================================
-     COLORS - BRAND
+     COLORS - BRAND (Cor principal do sistema)
      ============================================ */
   --color-brand-100: #E6E9F7;
   --color-brand-200: #B0BBE6;
   --color-brand-300: #8A9ADA;
   --color-brand-400: #546CC9;
-  --color-brand-500: #0023AF;
-  --color-brand-600: #0023AF;
+  --color-brand-500: #0024B6;
+  --color-brand-600: #0024B6;
   --color-brand-700: #00209F;
   --color-brand-800: #00197C;
   --color-brand-900: #001360;
@@ -116,18 +117,10 @@
   --color-yellow-1000: #322203;
 
   /* ============================================
-     COLORS - BLUE
+     COLORS - BLUE (DEPRECATED - Use BRAND instead)
      ============================================ */
-  --color-blue-100: #EAF3FD;
-  --color-blue-200: #D4E7FC;
-  --color-blue-300: #AAD0F9;
-  --color-blue-400: #7FB8F5;
-  --color-blue-500: #55A1F2;
-  --color-blue-600: #2A89EF;
-  --color-blue-700: #226EBF;
-  --color-blue-800: #19528F;
-  --color-blue-900: #113760;
-  --color-blue-1000: #081B30;
+  /* NOTA: Família blue foi removida. Use --color-brand-* ao invés de --color-blue-* */
+  /* Mantido apenas para compatibilidade temporária - será removido em versão futura */
 
   /* ============================================
      SPACING
@@ -346,4 +339,10 @@
   --shadow-spread-2: 2px;
   --shadow-spread-3: 3px;
   --shadow-spread-4: 4px;
+  
+  /* ============================================
+     🎨 TOKENS SEMÂNTICOS
+     ============================================
+     Importados de semantic-tokens.css
+     ============================================ */
 }

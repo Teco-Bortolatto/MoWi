@@ -1,4 +1,5 @@
 @import './variables.css';
+@import './semantic-tokens.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,9 +18,50 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* ============================================
+     🎯 ESTILOS DE FOCO PARA BOTÕES
+     ============================================
+     Remove outline padrão e aplica estilo apenas
+     para navegação por teclado (:focus-visible)
+     ============================================ */
+  
+  /* Remover outline padrão de todos os botões */
+  button:focus {
+    outline: none;
+  }
+
+  /* Aplicar estilo de foco apenas para navegação por teclado */
+  button:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+    box-shadow: var(--shadow-input-focus);
+    transition: outline 0.1s ease, box-shadow 0.1s ease;
+  }
+
+  /* Classe específica para componente Button */
+  button.button-focus-visible:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+    box-shadow: var(--shadow-input-focus);
+    transition: outline 0.1s ease, box-shadow 0.1s ease;
+  }
+
   /* Mobile-first: base font size */
   html {
     font-size: 16px;
+    scroll-behavior: auto;
+    overflow-x: hidden;
+  }
+  
+  /* Garantir que a página sempre comece no topo */
+  html,
+  body {
+    scroll-behavior: auto;
+    scroll-padding-top: 0;
+  }
+  
+  body {
+    overflow-x: hidden;
   }
 
   /* Tablet: increase slightly */
@@ -47,6 +89,16 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @keyframes fadeIn {
@@ -58,4 +110,58 @@
     opacity: var(--opacity-100);
     transform: translateX(var(--space-0));
   }
+}
+
+/* Dashboard Grid Layout - Desktop (≥1280px) */
+@media (min-width: 1280px) {
+  .dashboard-grid-container {
+    display: grid !important;
+    grid-template-columns: 1fr 380px;
+    grid-template-areas:
+      "porcentagens cartoes"
+      "cards-saldo   cartoes"
+      "fluxo         proximas"
+      "extrato       extrato";
+    align-items: stretch;
+  }
+
+  .dashboard-grid-porcentagens {
+    grid-area: porcentagens;
+  }
+
+  .dashboard-grid-cards-saldo {
+    grid-area: cards-saldo;
+  }
+
+  .dashboard-grid-cartoes {
+    grid-area: cartoes;
+    grid-row: span 2;
+  }
+
+  .dashboard-grid-fluxo {
+    grid-area: fluxo;
+  }
+
+  .dashboard-grid-proximas {
+    grid-area: proximas;
+  }
+
+  .dashboard-grid-extrato {
+    grid-area: extrato;
+    grid-column: 1 / -1;
+  }
+
+  /* Limitar largura do carrossel de despesas por categoria para mostrar 3 cards */
+  .expenses-carousel-desktop {
+    max-width: 706px; /* 3 cards (214px cada) + 2 gaps (16px cada) + padding left/right (16px cada) */
+  }
+}
+
+/* Base styles for dashboard-grid-cartoes (applies to all screen sizes) */
+.dashboard-grid-cartoes {
+  background-color: var(--color-background-card);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-border-card);
+  border-radius: 16px;
 }
