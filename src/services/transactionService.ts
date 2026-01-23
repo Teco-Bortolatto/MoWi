@@ -59,7 +59,12 @@ export const transactionService = {
 
     let query = supabase
       .from('transactions')
-      .select('*')
+      .select(`
+        *,
+        categories (
+          name
+        )
+      `)
       .eq('user_id', user.id)
 
     if (filters) {
@@ -267,6 +272,7 @@ function mapTransaction(data: any): Transaction {
     amount: parseFloat(data.amount),
     description: data.description,
     date: new Date(data.date),
+    category: data.categories?.name || 'Sem Categoria',
     categoryId: data.category_id,
     accountId: data.account_id,
     memberId: data.member_id,

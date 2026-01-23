@@ -7,7 +7,7 @@ import { NewCardModal } from '../components/modals/NewCardModal/NewCardModal'
 import { NewTransactionModal } from '../components/modals/NewTransactionModal'
 
 function CardsPage() {
-  const { accounts, updateAccount } = useFinance()
+  const { accounts, updateAccount, refreshData } = useFinance()
   const [isNewCardModalOpen, setIsNewCardModalOpen] = useState(false)
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false)
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null)
@@ -31,8 +31,9 @@ function CardsPage() {
       const balanceValue = parseFloat(newBalance.replace(/[^\d.-]/g, ''))
       if (!isNaN(balanceValue)) {
         await updateAccount(accountId, { balance: balanceValue })
+        await refreshData()
       }
-    }
+}
   }
 
   // Todos os cards seguem o padrão do XP (branco) para consistência
@@ -201,8 +202,9 @@ function CardsPage() {
           >
             {sortedCards.map((card) => {
               const themeStyles = getCardThemeStyles()
-              const usagePercentage = calculateUsagePercentage(card.currentBill, card.limit)
-              const availableLimit = card.limit - card.currentBill
+              const limit = card.creditLimit || 0
+              const usagePercentage = calculateUsagePercentage(card.currentBill, limit)
+              const availableLimit = limit - card.currentBill
 
               return (
                 <div
@@ -253,7 +255,7 @@ function CardsPage() {
                         Limite total
                       </span>
                       <span style={{ fontSize: 'var(--font-size-text-body-small)', fontWeight: 'var(--font-weight-bold)', color: themeStyles.textColor }}>
-                        {formatCurrency(card.limit)}
+                        {formatCurrency(limit)}
                       </span>
                     </div>
                     <div className="flex justify-between">
@@ -375,6 +377,7 @@ function CardsPage() {
         }}
         initialAccountId={selectedCardId}
       />
+      </div>
     </div>
   )
 }

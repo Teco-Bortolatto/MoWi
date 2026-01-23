@@ -373,19 +373,22 @@ export function FinanceProvider({ children }: FinanceProviderProps) {
 
   const getFinancialSummary = useCallback(
     (startDate?: Date, endDate?: Date): FinancialSummary => {
-      const income = calculateIncomeForPeriod(startDate, endDate)
-      const expenses = calculateExpensesForPeriod(startDate, endDate)
-      const balance = calculateTotalBalance()
-      const savingsRate = calculateSavingsRate(startDate, endDate)
+      const start = startDate || (filters.dateRange.startDate ? new Date(filters.dateRange.startDate) : undefined)
+      const end = endDate || (filters.dateRange.endDate ? new Date(filters.dateRange.endDate) : undefined)
+      
+      const incomeValue = calculateIncomeForPeriod(start, end)
+      const expensesValue = calculateExpensesForPeriod(start, end)
+      const totalBalanceValue = calculateTotalBalance()
+      const savingsRateValue = calculateSavingsRate(start, end)
 
       return {
-        totalBalance: balance,
-        totalIncome: income,
-        totalExpenses: expenses,
-        savingsRate,
+        totalBalance: totalBalanceValue,
+        totalIncome: incomeValue,
+        totalExpenses: expensesValue,
+        savingsRate: savingsRateValue,
       }
     },
-    [calculateIncomeForPeriod, calculateExpensesForPeriod, calculateTotalBalance, calculateSavingsRate]
+    [calculateIncomeForPeriod, calculateExpensesForPeriod, calculateTotalBalance, calculateSavingsRate, filters.dateRange]
   )
 
   const value: FinanceContextType = {

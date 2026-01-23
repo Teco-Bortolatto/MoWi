@@ -19,7 +19,7 @@ export function UpcomingExpensesWidget() {
     now.setHours(0, 0, 0, 0)
 
     return transactions
-      .filter((t) => t.type === 'expense' && !t.isPaid && t.status === 'pending')
+      .filter((t) => t.type === 'EXPENSE' && t.status === 'PENDING')
       .filter((t) => {
         const dueDate = new Date(t.date)
         dueDate.setHours(0, 0, 0, 0)
@@ -54,8 +54,7 @@ export function UpcomingExpensesWidget() {
   // Função para marcar despesa como paga
   const handleMarkAsPaid = (transactionId: string, transaction: typeof transactions[0]) => {
     updateTransaction(transactionId, {
-      isPaid: true,
-      status: 'completed',
+      status: 'COMPLETED',
     })
 
     // Se for recorrente, criar próxima ocorrência

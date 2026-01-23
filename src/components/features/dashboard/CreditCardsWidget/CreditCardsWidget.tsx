@@ -117,8 +117,9 @@ export function CreditCardsWidget() {
       {/* Lista de Cartões */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
         {currentCards.map((card) => {
-          const themeStyles = getCardThemeStyles(card.theme)
-          const usagePercentage = calculateUsagePercentage(card.currentBill, card.limit)
+          const themeStyles = getCardThemeStyles(card.theme as 'black' | 'lime' | 'white')
+          const limit = card.creditLimit || 0
+          const usagePercentage = calculateUsagePercentage(card.currentBill, limit)
 
           return (
             <div

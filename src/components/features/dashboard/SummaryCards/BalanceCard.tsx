@@ -17,9 +17,14 @@ export function BalanceCard() {
         return currentBalance / 1.12
     }
     
-    const diff = filters.dateRange.endDate.getTime() - filters.dateRange.startDate.getTime()
-    const prevStart = new Date(filters.dateRange.startDate.getTime() - diff)
-    const prevEnd = new Date(filters.dateRange.endDate.getTime() - diff)
+    const start = filters.dateRange.startDate
+    const end = filters.dateRange.endDate
+    
+    if (!start || !end) return currentBalance / 1.12
+
+    const diff = end.getTime() - start.getTime()
+    const prevStart = new Date(start.getTime() - diff)
+    const prevEnd = new Date(end.getTime() - diff)
     
     const income = calculateIncomeForPeriod(prevStart, prevEnd)
     const expenses = calculateExpensesForPeriod(prevStart, prevEnd)

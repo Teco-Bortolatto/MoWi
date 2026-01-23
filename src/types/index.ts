@@ -13,7 +13,8 @@ export interface Transaction {
   type: TransactionType;
   amount: number;
   description: string;
-  category: string;
+  category: string | null;
+  categoryId: string | null;
   date: Date;
   accountId: string | null;
   memberId: string | null;
