@@ -1,5 +1,4 @@
 import { Goal } from '../../../../types'
-import { formatCurrency } from '../../../../utils/formatCurrency'
 
 interface ClosestGoalCardProps {
   goal: Goal | null

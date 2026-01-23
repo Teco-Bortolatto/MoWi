@@ -53,7 +53,7 @@ function getMonthName(monthIndex: number): string {
  * Componente de gráfico de fluxo financeiro
  */
 export function FinancialFlowChart() {
-  const { calculateIncomeForPeriod, calculateExpensesForPeriod, transactions } = useFinance()
+  const { calculateIncomeForPeriod, calculateExpensesForPeriod } = useFinance()
   const [viewMode, setViewMode] = useState<ViewMode>('annual')
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth())
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())

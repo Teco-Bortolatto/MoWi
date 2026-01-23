@@ -22,7 +22,7 @@ const categoryIcons: Record<string, string> = {
   Outros: '🎯',
 }
 
-export function GoalCard({ goal, onAddValue, onEdit }: GoalCardProps) {
+export function GoalCard({ goal, onAddValue: _onAddValue, onEdit }: GoalCardProps) {
   const [animatedProgress, setAnimatedProgress] = useState(0)
 
   const progress = goal.targetAmount > 0 ? (goal.currentAmount / goal.targetAmount) * 100 : 0

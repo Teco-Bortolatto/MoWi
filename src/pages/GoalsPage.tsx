@@ -6,11 +6,10 @@ import { GoalCard } from '../components/features/goals/GoalCard'
 import { NewGoalModal } from '../components/modals/NewGoalModal'
 import { AddGoalValueModal } from '../components/modals/AddGoalValueModal'
 import { GoalActionsModal } from '../components/modals/GoalActionsModal'
-import { Icon } from '../components/ui/Icon'
 import { Goal } from '../types'
 
 function GoalsPage() {
-  const { goals, updateGoal, deleteGoal } = useFinance()
+  const { goals } = useFinance()
   const [isNewGoalModalOpen, setIsNewGoalModalOpen] = useState(false)
   const [isAddValueModalOpen, setIsAddValueModalOpen] = useState(false)
   const [isGoalActionsModalOpen, setIsGoalActionsModalOpen] = useState(false)
