@@ -125,7 +125,7 @@ export function HeaderMobile({
             style={{
               width: 'var(--size-button-height-medium)',
               height: 'var(--size-button-height-medium)',
-              borderRadius: 'var(--shape-8)',
+              borderRadius: '40px',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = 'var(--color-neutral-200)'
@@ -368,7 +368,7 @@ export function HeaderMobile({
             style={{
               width: 'var(--size-40)',
               height: 'var(--size-40)',
-              borderRadius: 'var(--shape-8)',
+              borderRadius: '40px',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = 'var(--color-neutral-200)'
@@ -387,6 +387,8 @@ export function HeaderMobile({
           style={{
             paddingTop: 'var(--space-layout-component)',
             paddingBottom: 'var(--space-layout-component)',
+            paddingLeft: '24px',
+            paddingRight: '24px',
             maxHeight: 'calc(100vh - var(--space-header-height))',
             overflowY: 'auto',
           }}
@@ -447,9 +449,14 @@ export function HeaderMobile({
                   className="w-full flex items-center transition-colors duration-200 focus:outline-none"
                   style={{
                     height: 'var(--size-button-height-large)',
-                    paddingLeft: 'var(--space-layout-component)',
+                    paddingLeft: '16px',
                     paddingRight: 'var(--space-layout-component)',
-                    marginBottom: 'var(--space-gap-tight)',
+                    paddingTop: '8px',
+                    paddingBottom: '8px',
+                    marginTop: '8px',
+                    marginBottom: '8px',
+                    gap: '0px',
+                    borderRadius: '32px',
                     backgroundColor: isActive ? 'var(--color-background-action-primary)' : 'transparent',
                     color: isActive ? 'var(--color-background-action-secondary)' : 'var(--color-text-secondary)',
                   }}

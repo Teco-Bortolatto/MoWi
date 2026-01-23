@@ -142,8 +142,11 @@ function ProfilePage() {
               }}
             >
               <div
-                className="flex items-center justify-between"
-                style={{ marginBottom: 'var(--space-layout-section)' }}
+                className="flex flex-col md:flex-row md:items-center md:justify-between"
+                style={{
+                  marginBottom: 'var(--space-layout-section)',
+                  gap: 'var(--space-layout-component)',
+                }}
               >
                 <h3
                   style={{
@@ -155,24 +158,13 @@ function ProfilePage() {
                 >
                   Membros da Família
                 </h3>
-                <button
+                <Button
                   onClick={() => setIsNewMemberModalOpen(true)}
-                  style={{
-                    paddingTop: '16px',
-                    paddingBottom: '16px',
-                    paddingLeft: '16px',
-                    paddingRight: '16px',
-                    borderRadius: 'var(--shape-radius-button)',
-                    backgroundColor: 'var(--color-background-action-primary)',
-                    color: 'var(--color-text-on-action-primary)',
-                    fontSize: 'var(--font-size-button-small)',
-                    fontWeight: 'var(--font-weight-bold)',
-                    cursor: 'pointer',
-                    fontFeatureSettings: "'liga' off",
-                  }}
+                  variant="primary"
+                  size="small"
                 >
                   Adicionar Membro
-                </button>
+                </Button>
               </div>
 
               {familyMembers.length === 1 ? (

@@ -47,9 +47,10 @@ function CardsPage() {
       >
         {/* Header */}
         <div
-          className="flex items-center justify-between"
+          className="flex flex-col md:flex-row md:items-center md:justify-between"
           style={{
-            marginBottom: 'var(--space-dashboard-padding)',
+            marginBottom: 'var(--space-layout-container)',
+            gap: 'var(--space-layout-component)',
           }}
         >
           <h1
@@ -61,31 +62,15 @@ function CardsPage() {
             }}
           >
             Cartões de Crédito
-        </h1>
-          <button
+          </h1>
+          <Button
             onClick={() => setIsNewCardModalOpen(true)}
-            className="flex items-center gap-2 focus:outline-none transition-colors duration-200"
-            style={{
-              padding: 'var(--space-padding-button-medium)',
-              borderRadius: 'var(--shape-radius-button)',
-              backgroundColor: 'var(--color-background-action-primary)',
-              color: 'var(--color-text-on-action-primary)',
-              fontSize: 'var(--font-size-button-medium)',
-              fontWeight: 'var(--font-weight-bold)',
-              cursor: 'pointer',
-              fontFeatureSettings: "'liga' off",
-              gap: '8px',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--color-background-action-primary-hover)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--color-background-action-primary)'
-            }}
+            variant="primary"
+            size="medium"
+            icon="plus"
           >
-            <Icon name="plus" size={16} color="var(--color-text-on-action-primary)" />
             Novo Cartão
-          </button>
+          </Button>
         </div>
 
         {/* Grid de Cartões */}

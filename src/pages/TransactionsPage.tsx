@@ -31,11 +31,12 @@ function TransactionsPage() {
       >
         {/* Header */}
         <div
-          className="flex items-center justify-between"
+          className="flex flex-col md:flex-row md:items-center md:justify-between"
           style={{
-            marginBottom: 'var(--space-dashboard-padding)',
+            marginBottom: 'var(--space-layout-container)',
             position: 'relative',
             zIndex: 1,
+            gap: 'var(--space-layout-component)',
           }}
         >
           <h1
