@@ -64,9 +64,8 @@ export function FinancialFlowChart() {
     const currentYear = new Date().getFullYear()
 
     return months.map((month, index) => {
-      const monthIndex = index + 1 // Janeiro = 1
-      const startDate = new Date(currentYear, monthIndex - 1, 1)
-      const endDate = new Date(currentYear, monthIndex, 0, 23, 59, 59, 999)
+      const startDate = new Date(currentYear, index, 1)
+      const endDate = new Date(currentYear, index + 1, 0, 23, 59, 59, 999)
 
       const receitas = calculateIncomeForPeriod(startDate, endDate)
       const despesas = calculateExpensesForPeriod(startDate, endDate)

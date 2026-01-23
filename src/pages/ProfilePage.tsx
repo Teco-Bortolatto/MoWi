@@ -5,20 +5,40 @@ import { Icon } from '../components/ui/Icon'
 import { Button } from '../components/ui/Button'
 import { Avatar } from '../components/ui/Avatar'
 import { NewFamilyMemberModal } from '../components/modals/NewFamilyMemberModal/NewFamilyMemberModal'
+import { storageService } from '../services/storageService'
+import { useAuth } from '../hooks/useAuth'
 
 type Tab = 'info' | 'settings'
 
 function ProfilePage() {
-  const { familyMembers } = useFinance()
+  const { familyMembers, updateFamilyMember } = useFinance()
+  const { signOut, user } = useAuth()
   const [activeTab, setActiveTab] = useState<Tab>('info')
   const [isNewMemberModalOpen, setIsNewMemberModalOpen] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
   const [reminderEnabled, setReminderEnabled] = useState(true)
   const [limitAlertEnabled, setLimitAlertEnabled] = useState(true)
   const [monthlySummaryEnabled, setMonthlySummaryEnabled] = useState(false)
   const [goalsNotificationEnabled, setGoalsNotificationEnabled] = useState(true)
 
-  const currentUser = familyMembers[0] || null
+  const currentUserMember = familyMembers.find(m => m.userId === user?.id) || familyMembers[0] || null
+
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file || !currentUserMember) return
+
+    setUploading(true)
+    try {
+      const publicUrl = await storageService.uploadFile('avatars', file)
+      await updateFamilyMember(currentUserMember.id, { avatarUrl: publicUrl })
+    } catch (error) {
+      console.error('Erro ao fazer upload do avatar:', error)
+      alert('Erro ao carregar imagem')
+    } finally {
+      setUploading(false)
+    }
+  }
 
   return (
     <div className="w-full min-h-screen" style={{ backgroundColor: 'var(--color-background-dashboard)' }}>
@@ -77,7 +97,7 @@ function ProfilePage() {
         {activeTab === 'info' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-layout-section)' }}>
             {/* Seção de perfil */}
-            {currentUser && (
+            {currentUserMember && (
               <div
                 style={{
                   backgroundColor: 'var(--color-background-card)',
@@ -89,7 +109,18 @@ function ProfilePage() {
                 }}
               >
                 <div className="flex items-center" style={{ gap: '32px', paddingLeft: '16px', paddingRight: '16px' }}>
-                  <Avatar src={currentUser.avatarUrl} alt={currentUser.name} size="lg" />
+                  <div className="relative group">
+                    <Avatar src={currentUserMember.avatarUrl} alt={currentUserMember.name} size="lg" />
+                    <label className="absolute inset-0 flex items-center justify-center bg-black/40 text-white opacity-0 group-hover:opacity-100 transition-opacity rounded-full cursor-pointer">
+                      <Icon name="Camera" size={24} />
+                      <input type="file" className="hidden" accept="image/*" onChange={handleAvatarUpload} disabled={uploading} />
+                    </label>
+                    {uploading && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-full">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+                      </div>
+                    )}
+                  </div>
                   <div style={{ flex: 1 }}>
                     <h2
                       style={{
@@ -100,7 +131,7 @@ function ProfilePage() {
                         fontFeatureSettings: "'liga' off",
                       }}
                     >
-                      {currentUser.name}
+                      {currentUserMember.name}
                     </h2>
                     <p
                       style={{
@@ -109,20 +140,20 @@ function ProfilePage() {
                         marginBottom: 'var(--space-layout-element)',
                       }}
                     >
-                      {currentUser.role}
+                      {currentUserMember.role}
                     </p>
-                    {currentUser.email && (
+                    {(user?.email || currentUserMember.email) && (
                       <div className="flex items-center" style={{ gap: 'var(--space-layout-element)', marginBottom: 'var(--space-layout-element)' }}>
                         <Icon name="user" size={16} color="var(--color-text-secondary)" />
                         <span style={{ fontSize: 'var(--font-size-text-body-small)', color: 'var(--color-text-secondary)' }}>
-                          {currentUser.email}
+                          {user?.email || currentUserMember.email}
                         </span>
                       </div>
                     )}
                     <div className="flex items-center" style={{ gap: 'var(--space-layout-element)' }}>
                       <Icon name="wallet" size={16} color="var(--color-text-secondary)" />
                       <span style={{ fontSize: 'var(--font-size-text-body-small)', color: 'var(--color-text-secondary)' }}>
-                        Renda mensal: {formatCurrency(currentUser.monthlyIncome)}
+                        Renda mensal: {formatCurrency(currentUserMember.monthlyIncome)}
                       </span>
                     </div>
                   </div>
@@ -264,10 +295,7 @@ function ProfilePage() {
 
             {/* Botão Sair */}
             <Button
-              onClick={() => {
-                // TODO: Implementar lógica de logout
-                console.log('Logout clicked')
-              }}
+              onClick={() => signOut()}
               variant="danger-primary"
               size="medium"
               icon="log-out"

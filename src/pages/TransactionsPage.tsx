@@ -49,15 +49,35 @@ function TransactionsPage() {
           >
             Transações
           </h1>
-          <Button
-            onClick={() => setIsNewTransactionModalOpen(true)}
-            variant="primary"
-            size="medium"
-            icon="plus"
-            style={{ position: 'relative', zIndex: 10 }}
-          >
-            Nova Transação
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button
+              onClick={() => {
+                const csvContent = "data:text/csv;charset=utf-8," 
+                  + "Data,Descrição,Categoria,Tipo,Valor\n"
+                  + filteredTransactions.map(t => `${t.date.toLocaleDateString()},${t.description},${t.category},${t.type},${t.amount}`).join("\n");
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "transacoes_mowi.csv");
+                document.body.appendChild(link);
+                link.click();
+              }}
+              variant="secondary"
+              size="medium"
+              icon="download"
+            >
+              Exportar CSV
+            </Button>
+            <Button
+              onClick={() => setIsNewTransactionModalOpen(true)}
+              variant="primary"
+              size="medium"
+              icon="plus"
+              style={{ position: 'relative', zIndex: 10 }}
+            >
+              Nova Transação
+            </Button>
+          </div>
         </div>
 
         {/* Resumo de estatísticas */}

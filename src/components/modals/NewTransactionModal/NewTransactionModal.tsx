@@ -1,42 +1,69 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useFinance } from '../../../contexts'
 import { Modal } from '../../ui/Modal'
 import { Icon } from '../../ui/Icon'
 import { Button } from '../../ui/Button'
 import { formatCurrency } from '../../../utils/formatCurrency'
+import { categoryService } from '../../../services/categoryService'
+import { Category } from '../../../types'
 
 interface NewTransactionModalProps {
   isOpen: boolean
   onClose: () => void
-  initialType?: 'income' | 'expense'
+  initialType?: 'INCOME' | 'EXPENSE'
   initialAccountId?: string | null
 }
 
 /**
  * Modal para criar nova transação
  */
+import { NewCategoryModal } from '../NewCategoryModal/NewCategoryModal'
+
 export function NewTransactionModal({
   isOpen,
   onClose,
-  initialType = 'expense',
+  initialType = 'EXPENSE',
   initialAccountId = null,
 }: NewTransactionModalProps) {
-  const { addTransaction, familyMembers, creditCards, bankAccounts } = useFinance()
+  const { addTransaction, familyMembers, accounts } = useFinance()
 
-  const [transactionType, setTransactionType] = useState<'income' | 'expense'>(initialType)
+  const [transactionType, setTransactionType] = useState<'INCOME' | 'EXPENSE'>(initialType)
   const [amount, setAmount] = useState('')
   const [date, setDate] = useState(new Date())
   const [description, setDescription] = useState('')
-  const [category, setCategory] = useState('')
+  const [categoryId, setCategoryId] = useState('')
+  const [categories, setCategories] = useState<Category[]>([])
   const [memberId, setMemberId] = useState<string | null>(null)
   const [accountId, setAccountId] = useState<string | null>(initialAccountId)
   const [installments, setInstallments] = useState(1)
   const [isRecurring, setIsRecurring] = useState(false)
+  const [loadingCategories, setLoadingCategories] = useState(false)
+  const [isNewCategoryModalOpen, setIsNewCategoryModalOpen] = useState(false)
+
+  // Carregar categorias reais do Supabase
+  const loadCategories = async () => {
+    setLoadingCategories(true)
+    try {
+      const data = await categoryService.getAll(transactionType)
+      setCategories(data)
+      if (data.length > 0 && !categoryId) setCategoryId(data[0].id)
+    } catch (error) {
+      console.error('Erro ao carregar categorias:', error)
+    } finally {
+      setLoadingCategories(false)
+    }
+  }
+
+  useEffect(() => {
+    if (isOpen) {
+      loadCategories()
+    }
+  }, [isOpen, transactionType])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!amount || !description || !category) {
+    if (!amount || !description || !categoryId) {
       return
     }
 
@@ -50,21 +77,19 @@ export function NewTransactionModal({
       type: transactionType,
       amount: amountValue,
       description,
-      category,
+      categoryId,
       date,
       accountId,
       memberId,
-      installments,
-      currentInstallment: 1,
-      status: 'pending',
+      totalInstallments: installments,
+      status: 'COMPLETED',
       isRecurring,
-      isPaid: false,
     })
 
     // Reset form
     setAmount('')
     setDescription('')
-    setCategory('')
+    setCategoryId('')
     setDate(new Date())
     setMemberId(null)
     setAccountId(initialAccountId)
@@ -80,6 +105,9 @@ export function NewTransactionModal({
     const cents = parseInt(numbers, 10)
     return formatCurrency(cents / 100)
   }
+
+  const bankAccounts = accounts.filter(acc => acc.type !== 'CREDIT_CARD')
+  const creditCards = accounts.filter(acc => acc.type === 'CREDIT_CARD')
 
   const allAccounts = [
     ...bankAccounts.map((acc) => ({ id: acc.id, name: acc.name, type: 'account' as const })),
@@ -110,12 +138,12 @@ export function NewTransactionModal({
         >
           <button
             type="button"
-            onClick={() => setTransactionType('income')}
+            onClick={() => setTransactionType('INCOME')}
             style={{
               flex: 1,
               padding: 'var(--space-padding-button-small)',
-              backgroundColor: transactionType === 'income' ? 'var(--color-background-action-primary)' : 'var(--color-background-surface)',
-              color: transactionType === 'income' ? 'var(--color-text-on-action-primary)' : 'var(--color-text-primary)',
+              backgroundColor: transactionType === 'INCOME' ? 'var(--color-background-action-primary)' : 'var(--color-background-surface)',
+              color: transactionType === 'INCOME' ? 'var(--color-text-on-action-primary)' : 'var(--color-text-primary)',
               fontSize: 'var(--font-size-text-label)',
               fontWeight: 'var(--font-weight-bold)',
               border: 'none',
@@ -127,12 +155,12 @@ export function NewTransactionModal({
           </button>
           <button
             type="button"
-            onClick={() => setTransactionType('expense')}
+            onClick={() => setTransactionType('EXPENSE')}
             style={{
               flex: 1,
               padding: 'var(--space-padding-button-small)',
-              backgroundColor: transactionType === 'expense' ? 'var(--color-background-action-primary)' : 'var(--color-background-surface)',
-              color: transactionType === 'expense' ? 'var(--color-text-on-action-primary)' : 'var(--color-text-primary)',
+              backgroundColor: transactionType === 'EXPENSE' ? 'var(--color-background-action-primary)' : 'var(--color-background-surface)',
+              color: transactionType === 'EXPENSE' ? 'var(--color-text-on-action-primary)' : 'var(--color-text-primary)',
               fontSize: 'var(--font-size-text-label)',
               fontWeight: 'var(--font-weight-bold)',
               border: 'none',
@@ -252,24 +280,31 @@ export function NewTransactionModal({
 
           {/* Categoria */}
           <div>
-            <label
-              style={{
-                display: 'block',
-                fontSize: 'var(--font-size-text-label)',
-                fontWeight: 'var(--font-weight-bold)',
-                color: 'var(--color-text-primary)',
-                marginBottom: 'var(--space-layout-element)',
-                fontFeatureSettings: "'liga' off",
-              }}
-            >
-              Categoria
-            </label>
-            <input
-              type="text"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              placeholder="Nome da categoria"
+            <div className="flex items-center justify-between" style={{ marginBottom: 'var(--space-layout-element)' }}>
+              <label
+                style={{
+                  fontSize: 'var(--font-size-text-label)',
+                  fontWeight: 'var(--font-weight-bold)',
+                  color: 'var(--color-text-primary)',
+                  fontFeatureSettings: "'liga' off",
+                }}
+              >
+                Categoria
+              </label>
+              <button
+                type="button"
+                onClick={() => setIsNewCategoryModalOpen(true)}
+                className="text-primary-600 hover:text-primary-700 text-xs font-bold flex items-center gap-1"
+              >
+                <Icon name="Plus" size={12} />
+                Nova
+              </button>
+            </div>
+            <select
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value)}
               required
+              disabled={loadingCategories}
               style={{
                 width: '100%',
                 padding: 'var(--space-padding-input)',
@@ -279,8 +314,19 @@ export function NewTransactionModal({
                 borderColor: 'var(--color-border-input-default)',
                 fontSize: 'var(--font-size-input-medium)',
                 color: 'var(--color-text-primary)',
+                backgroundColor: 'var(--color-background-input-default)',
               }}
-            />
+            >
+              {loadingCategories ? (
+                <option>Carregando...</option>
+              ) : (
+                categories.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.icon} {cat.name}
+                  </option>
+                ))
+              )}
+            </select>
           </div>
 
           {/* Responsável */}
@@ -398,7 +444,7 @@ export function NewTransactionModal({
         </div>
 
         {/* Despesa recorrente */}
-        {transactionType === 'expense' && (
+        {transactionType === 'EXPENSE' && (
           <div style={{ marginTop: 'var(--space-layout-component)' }}>
             <label
               className="flex items-start"
@@ -464,6 +510,13 @@ export function NewTransactionModal({
           </Button>
         </div>
       </form>
+
+      <NewCategoryModal
+        isOpen={isNewCategoryModalOpen}
+        onClose={() => setIsNewCategoryModalOpen(false)}
+        type={transactionType}
+        onSuccess={loadCategories}
+      />
     </Modal>
   )
 }

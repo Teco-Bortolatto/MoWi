@@ -1,17 +1,5 @@
 import { supabase } from '../lib/supabase'
-
-export interface FamilyMember {
-  id: string
-  userId: string
-  name: string
-  role: string
-  avatarUrl: string | null
-  monthlyIncome: number
-  color: string
-  isActive: boolean
-  createdAt: Date
-  updatedAt: Date
-}
+import { FamilyMember } from '../types'
 
 export interface CreateFamilyMemberInput {
   name: string

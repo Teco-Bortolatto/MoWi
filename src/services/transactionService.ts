@@ -1,28 +1,5 @@
 import { supabase } from '../lib/supabase'
-
-export type TransactionType = 'INCOME' | 'EXPENSE'
-export type TransactionStatus = 'PENDING' | 'COMPLETED'
-
-export interface Transaction {
-  id: string
-  userId: string
-  type: TransactionType
-  amount: number
-  description: string
-  date: Date
-  categoryId: string | null
-  accountId: string | null
-  memberId: string | null
-  installmentNumber: number | null
-  totalInstallments: number
-  parentTransactionId: string | null
-  isRecurring: boolean
-  recurringTransactionId: string | null
-  status: TransactionStatus
-  notes: string | null
-  createdAt: Date
-  updatedAt: Date
-}
+import { Transaction, TransactionType, TransactionStatus } from '../types'
 
 export interface CreateTransactionInput {
   type: TransactionType
@@ -108,9 +85,8 @@ export const transactionService = {
         query = query.eq('status', filters.status)
       }
       if (filters.searchText) {
-        query = query.or(
-          `description.ilike.%${filters.searchText}%,category_id.in.(select id from categories where name.ilike.%${filters.searchText}%)`
-        )
+        // Busca simples na descrição
+        query = query.ilike('description', `%${filters.searchText}%`)
       }
     }
 
@@ -160,6 +136,12 @@ export const transactionService = {
     const totalInstallments = input.totalInstallments || 1
     const transactions: any[] = []
 
+    // Nota: Para simplificar, estamos criando as parcelas sequencialmente no cliente.
+    // Em um cenário real, uma RPC ou Function no Supabase seria mais atômica.
+    
+    // Precisamos de um ID para a transação pai se houver parcelas
+    const parentId = null;
+
     for (let i = 1; i <= totalInstallments; i++) {
       const transactionDate = new Date(input.date)
       if (i > 1) {
@@ -177,26 +159,47 @@ export const transactionService = {
         member_id: input.memberId || null,
         installment_number: totalInstallments > 1 ? i : null,
         total_installments: totalInstallments,
-        parent_transaction_id: i === 1 ? null : transactions[0]?.id || null,
         is_recurring: input.isRecurring || false,
         recurring_transaction_id: input.recurringTransactionId || null,
         status: input.status || 'COMPLETED',
         notes: input.notes || null,
       }
-
+      
       transactions.push(transactionData)
     }
 
-    // Inserir todas as parcelas
-    const { data, error } = await supabase
-      .from('transactions')
-      .insert(transactions)
-      .select()
+    // Inserimos a primeira para pegar o ID se for parcelado
+    if (totalInstallments > 1) {
+        const { data: firstData, error: firstError } = await supabase
+          .from('transactions')
+          .insert(transactions[0])
+          .select()
+          .single()
+        
+        if (firstError) throw firstError
+        
+        const parentId = firstData.id;
+        const otherTransactions = transactions.slice(1).map(t => ({...t, parent_transaction_id: parentId}));
+        
+        if (otherTransactions.length > 0) {
+            const { error: othersError } = await supabase
+              .from('transactions')
+              .insert(otherTransactions)
+            
+            if (othersError) throw othersError
+        }
+        
+        return mapTransaction(firstData)
+    } else {
+        const { data, error } = await supabase
+          .from('transactions')
+          .insert(transactions[0])
+          .select()
+          .single()
 
-    if (error) throw error
-
-    // Retornar a primeira transação (parcela principal)
-    return mapTransaction(data[0])
+        if (error) throw error
+        return mapTransaction(data)
+    }
   },
 
   /**

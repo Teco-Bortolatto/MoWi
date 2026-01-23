@@ -1,27 +1,5 @@
 import { supabase } from '../lib/supabase'
-
-export type AccountType = 'CHECKING' | 'SAVINGS' | 'CREDIT_CARD'
-
-export interface Account {
-  id: string
-  userId: string
-  type: AccountType
-  name: string
-  bank: string
-  lastDigits: string | null
-  holderId: string
-  balance: number
-  creditLimit: number | null
-  currentBill: number
-  dueDay: number | null
-  closingDay: number | null
-  theme: string | null
-  logoUrl: string | null
-  color: string
-  isActive: boolean
-  createdAt: Date
-  updatedAt: Date
-}
+import { Account, AccountType, CreditCardTheme } from '../types'
 
 export interface CreateAccountInput {
   type: AccountType
@@ -34,7 +12,7 @@ export interface CreateAccountInput {
   currentBill?: number
   dueDay?: number | null
   closingDay?: number | null
-  theme?: string | null
+  theme?: CreditCardTheme | null
   logoUrl?: string | null
   color?: string
 }
@@ -49,7 +27,7 @@ export interface UpdateAccountInput {
   currentBill?: number
   dueDay?: number | null
   closingDay?: number | null
-  theme?: string | null
+  theme?: CreditCardTheme | null
   logoUrl?: string | null
   color?: string
   isActive?: boolean
@@ -270,7 +248,7 @@ function mapAccount(data: any): Account {
     currentBill: parseFloat(data.current_bill),
     dueDay: data.due_day,
     closingDay: data.closing_day,
-    theme: data.theme,
+    theme: data.theme as CreditCardTheme | null,
     logoUrl: data.logo_url,
     color: data.color,
     isActive: data.is_active,

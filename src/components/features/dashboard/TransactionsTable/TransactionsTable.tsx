@@ -14,7 +14,7 @@ const ITEMS_PER_PAGE = 5
 export function TransactionsTable() {
   const { getFilteredTransactions, familyMembers, creditCards, bankAccounts } = useFinance()
   const [localSearchText, setLocalSearchText] = useState('')
-  const [localTransactionType, setLocalTransactionType] = useState<'all' | 'income' | 'expense'>('all')
+  const [localTransactionType, setLocalTransactionType] = useState<'all' | 'INCOME' | 'EXPENSE'>('all')
   const [currentPage, setCurrentPage] = useState(1)
 
   // Obter transações filtradas globalmente
@@ -30,7 +30,7 @@ export function TransactionsTable() {
       filtered = filtered.filter(
         (t) =>
           t.description.toLowerCase().includes(searchLower) ||
-          t.category.toLowerCase().includes(searchLower)
+          (t.category && t.category.toLowerCase().includes(searchLower))
       )
     }
 
@@ -197,7 +197,7 @@ export function TransactionsTable() {
           {/* Select de tipo */}
           <select
             value={localTransactionType}
-            onChange={(e) => setLocalTransactionType(e.target.value as 'all' | 'income' | 'expense')}
+            onChange={(e) => setLocalTransactionType(e.target.value as 'all' | 'INCOME' | 'EXPENSE')}
             style={{
               width: '140px',
               height: 'var(--size-input-height-small)',
@@ -213,8 +213,8 @@ export function TransactionsTable() {
             }}
           >
             <option value="all">Todos</option>
-            <option value="income">Receitas</option>
-            <option value="expense">Despesas</option>
+            <option value="INCOME">Receitas</option>
+            <option value="EXPENSE">Despesas</option>
           </select>
         </div>
       </div>
@@ -394,9 +394,9 @@ export function TransactionsTable() {
                             }}
                           >
                             <Icon
-                              name={transaction.type === 'income' ? 'arrow-down-left' : 'arrow-up-right'}
+                              name={transaction.type === 'INCOME' ? 'arrow-down-left' : 'arrow-up-right'}
                               size={12}
-                              color={transaction.type === 'income' ? 'var(--color-text-success)' : 'var(--color-text-error)'}
+                              color={transaction.type === 'INCOME' ? 'var(--color-text-success)' : 'var(--color-text-error)'}
                             />
                           </div>
                           <span
@@ -440,8 +440,8 @@ export function TransactionsTable() {
                           color: 'var(--color-text-secondary)',
                         }}
                       >
-                        {transaction.installments > 1
-                          ? `${transaction.currentInstallment}/${transaction.installments}`
+                        {transaction.totalInstallments > 1
+                          ? `${transaction.installmentNumber || 1}/${transaction.totalInstallments}`
                           : '-'}
                       </td>
                       <td
@@ -451,12 +451,12 @@ export function TransactionsTable() {
                           fontSize: 'var(--font-size-text-small)',
                           fontWeight: 'var(--font-weight-bold)',
                           color:
-                            transaction.type === 'income'
+                            transaction.type === 'INCOME'
                               ? 'var(--color-text-success)'
                               : 'var(--color-text-primary)',
                         }}
                       >
-                        {transaction.type === 'income' ? '+' : '-'}
+                        {transaction.type === 'INCOME' ? '+' : '-'}
                         {formatCurrency(transaction.amount)}
                       </td>
                     </tr>

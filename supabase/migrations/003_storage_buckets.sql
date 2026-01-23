@@ -31,7 +31,7 @@ VALUES (
   'documents',
   false, -- Privado
   10485760, -- 10MB
-  ARRAY['image/jpeg', 'image/jpg', 'image/png', 'application/pdf']
+  ARRAY['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'application/pdf', 'video/mp4', 'video/quicktime', 'video/webm']
 )
 ON CONFLICT (id) DO NOTHING;
 

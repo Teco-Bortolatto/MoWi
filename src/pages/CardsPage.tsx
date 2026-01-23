@@ -7,10 +7,13 @@ import { NewCardModal } from '../components/modals/NewCardModal/NewCardModal'
 import { NewTransactionModal } from '../components/modals/NewTransactionModal'
 
 function CardsPage() {
-  const { creditCards } = useFinance()
+  const { accounts, updateAccount } = useFinance()
   const [isNewCardModalOpen, setIsNewCardModalOpen] = useState(false)
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false)
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null)
+
+  const creditCards = useMemo(() => accounts.filter(acc => acc.type === 'CREDIT_CARD'), [accounts])
+  const bankAccounts = useMemo(() => accounts.filter(acc => acc.type !== 'CREDIT_CARD'), [accounts])
 
   // Ordenar cartões por fatura decrescente
   const sortedCards = useMemo(() => {
@@ -20,6 +23,16 @@ function CardsPage() {
   const handleAddExpense = (cardId: string) => {
     setSelectedCardId(cardId)
     setIsNewTransactionModalOpen(true)
+  }
+
+  const handleUpdateBalance = async (accountId: string, currentBalance: number) => {
+    const newBalance = prompt('Digite o novo saldo:', currentBalance.toString())
+    if (newBalance !== null) {
+      const balanceValue = parseFloat(newBalance.replace(/[^\d.-]/g, ''))
+      if (!isNaN(balanceValue)) {
+        await updateAccount(accountId, { balance: balanceValue })
+      }
+    }
   }
 
   // Todos os cards seguem o padrão do XP (branco) para consistência
@@ -61,7 +74,7 @@ function CardsPage() {
               fontFeatureSettings: "'liga' off",
             }}
           >
-            Cartões de Crédito
+            Contas e Cartões
           </h1>
           <Button
             onClick={() => setIsNewCardModalOpen(true)}
@@ -69,11 +82,77 @@ function CardsPage() {
             size="medium"
             icon="plus"
           >
-            Novo Cartão
+            Nova Conta/Cartão
           </Button>
         </div>
 
-        {/* Grid de Cartões */}
+        {/* Seção de Contas Bancárias */}
+        <div style={{ marginBottom: 'var(--space-layout-section)' }}>
+          <h2
+            style={{
+              fontSize: 'var(--font-size-heading-card)',
+              fontWeight: 'var(--font-weight-bold)',
+              color: 'var(--color-text-primary)',
+              marginBottom: 'var(--space-layout-component)',
+              fontFeatureSettings: "'liga' off",
+            }}
+          >
+            Contas Bancárias
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {bankAccounts.map(account => (
+              <div
+                key={account.id}
+                style={{
+                  backgroundColor: 'var(--color-background-card)',
+                  borderRadius: 'var(--shape-radius-card)',
+                  padding: 'var(--space-layout-card)',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: 'var(--color-border-card)',
+                }}
+              >
+                <div className="flex justify-between items-start mb-4">
+                  <div>
+                    <h3 style={{ fontWeight: 'bold', color: 'var(--color-text-primary)' }}>{account.name}</h3>
+                    <p style={{ fontSize: 'var(--font-size-text-caption)', color: 'var(--color-text-secondary)' }}>{account.bank}</p>
+                  </div>
+                  <div style={{ backgroundColor: 'var(--color-background-success)', padding: '4px 8px', borderRadius: '8px' }}>
+                    <span style={{ fontSize: '10px', color: 'var(--color-text-success)', fontWeight: 'bold' }}>ATIVO</span>
+                  </div>
+                </div>
+                <div className="mb-6">
+                  <p style={{ fontSize: 'var(--font-size-text-caption)', color: 'var(--color-text-secondary)' }}>Saldo atual</p>
+                  <p style={{ fontSize: 'var(--font-size-heading-card)', fontWeight: 'bold', color: 'var(--color-text-primary)' }}>
+                    {formatCurrency(account.balance)}
+                  </p>
+                </div>
+                <Button
+                  onClick={() => handleUpdateBalance(account.id, account.balance)}
+                  variant="secondary"
+                  size="small"
+                  fullWidth
+                >
+                  Ajustar Saldo
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Seção de Cartões de Crédito */}
+        <div>
+          <h2
+            style={{
+              fontSize: 'var(--font-size-heading-card)',
+              fontWeight: 'var(--font-weight-bold)',
+              color: 'var(--color-text-primary)',
+              marginBottom: 'var(--space-layout-component)',
+              fontFeatureSettings: "'liga' off",
+            }}
+          >
+            Cartões de Crédito
+          </h2>
         {sortedCards.length === 0 ? (
           <div
             className="flex flex-col items-center justify-center"

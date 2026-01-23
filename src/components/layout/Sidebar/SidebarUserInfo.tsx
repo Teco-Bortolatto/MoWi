@@ -1,4 +1,6 @@
 import { Avatar } from '../../ui/Avatar'
+import { Icon } from '../../ui/Icon'
+import { useAuth } from '../../../hooks/useAuth'
 
 interface SidebarUserInfoProps {
   isExpanded: boolean
@@ -9,24 +11,33 @@ interface SidebarUserInfoProps {
 
 export function SidebarUserInfo({
   isExpanded,
-  userName = 'Moises Wilson',
-  userEmail = 'MoWill_95@gmail.com',
+  userName = 'Usuário',
+  userEmail = '',
   userAvatar = null,
 }: SidebarUserInfoProps) {
+  const { signOut, user } = useAuth()
+  
+  const displayEmail = user?.email || userEmail
+  const displayName = user?.user_metadata?.name || userName
+
   if (!isExpanded) {
     return (
       <div
-        className="flex items-center justify-center border-t"
+        className="flex flex-col items-center justify-center border-t py-4 gap-4"
         style={{
-          height: 'var(--size-64)',
-          paddingLeft: 'var(--space-sidebar-padding)',
-          paddingRight: 'var(--space-sidebar-padding)',
           borderTopColor: 'var(--color-border-default)',
           borderTopWidth: '1px',
           borderTopStyle: 'solid',
         }}
       >
-        <Avatar src={userAvatar} alt={userName} size="sm" />
+        <Avatar src={userAvatar} alt={displayName} size="sm" />
+        <button 
+          onClick={() => signOut()}
+          className="p-2 hover:bg-red-50 text-neutral-400 hover:text-red-500 rounded-lg transition-colors"
+          title="Sair"
+        >
+          <Icon name="Logout" size={20} />
+        </button>
       </div>
     )
   }
@@ -55,7 +66,7 @@ export function SidebarUserInfo({
             marginRight: 'var(--space-12)',
           }}
         >
-          <Avatar src={userAvatar} alt={userName} size="md" />
+          <Avatar src={userAvatar} alt={displayName} size="md" />
         </div>
         <div className="flex-1 min-w-0">
           <p
@@ -68,7 +79,7 @@ export function SidebarUserInfo({
               letterSpacing: 'var(--font-letter-spacing-default)',
             }}
           >
-            {userName}
+            {displayName}
           </p>
           <p
             className="truncate"
@@ -80,10 +91,18 @@ export function SidebarUserInfo({
               letterSpacing: 'var(--font-letter-spacing-default)',
             }}
           >
-            {userEmail}
+            {displayEmail}
           </p>
         </div>
       </div>
+      
+      <button
+        onClick={() => signOut()}
+        className="w-full flex items-center gap-3 px-4 py-2 text-sm text-neutral-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"
+      >
+        <Icon name="Logout" size={18} />
+        <span>Sair da conta</span>
+      </button>
     </div>
   )
 }

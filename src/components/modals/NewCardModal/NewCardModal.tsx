@@ -11,42 +11,49 @@ interface NewCardModalProps {
 }
 
 export function NewCardModal({ isOpen, onClose }: NewCardModalProps) {
-  const { addCreditCard, familyMembers } = useFinance()
+  const { addAccount, familyMembers } = useFinance()
 
+  const [type, setType] = useState<'CHECKING' | 'SAVINGS' | 'CREDIT_CARD'>('CHECKING')
   const [name, setName] = useState('')
+  const [bank, setBank] = useState('')
   const [holderId, setHolderId] = useState<string | null>(null)
   const [closingDay, setClosingDay] = useState(1)
   const [dueDay, setDueDay] = useState(1)
   const [limit, setLimit] = useState('')
+  const [balance, setBalance] = useState('')
   const [lastDigits, setLastDigits] = useState('')
   const [theme, setTheme] = useState<'black' | 'lime' | 'white'>('black')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!name || !limit) return
+    if (!name || !bank) return
 
     const limitValue = parseFloat(limit.replace(/[^\d,]/g, '').replace(',', '.'))
+    const balanceValue = parseFloat(balance.replace(/[^\d,]/g, '').replace(',', '.'))
 
-    if (isNaN(limitValue) || limitValue <= 0) return
-
-    addCreditCard({
+    await addAccount({
+      type,
       name,
+      bank,
       holderId: holderId || familyMembers[0]?.id || '',
-      closingDay,
-      dueDay,
-      limit: limitValue,
+      closingDay: type === 'CREDIT_CARD' ? closingDay : null,
+      dueDay: type === 'CREDIT_CARD' ? dueDay : null,
+      creditLimit: type === 'CREDIT_CARD' ? (isNaN(limitValue) ? 0 : limitValue) : null,
+      balance: type !== 'CREDIT_CARD' ? (isNaN(balanceValue) ? 0 : balanceValue) : 0,
       currentBill: 0,
-      theme,
+      theme: type === 'CREDIT_CARD' ? theme : null,
       lastDigits: lastDigits || null,
     })
 
     // Reset
     setName('')
+    setBank('')
     setHolderId(null)
     setClosingDay(1)
     setDueDay(1)
     setLimit('')
+    setBalance('')
     setLastDigits('')
     setTheme('black')
 
@@ -64,77 +71,29 @@ export function NewCardModal({ isOpen, onClose }: NewCardModalProps) {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title="Novo cartão"
-      subtitle="Adicione um novo cartão de crédito."
+      title="Nova Conta ou Cartão"
+      subtitle="Adicione uma nova conta bancária ou cartão de crédito."
       icon={<Icon name="credit-card" size={20} color="var(--color-text-primary)" />}
     >
       <form onSubmit={handleSubmit}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-layout-component)' }}>
-          <div>
-            <label
-              style={{
-                display: 'block',
-                fontSize: 'var(--font-size-text-label)',
-                fontWeight: 'var(--font-weight-bold)',
-                color: 'var(--color-text-primary)',
-                marginBottom: 'var(--space-layout-element)',
-                fontFeatureSettings: "'liga' off",
-              }}
-            >
-              Apelido do cartão
-            </label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Ex: XP black"
-              required
-              style={{
-                width: '100%',
-                padding: 'var(--space-padding-input)',
-                borderRadius: 'var(--shape-radius-input)',
-                borderWidth: '1px',
-                borderStyle: 'solid',
-                borderColor: 'var(--color-border-input-default)',
-                fontSize: 'var(--font-size-input-medium)',
-                color: 'var(--color-text-primary)',
-              }}
-            />
+          {/* Tipo */}
+          <div className="flex gap-2 p-1 bg-neutral-100 rounded-xl">
+            {(['CHECKING', 'SAVINGS', 'CREDIT_CARD'] as const).map((t) => (
+              <button
+                key={t}
+                type="button"
+                onClick={() => setType(t)}
+                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
+                  type === t ? 'bg-white shadow-sm text-primary-600' : 'text-neutral-500 hover:text-neutral-700'
+                }`}
+              >
+                {t === 'CHECKING' ? 'Corrente' : t === 'SAVINGS' ? 'Poupança' : 'Cartão'}
+              </button>
+            ))}
           </div>
 
-          <div>
-            <label
-              style={{
-                display: 'block',
-                fontSize: 'var(--font-size-text-label)',
-                fontWeight: 'var(--font-weight-bold)',
-                color: 'var(--color-text-primary)',
-                marginBottom: 'var(--space-layout-element)',
-                fontFeatureSettings: "'liga' off",
-              }}
-            >
-              Limite total
-            </label>
-            <input
-              type="text"
-              value={limit}
-              onChange={(e) => setLimit(formatAmountInput(e.target.value))}
-              placeholder="R$ 0,00"
-              required
-              style={{
-                width: '100%',
-                padding: 'var(--space-padding-input)',
-                borderRadius: 'var(--shape-radius-input)',
-                borderWidth: '1px',
-                borderStyle: 'solid',
-                borderColor: 'var(--color-border-input-default)',
-                fontSize: 'var(--font-size-input-medium)',
-                color: 'var(--color-text-primary)',
-              }}
-            />
-          </div>
-
-          <div className="grid grid-cols-2" style={{ gap: 'var(--space-layout-component)' }}>
+          <div className="grid grid-cols-2 gap-4">
             <div>
               <label
                 style={{
@@ -146,11 +105,14 @@ export function NewCardModal({ isOpen, onClose }: NewCardModalProps) {
                   fontFeatureSettings: "'liga' off",
                 }}
               >
-                Fechamento
+                Nome/Apelido
               </label>
-              <select
-                value={closingDay}
-                onChange={(e) => setClosingDay(parseInt(e.target.value, 10))}
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Ex: Nubank"
+                required
                 style={{
                   width: '100%',
                   padding: 'var(--space-padding-input)',
@@ -160,17 +122,9 @@ export function NewCardModal({ isOpen, onClose }: NewCardModalProps) {
                   borderColor: 'var(--color-border-input-default)',
                   fontSize: 'var(--font-size-input-medium)',
                   color: 'var(--color-text-primary)',
-                  backgroundColor: 'var(--color-background-input-default)',
                 }}
-              >
-                {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
-                  <option key={day} value={day}>
-                    Dia {day}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
-
             <div>
               <label
                 style={{
@@ -182,11 +136,14 @@ export function NewCardModal({ isOpen, onClose }: NewCardModalProps) {
                   fontFeatureSettings: "'liga' off",
                 }}
               >
-                Vencimento
+                Instituição/Banco
               </label>
-              <select
-                value={dueDay}
-                onChange={(e) => setDueDay(parseInt(e.target.value, 10))}
+              <input
+                type="text"
+                value={bank}
+                onChange={(e) => setBank(e.target.value)}
+                placeholder="Ex: Itaú"
+                required
                 style={{
                   width: '100%',
                   padding: 'var(--space-padding-input)',
@@ -196,17 +153,152 @@ export function NewCardModal({ isOpen, onClose }: NewCardModalProps) {
                   borderColor: 'var(--color-border-input-default)',
                   fontSize: 'var(--font-size-input-medium)',
                   color: 'var(--color-text-primary)',
-                  backgroundColor: 'var(--color-background-input-default)',
                 }}
-              >
-                {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
-                  <option key={day} value={day}>
-                    Dia {day}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
           </div>
+
+          {type === 'CREDIT_CARD' ? (
+            <>
+              <div>
+                <label
+                  style={{
+                    display: 'block',
+                    fontSize: 'var(--font-size-text-label)',
+                    fontWeight: 'var(--font-weight-bold)',
+                    color: 'var(--color-text-primary)',
+                    marginBottom: 'var(--space-layout-element)',
+                    fontFeatureSettings: "'liga' off",
+                  }}
+                >
+                  Limite total
+                </label>
+                <input
+                  type="text"
+                  value={limit}
+                  onChange={(e) => setLimit(formatAmountInput(e.target.value))}
+                  placeholder="R$ 0,00"
+                  required
+                  style={{
+                    width: '100%',
+                    padding: 'var(--space-padding-input)',
+                    borderRadius: 'var(--shape-radius-input)',
+                    borderWidth: '1px',
+                    borderStyle: 'solid',
+                    borderColor: 'var(--color-border-input-default)',
+                    fontSize: 'var(--font-size-input-medium)',
+                    color: 'var(--color-text-primary)',
+                  }}
+                />
+              </div>
+
+              <div className="grid grid-cols-2" style={{ gap: 'var(--space-layout-component)' }}>
+                <div>
+                  <label
+                    style={{
+                      display: 'block',
+                      fontSize: 'var(--font-size-text-label)',
+                      fontWeight: 'var(--font-weight-bold)',
+                      color: 'var(--color-text-primary)',
+                      marginBottom: 'var(--space-layout-element)',
+                      fontFeatureSettings: "'liga' off",
+                    }}
+                  >
+                    Fechamento
+                  </label>
+                  <select
+                    value={closingDay}
+                    onChange={(e) => setClosingDay(parseInt(e.target.value, 10))}
+                    style={{
+                      width: '100%',
+                      padding: 'var(--space-padding-input)',
+                      borderRadius: 'var(--shape-radius-input)',
+                      borderWidth: '1px',
+                      borderStyle: 'solid',
+                      borderColor: 'var(--color-border-input-default)',
+                      fontSize: 'var(--font-size-input-medium)',
+                      color: 'var(--color-text-primary)',
+                      backgroundColor: 'var(--color-background-input-default)',
+                    }}
+                  >
+                    {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
+                      <option key={day} value={day}>
+                        Dia {day}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label
+                    style={{
+                      display: 'block',
+                      fontSize: 'var(--font-size-text-label)',
+                      fontWeight: 'var(--font-weight-bold)',
+                      color: 'var(--color-text-primary)',
+                      marginBottom: 'var(--space-layout-element)',
+                      fontFeatureSettings: "'liga' off",
+                    }}
+                  >
+                    Vencimento
+                  </label>
+                  <select
+                    value={dueDay}
+                    onChange={(e) => setDueDay(parseInt(e.target.value, 10))}
+                    style={{
+                      width: '100%',
+                      padding: 'var(--space-padding-input)',
+                      borderRadius: 'var(--shape-radius-input)',
+                      borderWidth: '1px',
+                      borderStyle: 'solid',
+                      borderColor: 'var(--color-border-input-default)',
+                      fontSize: 'var(--font-size-input-medium)',
+                      color: 'var(--color-text-primary)',
+                      backgroundColor: 'var(--color-background-input-default)',
+                    }}
+                  >
+                    {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
+                      <option key={day} value={day}>
+                        Dia {day}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div>
+              <label
+                style={{
+                  display: 'block',
+                  fontSize: 'var(--font-size-text-label)',
+                  fontWeight: 'var(--font-weight-bold)',
+                  color: 'var(--color-text-primary)',
+                  marginBottom: 'var(--space-layout-element)',
+                  fontFeatureSettings: "'liga' off",
+                }}
+              >
+                Saldo Inicial
+              </label>
+              <input
+                type="text"
+                value={balance}
+                onChange={(e) => setBalance(formatAmountInput(e.target.value))}
+                placeholder="R$ 0,00"
+                required
+                style={{
+                  width: '100%',
+                  padding: 'var(--space-padding-input)',
+                  borderRadius: 'var(--shape-radius-input)',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: 'var(--color-border-input-default)',
+                  fontSize: 'var(--font-size-input-medium)',
+                  color: 'var(--color-text-primary)',
+                }}
+              />
+            </div>
+          )}
 
           <div>
             <label

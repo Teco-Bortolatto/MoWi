@@ -1,78 +1,87 @@
 /**
- * Tipos fundamentais do sistema mycash+
- * Baseados nas 5 entidades principais: Transaction, Goal, CreditCard, BankAccount, FamilyMember
+ * Tipos fundamentais do sistema MoWi
+ * Alinhados com o schema do Supabase
  */
 
-export type TransactionType = 'income' | 'expense';
+export type TransactionType = 'INCOME' | 'EXPENSE';
 
-export type TransactionStatus = 'pending' | 'completed' | 'cancelled';
+export type TransactionStatus = 'PENDING' | 'COMPLETED';
 
 export interface Transaction {
   id: string;
+  userId: string;
   type: TransactionType;
   amount: number;
   description: string;
   category: string;
   date: Date;
-  accountId: string | null; // ID da conta bancária ou cartão de crédito
-  memberId: string | null; // ID do membro responsável, null = família geral
-  installments: number; // Número de parcelas (1 = à vista)
-  currentInstallment: number; // Parcela atual (1, 2, 3...)
+  accountId: string | null;
+  memberId: string | null;
+  installmentNumber: number | null;
+  totalInstallments: number;
+  parentTransactionId: string | null;
+  isRecurring: boolean;
+  recurringTransactionId: string | null;
   status: TransactionStatus;
-  isRecurring: boolean; // Se é despesa recorrente (ex: assinatura mensal)
-  isPaid: boolean; // Se foi paga (para despesas)
+  notes: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export interface Goal {
   id: string;
+  userId: string;
   title: string;
-  description: string;
+  description: string | null;
   targetAmount: number;
   currentAmount: number;
-  deadline: Date | null; // null = sem prazo
-  category: string;
-  memberId: string | null; // ID do membro responsável, null = família geral
+  deadline: Date | null;
+  category: string | null;
+  memberId: string | null;
   isCompleted: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
 
+export type AccountType = 'CHECKING' | 'SAVINGS' | 'CREDIT_CARD';
+
 export type CreditCardTheme = 'black' | 'lime' | 'white';
 
-export interface CreditCard {
+export interface Account {
   id: string;
-  name: string; // Ex: "Nubank Mastercard"
-  holderId: string; // ID do membro titular
-  closingDay: number; // Dia de fechamento (1-31)
-  dueDay: number; // Dia de vencimento (1-31)
-  limit: number; // Limite total
-  currentBill: number; // Fatura atual
-  theme: CreditCardTheme;
-  lastDigits: string | null; // Últimos 4 dígitos (opcional)
+  userId: string;
+  type: AccountType;
+  name: string;
+  bank: string;
+  lastDigits: string | null;
+  holderId: string;
+  balance: number;
+  creditLimit: number | null;
+  currentBill: number;
+  dueDay: number | null;
+  closingDay: number | null;
+  theme: CreditCardTheme | null;
+  logoUrl: string | null;
+  color: string;
+  isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export interface BankAccount {
-  id: string;
-  name: string; // Ex: "Nubank Conta"
-  holderId: string; // ID do membro titular
-  balance: number; // Saldo atual
-  bankName: string | null; // Nome do banco (opcional)
-  accountNumber: string | null; // Número da conta (opcional)
-  createdAt: Date;
-  updatedAt: Date;
-}
+// Para compatibilidade com componentes que esperam CreditCard e BankAccount separadamente
+export type CreditCard = Account;
+export type BankAccount = Account;
 
 export interface FamilyMember {
   id: string;
+  userId: string;
   name: string;
-  role: string; // Ex: "Pai", "Mãe", "Filho", "Avô"
+  role: string;
   email: string | null;
-  avatarUrl: string | null; // URL da imagem do avatar
-  monthlyIncome: number; // Renda mensal estimada (opcional, pode ser 0)
+  avatarUrl: string | null;
+  monthlyIncome: number;
+  color: string;
+  isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -85,7 +94,7 @@ export interface DateRange {
   endDate: Date | null;
 }
 
-export type TransactionTypeFilter = 'all' | 'income' | 'expense';
+export type TransactionTypeFilter = 'all' | 'INCOME' | 'EXPENSE';
 
 export interface FinanceFilters {
   selectedMember: string | null;
@@ -100,12 +109,12 @@ export interface FinanceFilters {
 export interface CategoryExpense {
   category: string;
   amount: number;
-  percentage: number; // Percentual em relação à receita total
+  percentage: number;
 }
 
 export interface FinancialSummary {
   totalBalance: number;
   totalIncome: number;
   totalExpenses: number;
-  savingsRate: number; // (receitas - despesas) / receitas × 100
+  savingsRate: number;
 }

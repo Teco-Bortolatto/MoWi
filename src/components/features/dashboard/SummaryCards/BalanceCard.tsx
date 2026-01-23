@@ -8,16 +8,24 @@ export function BalanceCard() {
   const { calculateTotalBalance, filters } = useFinance()
 
   // Calcular saldo atual
-  const currentBalance = useMemo(() => calculateTotalBalance(), [calculateTotalBalance, filters])
+  const currentBalance = useMemo(() => calculateTotalBalance(), [calculateTotalBalance])
 
-  // Calcular saldo de 30 dias atrás
-  // Nota: Em produção, isso viria de dados históricos reais
-  // Por enquanto, simulamos um crescimento de 12% para demonstração
+  // Calcular saldo do período anterior para comparação
   const previousBalance = useMemo(() => {
-    if (currentBalance === 0) return 0
-    // Simulação: assumindo crescimento de 12%
-    return currentBalance / 1.12
-  }, [currentBalance])
+    if (!filters.dateRange.startDate || !filters.dateRange.endDate) {
+        // Se não houver filtro, simulamos um crescimento baseado no saldo total
+        return currentBalance / 1.12
+    }
+    
+    const diff = filters.dateRange.endDate.getTime() - filters.dateRange.startDate.getTime()
+    const prevStart = new Date(filters.dateRange.startDate.getTime() - diff)
+    const prevEnd = new Date(filters.dateRange.endDate.getTime() - diff)
+    
+    const income = calculateIncomeForPeriod(prevStart, prevEnd)
+    const expenses = calculateExpensesForPeriod(prevStart, prevEnd)
+    
+    return income - expenses
+  }, [currentBalance, filters.dateRange, calculateIncomeForPeriod, calculateExpensesForPeriod])
 
   // Calcular crescimento percentual
   const growthPercentage = useMemo(() => {
