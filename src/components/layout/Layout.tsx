@@ -50,7 +50,7 @@ export function Layout() {
       {/* Header Mobile - apenas mobile/tablet (<1280px) */}
       <HeaderMobile />
       
-      <main className="flex-1 w-full min-w-0 px-2 md:px-6">
+      <main className="flex-1 w-full min-w-0 px-4 lg:px-6">
         <Outlet />
       </main>
     </div>

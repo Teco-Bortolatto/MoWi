@@ -25,10 +25,8 @@ function ProfilePage() {
       <div
         className="w-full lg:pt-[var(--space-layout-section)]"
         style={{
-          paddingRight: 'var(--space-dashboard-padding)',
           paddingTop: 'calc(var(--space-layout-section) + var(--space-header-height))',
           paddingBottom: 'var(--space-layout-section)',
-          paddingLeft: '0px',
         }}
       >
         {/* Tabs */}

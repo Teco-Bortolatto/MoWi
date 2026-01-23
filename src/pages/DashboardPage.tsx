@@ -14,8 +14,8 @@ function DashboardPage() {
         style={{
           paddingTop: 'var(--space-header-height)',
           paddingBottom: '0px',
-          paddingLeft: '16px',
-          paddingRight: '16px',
+          paddingLeft: '0px',
+          paddingRight: '0px',
           gap: '0px',
         }}
       >
