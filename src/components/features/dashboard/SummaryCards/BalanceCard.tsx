@@ -5,7 +5,7 @@ import { formatCurrency } from '../../../../utils/formatCurrency'
 import { Icon } from '../../../ui/Icon'
 
 export function BalanceCard() {
-  const { calculateTotalBalance, filters } = useFinance()
+  const { calculateTotalBalance, calculateIncomeForPeriod, calculateExpensesForPeriod, filters } = useFinance()
 
   // Calcular saldo atual
   const currentBalance = useMemo(() => calculateTotalBalance(), [calculateTotalBalance])

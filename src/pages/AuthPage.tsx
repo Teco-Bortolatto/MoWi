@@ -41,7 +41,7 @@ export default function AuthPage() {
           <div className="flex justify-center mb-8">
             <div className="flex items-center gap-2">
               <div className="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
-                <Icon name="Wallet" className="text-white" size={24} />
+                <Icon name="wallet" className="text-white" size={24} />
               </div>
               <span className="text-2xl font-bold text-neutral-900">MoWi</span>
             </div>

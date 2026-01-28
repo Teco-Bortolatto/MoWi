@@ -9,7 +9,15 @@ import { NewTransactionModal } from '../../../modals/NewTransactionModal'
  * Componente de widget de próximas despesas
  */
 export function UpcomingExpensesWidget() {
-  const { transactions, creditCards, bankAccounts, updateTransaction } = useFinance()
+  const { transactions, accounts, updateTransaction } = useFinance()
+  const creditCards = useMemo(
+    () => accounts.filter((acc) => acc.type === 'CREDIT_CARD'),
+    [accounts]
+  )
+  const bankAccounts = useMemo(
+    () => accounts.filter((acc) => acc.type !== 'CREDIT_CARD'),
+    [accounts]
+  )
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false)
 
@@ -67,7 +75,11 @@ export function UpcomingExpensesWidget() {
     }
 
     // Se for parcelada, verificar próxima parcela
-    if (transaction.installments > 1 && transaction.currentInstallment < transaction.installments) {
+    if (
+      transaction.totalInstallments > 1 &&
+      transaction.installmentNumber != null &&
+      transaction.installmentNumber < transaction.totalInstallments
+    ) {
       const nextDate = new Date(transaction.date)
       nextDate.setMonth(nextDate.getMonth() + 1)
 
@@ -164,7 +176,7 @@ export function UpcomingExpensesWidget() {
         <NewTransactionModal
           isOpen={isNewTransactionModalOpen}
           onClose={() => setIsNewTransactionModalOpen(false)}
-          initialType="expense"
+          initialType="EXPENSE"
         />
       </div>
     )
@@ -309,7 +321,7 @@ export function UpcomingExpensesWidget() {
       <NewTransactionModal
         isOpen={isNewTransactionModalOpen}
         onClose={() => setIsNewTransactionModalOpen(false)}
-        initialType="expense"
+        initialType="EXPENSE"
       />
     </div>
   )

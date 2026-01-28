@@ -12,7 +12,15 @@ const ITEMS_PER_PAGE = 5
  * Componente de tabela de transações detalhada
  */
 export function TransactionsTable() {
-  const { getFilteredTransactions, familyMembers, creditCards, bankAccounts } = useFinance()
+  const { getFilteredTransactions, familyMembers, accounts } = useFinance()
+  const creditCards = useMemo(
+    () => accounts.filter((acc) => acc.type === 'CREDIT_CARD'),
+    [accounts]
+  )
+  const bankAccounts = useMemo(
+    () => accounts.filter((acc) => acc.type !== 'CREDIT_CARD'),
+    [accounts]
+  )
   const [localSearchText, setLocalSearchText] = useState('')
   const [localTransactionType, setLocalTransactionType] = useState<'all' | 'INCOME' | 'EXPENSE'>('all')
   const [currentPage, setCurrentPage] = useState(1)
@@ -388,7 +396,7 @@ export function TransactionsTable() {
                               height: '24px',
                               borderRadius: 'var(--shape-radius-avatar)',
                               backgroundColor:
-                                transaction.type === 'income'
+                                transaction.type === 'INCOME'
                                   ? 'var(--color-background-success)'
                                   : 'var(--color-background-error)',
                             }}

@@ -112,7 +112,7 @@ function ProfilePage() {
                   <div className="relative group">
                     <Avatar src={currentUserMember.avatarUrl} alt={currentUserMember.name} size="lg" />
                     <label className="absolute inset-0 flex items-center justify-center bg-black/40 text-white opacity-0 group-hover:opacity-100 transition-opacity rounded-full cursor-pointer">
-                      <Icon name="Camera" size={24} />
+                      <Icon name="camera" size={24} />
                       <input type="file" className="hidden" accept="image/*" onChange={handleAvatarUpload} disabled={uploading} />
                     </label>
                     {uploading && (

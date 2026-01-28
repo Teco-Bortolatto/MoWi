@@ -317,13 +317,13 @@ function CardsPage() {
                     <div className="flex items-center" style={{ gap: 'var(--space-layout-element)' }}>
                       <Icon name="calendar" size={16} color="var(--color-text-secondary)" />
                       <span style={{ fontSize: 'var(--font-size-text-body-small)', color: 'var(--color-text-secondary)' }}>
-                        Fecha dia {card.closingDay.toString().padStart(2, '0')}
+                        Fecha dia {(card.closingDay ?? 0).toString().padStart(2, '0')}
                       </span>
                     </div>
                     <div className="flex items-center" style={{ gap: 'var(--space-layout-element)' }}>
                       <Icon name="calendar" size={16} color="var(--color-text-secondary)" />
                       <span style={{ fontSize: 'var(--font-size-text-body-small)', color: 'var(--color-text-secondary)' }}>
-                        Vence dia {card.dueDay.toString().padStart(2, '0')}
+                        Vence dia {(card.dueDay ?? 0).toString().padStart(2, '0')}
                       </span>
                     </div>
                   </div>

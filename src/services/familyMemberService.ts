@@ -150,6 +150,7 @@ function mapFamilyMember(data: any): FamilyMember {
     userId: data.user_id,
     name: data.name,
     role: data.role,
+    email: data.email ?? null,
     avatarUrl: data.avatar_url,
     monthlyIncome: parseFloat(data.monthly_income),
     color: data.color,

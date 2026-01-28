@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useFinance } from '../../../../contexts'
 import { formatCurrency } from '../../../../utils/formatCurrency'
 import { Icon } from '../../../ui/Icon'
@@ -9,7 +9,8 @@ import { NewCardModal } from '../../../modals/NewCardModal'
  * Componente de widget de cartões de crédito
  */
 export function CreditCardsWidget() {
-  const { creditCards } = useFinance()
+  const { accounts } = useFinance()
+  const creditCards = useMemo(() => accounts.filter(acc => acc.type === 'CREDIT_CARD'), [accounts])
   const [currentPage, setCurrentPage] = useState(0)
   const [isNewCardModalOpen, setIsNewCardModalOpen] = useState(false)
   const itemsPerPage = 3

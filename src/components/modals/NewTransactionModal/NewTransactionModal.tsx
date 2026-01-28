@@ -4,8 +4,7 @@ import { Modal } from '../../ui/Modal'
 import { Icon } from '../../ui/Icon'
 import { Button } from '../../ui/Button'
 import { formatCurrency } from '../../../utils/formatCurrency'
-import { categoryService } from '../../../services/categoryService'
-import { Category } from '../../../types'
+import { categoryService, Category } from '../../../services/categoryService'
 
 interface NewTransactionModalProps {
   isOpen: boolean
@@ -296,7 +295,7 @@ export function NewTransactionModal({
                 onClick={() => setIsNewCategoryModalOpen(true)}
                 className="text-primary-600 hover:text-primary-700 text-xs font-bold flex items-center gap-1"
               >
-                <Icon name="Plus" size={12} />
+                <Icon name="plus" size={12} />
                 Nova
               </button>
             </div>

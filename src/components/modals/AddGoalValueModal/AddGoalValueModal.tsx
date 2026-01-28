@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useFinance } from '../../../contexts'
 import { Modal } from '../../ui/Modal'
 import { Icon } from '../../ui/Icon'
@@ -13,8 +13,11 @@ interface AddGoalValueModalProps {
 }
 
 export function AddGoalValueModal({ isOpen, onClose, goal }: AddGoalValueModalProps) {
-  const { updateGoal, bankAccounts } = useFinance()
-
+  const { updateGoal, accounts } = useFinance()
+  const bankAccounts = useMemo(
+    () => accounts.filter((acc) => acc.type !== 'CREDIT_CARD'),
+    [accounts]
+  )
   const [amount, setAmount] = useState('')
   const [selectedAccountId, setSelectedAccountId] = useState<string | null>(null)
 

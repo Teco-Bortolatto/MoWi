@@ -36,7 +36,7 @@ export function SidebarUserInfo({
           className="p-2 hover:bg-red-50 text-neutral-400 hover:text-red-500 rounded-lg transition-colors"
           title="Sair"
         >
-          <Icon name="Logout" size={20} />
+          <Icon name="log-out" size={20} />
         </button>
       </div>
     )
@@ -100,7 +100,7 @@ export function SidebarUserInfo({
         onClick={() => signOut()}
         className="w-full flex items-center gap-3 px-4 py-2 text-sm text-neutral-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"
       >
-        <Icon name="Logout" size={18} />
+        <Icon name="log-out" size={18} />
         <span>Sair da conta</span>
       </button>
     </div>

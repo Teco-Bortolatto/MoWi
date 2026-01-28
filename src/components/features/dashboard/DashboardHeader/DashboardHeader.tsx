@@ -183,7 +183,7 @@ export function DashboardHeader() {
               Tipo de Transação
             </p>
             <div className="flex flex-col gap-1">
-              {(['all', 'income', 'expense'] as const).map((type) => (
+              {(['all', 'INCOME', 'EXPENSE'] as const).map((type) => (
                 <button
                   key={type}
                   onClick={() => {
@@ -216,8 +216,8 @@ export function DashboardHeader() {
                   }}
                 >
                   {type === 'all' && 'Todos'}
-                  {type === 'income' && 'Receitas'}
-                  {type === 'expense' && 'Despesas'}
+                  {type === 'INCOME' && 'Receitas'}
+                  {type === 'EXPENSE' && 'Despesas'}
                 </button>
               ))}
             </div>
@@ -287,7 +287,7 @@ export function DashboardHeader() {
                 Tipo de Transação
               </p>
               <div className="grid grid-cols-3 gap-2">
-                {(['all', 'income', 'expense'] as const).map((type) => (
+                {(['all', 'INCOME', 'EXPENSE'] as const).map((type) => (
                   <button
                     key={type}
                     onClick={() => {
@@ -310,8 +310,8 @@ export function DashboardHeader() {
                     }}
                   >
                     {type === 'all' && 'Todos'}
-                    {type === 'income' && 'Receitas'}
-                    {type === 'expense' && 'Despesas'}
+                    {type === 'INCOME' && 'Receitas'}
+                    {type === 'EXPENSE' && 'Despesas'}
                   </button>
                 ))}
               </div>

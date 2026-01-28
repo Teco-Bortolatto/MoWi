@@ -1,17 +1,48 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables')
+let client: SupabaseClient | null = null
+
+/**
+ * Retorna true se as variáveis de ambiente do Supabase estão definidas.
+ * Use para exibir mensagem de configuração antes de tentar autenticar.
+ */
+export function isSupabaseConfigured(): boolean {
+  return Boolean(supabaseUrl && supabaseAnonKey)
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true,
+/**
+ * Retorna o cliente Supabase. Cria o cliente na primeira chamada.
+ * Só faz throw quando o método for invocado sem envs configuradas
+ * (evita derrubar a app na importação do módulo).
+ */
+export function getSupabase(): SupabaseClient {
+  if (!client) {
+    if (!supabaseUrl || !supabaseAnonKey) {
+      throw new Error(
+        'Missing Supabase environment variables. Configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.'
+      )
+    }
+    client = createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true,
+      },
+    })
+  }
+  return client
+}
+
+/**
+ * Cliente Supabase. Acessos delegam a getSupabase(), então o throw por
+ * envs faltando só ocorre no primeiro uso (ex.: auth.getSession), não na importação.
+ */
+export const supabase = new Proxy({} as SupabaseClient, {
+  get(_, prop: string) {
+    return (getSupabase() as unknown as Record<string, unknown>)[prop]
   },
 })
 

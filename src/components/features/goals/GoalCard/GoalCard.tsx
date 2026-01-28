@@ -85,7 +85,7 @@ export function GoalCard({ goal, onAddValue: _onAddValue, onEdit }: GoalCardProp
   }
 
   const monthlyNeeded = calculateMonthlyNeeded()
-  const icon = categoryIcons[goal.category] || categoryIcons.Outros
+  const icon = categoryIcons[goal.category ?? 'Outros'] ?? categoryIcons.Outros
 
   return (
     <div

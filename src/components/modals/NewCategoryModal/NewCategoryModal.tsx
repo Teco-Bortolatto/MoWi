@@ -17,7 +17,7 @@ const EMOJIS = ['📌', '💰', '🍔', '🚗', '🏠', '🏥', '🎮', '👕', 
 export function NewCategoryModal({ isOpen, onClose, type, onSuccess }: NewCategoryModalProps) {
   const [name, setName] = useState('')
   const [icon, setIcon] = useState('📌')
-  const [color, setColor] = useState('#3247FF')
+  const [color, _setColor] = useState('#3247FF')
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -49,7 +49,7 @@ export function NewCategoryModal({ isOpen, onClose, type, onSuccess }: NewCatego
       onClose={onClose}
       title="Nova Categoria"
       subtitle={`Crie uma categoria para suas ${type === 'INCOME' ? 'receitas' : 'despesas'}.`}
-      icon={<Icon name="Plus" size={20} color="var(--color-text-primary)" />}
+      icon={<Icon name="plus" size={20} color="var(--color-text-primary)" />}
     >
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>

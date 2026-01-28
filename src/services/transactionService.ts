@@ -144,9 +144,6 @@ export const transactionService = {
     // Nota: Para simplificar, estamos criando as parcelas sequencialmente no cliente.
     // Em um cenário real, uma RPC ou Function no Supabase seria mais atômica.
     
-    // Precisamos de um ID para a transação pai se houver parcelas
-    const parentId = null;
-
     for (let i = 1; i <= totalInstallments; i++) {
       const transactionDate = new Date(input.date)
       if (i > 1) {
