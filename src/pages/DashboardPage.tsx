@@ -4,6 +4,7 @@ import { ExpensesByCategoryCarousel } from '../components/features/dashboard/Exp
 import { FinancialFlowChart } from '../components/features/dashboard/FinancialFlowChart'
 import { CreditCardsWidget } from '../components/features/dashboard/CreditCardsWidget'
 import { UpcomingExpensesWidget } from '../components/features/dashboard/UpcomingExpensesWidget'
+import { FinancialGoalsWidget } from '../components/features/dashboard/FinancialGoalsWidget'
 import { TransactionsTable } from '../components/features/dashboard/TransactionsTable'
 
 function DashboardPage() {
@@ -67,6 +68,11 @@ function DashboardPage() {
             {/* Próximas Despesas */}
             <div className="dashboard-grid-proximas">
               <UpcomingExpensesWidget />
+            </div>
+
+            {/* Objetivos financeiros - mesma largura do extrato */}
+            <div className="dashboard-grid-objetivos">
+              <FinancialGoalsWidget />
             </div>
 
             {/* Extrato Detalhado - Ocupa as duas colunas */}

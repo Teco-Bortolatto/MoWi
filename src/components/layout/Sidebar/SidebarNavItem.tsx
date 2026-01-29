@@ -93,8 +93,8 @@ export function SidebarNavItem({ path, label, icon, isExpanded }: SidebarNavItem
             paddingBottom: 'var(--space-8)',
             fontSize: 'var(--font-size-label-small)',
             borderRadius: 'var(--shape-8)',
-            backgroundColor: 'var(--color-background-action-primary)',
-            color: 'var(--color-text-action-primary)',
+            backgroundColor: isActive ? 'var(--color-background-action-primary)' : 'var(--color-background-card)',
+            color: isActive ? 'var(--color-text-action-primary)' : 'var(--color-text-primary)',
             boxShadow: 'var(--shadow-card-elevated)',
             animation: 'fadeIn 0.2s ease-out',
             top: '50%',
@@ -108,7 +108,7 @@ export function SidebarNavItem({ path, label, icon, isExpanded }: SidebarNavItem
               transform: 'translate(-50%, -50%) rotate(45deg)',
               width: 'var(--space-8)',
               height: 'var(--space-8)',
-              backgroundColor: 'var(--color-background-action-primary)',
+              backgroundColor: isActive ? 'var(--color-background-action-primary)' : 'var(--color-background-card)',
               zIndex: -1,
             }}
           ></div>

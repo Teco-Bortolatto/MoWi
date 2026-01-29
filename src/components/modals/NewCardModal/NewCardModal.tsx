@@ -23,6 +23,7 @@ export function NewCardModal({ isOpen, onClose }: NewCardModalProps) {
   const [balance, setBalance] = useState('')
   const [lastDigits, setLastDigits] = useState('')
   const [theme, setTheme] = useState<'black' | 'lime' | 'white'>('black')
+  const [tabHovered, setTabHovered] = useState<'CHECKING' | 'SAVINGS' | 'CREDIT_CARD' | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -77,23 +78,48 @@ export function NewCardModal({ isOpen, onClose }: NewCardModalProps) {
     >
       <form onSubmit={handleSubmit}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-layout-component)' }}>
-          {/* Tipo */}
-          <div className="flex gap-2 p-1 bg-neutral-100 rounded-xl">
-            {(['CHECKING', 'SAVINGS', 'CREDIT_CARD'] as const).map((t) => (
-              <button
-                key={t}
-                type="button"
-                onClick={() => setType(t)}
-                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
-                  type === t ? 'bg-white shadow-sm text-primary-600' : 'text-neutral-500 hover:text-neutral-700'
-                }`}
-              >
-                {t === 'CHECKING' ? 'Corrente' : t === 'SAVINGS' ? 'Poupança' : 'Cartão'}
-              </button>
-            ))}
+          {/* Tipo: seleção Corrente / Poupança / Cartão — estados explícitos e WCAG */}
+          <div
+            className="flex gap-2 p-1 rounded-xl"
+            style={{ backgroundColor: 'var(--color-background-secondary)' }}
+          >
+            {(['CHECKING', 'SAVINGS', 'CREDIT_CARD'] as const).map((t) => {
+              const isSelected = type === t
+              const isUnselectedHover = !isSelected && tabHovered === t
+              return (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => setType(t)}
+                  onMouseEnter={() => setTabHovered(t)}
+                  onMouseLeave={() => setTabHovered(null)}
+                  className="flex-1 py-2 text-xs font-bold rounded-lg transition-all shadow-sm min-h-[44px]"
+                  style={{
+                    backgroundColor: isSelected
+                      ? 'var(--color-background-action-primary)'
+                      : 'transparent',
+                    color: isSelected
+                      ? 'var(--color-text-on-action-primary)'
+                      : isUnselectedHover
+                        ? 'var(--color-text-primary)'
+                        : 'var(--color-text-secondary)',
+                  }}
+                  aria-pressed={isSelected}
+                  aria-label={
+                    t === 'CHECKING'
+                      ? 'Conta corrente'
+                      : t === 'SAVINGS'
+                        ? 'Poupança'
+                        : 'Cartão de crédito'
+                  }
+                >
+                  {t === 'CHECKING' ? 'Corrente' : t === 'SAVINGS' ? 'Poupança' : 'Cartão'}
+                </button>
+              )
+            })}
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-16">
             <div>
               <label
                 style={{

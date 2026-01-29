@@ -99,7 +99,7 @@ export function Modal({ isOpen, onClose, title, subtitle, children, icon }: Moda
             style={{
               width: '32px',
               height: '32px',
-              borderRadius: 'var(--shape-8)',
+              borderRadius: '40px',
             }}
             aria-label="Fechar"
           />

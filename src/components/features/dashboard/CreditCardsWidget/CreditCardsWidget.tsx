@@ -60,26 +60,17 @@ export function CreditCardsWidget() {
     return Math.round((currentBill / limit) * 100)
   }
 
-  if (creditCards.length === 0) {
-    return null
-  }
-
   return (
     <div
       style={{
-        background: 'unset',
-        backgroundColor: 'unset',
-        backgroundImage: 'none',
-        borderRadius: '16px',
-        paddingTop: 'var(--space-padding-card)',
-        paddingBottom: 'var(--space-padding-card)',
-        paddingLeft: '0px',
-        paddingRight: '0px',
+        backgroundColor: 'var(--color-background-card)',
+        borderRadius: 'var(--shape-radius-card)',
+        padding: 'var(--space-padding-card)',
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderColor: 'var(--color-border-card)',
         width: '100%',
-        borderWidth: '0px',
-        borderStyle: 'none',
-        borderColor: 'rgba(0, 0, 0, 0)',
-        borderImage: 'none',
+        height: '100%',
       }}
     >
       {/* Header */}
@@ -87,13 +78,10 @@ export function CreditCardsWidget() {
         className="flex items-center justify-between"
         style={{
           marginBottom: 'var(--space-24)',
-          paddingLeft: '16px',
-          paddingRight: '16px',
-          marginLeft: '8px',
         }}
       >
-        <div className="flex items-center" style={{ gap: '16px' }}>
-          <Icon name="credit-card" size={16} color="var(--color-text-primary)" />
+        <div className="flex items-center" style={{ gap: 'var(--space-8)' }}>
+          <Icon name="credit-card" size={20} color="var(--color-text-primary)" />
           <h3
             style={{
               fontSize: 'var(--font-size-heading-widget)',
@@ -102,22 +90,56 @@ export function CreditCardsWidget() {
               fontFeatureSettings: "'liga' off",
             }}
           >
-            Cartões/contas
+            Cartões
           </h3>
         </div>
         <Button
           onClick={() => setIsNewCardModalOpen(true)}
-          variant="tertiary"
-          size="small"
+          variant="secondary"
+          size="medium"
           icon="plus"
           iconOnly
           aria-label="Adicionar cartão"
         />
       </div>
 
-      {/* Lista de Cartões */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
-        {currentCards.map((card) => {
+      {creditCards.length === 0 ? (
+        /* Estado vazio */
+        <div
+          className="flex flex-col items-center justify-center"
+          style={{
+            padding: 'var(--space-48)',
+            borderWidth: '1px',
+            borderStyle: 'dashed',
+            borderColor: 'var(--color-border-default)',
+            borderRadius: 'var(--shape-radius-icon)',
+          }}
+        >
+          <div
+            className="flex items-center justify-center"
+            style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: 'var(--shape-radius-avatar)',
+              backgroundColor: 'var(--color-background-tertiary)',
+              marginBottom: 'var(--space-16)',
+            }}
+          >
+            <Icon name="credit-card" size={24} color="var(--color-text-tertiary)" />
+          </div>
+          <p
+            style={{
+              fontSize: 'var(--font-size-text-body)',
+              color: 'var(--color-text-secondary)',
+            }}
+          >
+            Nenhum cartão registrado
+          </p>
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
+          {/* Lista de Cartões */}
+          {currentCards.map((card) => {
           const themeStyles = getCardThemeStyles(card.theme as 'black' | 'lime' | 'white')
           const limit = card.creditLimit || 0
           const usagePercentage = calculateUsagePercentage(card.currentBill, limit)
@@ -225,11 +247,10 @@ export function CreditCardsWidget() {
               </div>
             </div>
           )
-        })}
-      </div>
+          })}
 
-      {/* Paginação */}
-      {totalPages > 1 && (
+          {/* Paginação */}
+          {totalPages > 1 && (
         <div
           className="flex items-center justify-center"
           style={{
@@ -263,6 +284,8 @@ export function CreditCardsWidget() {
             iconOnly
             aria-label="Próxima página"
           />
+        </div>
+          )}
         </div>
       )}
 

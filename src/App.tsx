@@ -8,6 +8,7 @@ import TransactionsPage from './pages/TransactionsPage'
 import ProfilePage from './pages/ProfilePage'
 import GoalsPage from './pages/GoalsPage'
 import AuthPage from './pages/AuthPage'
+import ResetPasswordPage from './pages/ResetPasswordPage'
 import { useAuth } from './hooks/useAuth'
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
@@ -34,7 +35,8 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/login" element={<AuthPage />} />
-        
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
+
         <Route
           path="/*"
           element={

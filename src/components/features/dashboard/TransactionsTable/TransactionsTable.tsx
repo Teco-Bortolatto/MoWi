@@ -230,14 +230,35 @@ export function TransactionsTable() {
       {/* Tabela */}
       {filteredTransactions.length === 0 ? (
         <div
-          className="flex items-center justify-center"
+          className="flex flex-col items-center justify-center"
           style={{
-            height: '96px',
-            color: 'var(--color-text-secondary)',
-            fontSize: 'var(--font-size-text-body)',
+            padding: 'var(--space-48)',
+            borderWidth: '1px',
+            borderStyle: 'dashed',
+            borderColor: 'var(--color-border-default)',
+            borderRadius: 'var(--shape-radius-icon)',
           }}
         >
-          Nenhum lançamento encontrado.
+          <div
+            className="flex items-center justify-center"
+            style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: 'var(--shape-radius-avatar)',
+              backgroundColor: 'var(--color-background-tertiary)',
+              marginBottom: 'var(--space-16)',
+            }}
+          >
+            <Icon name="list" size={24} color="var(--color-text-tertiary)" />
+          </div>
+          <p
+            style={{
+              fontSize: 'var(--font-size-text-body)',
+              color: 'var(--color-text-secondary)',
+            }}
+          >
+            Nenhum lançamento encontrado.
+          </p>
         </div>
       ) : (
         <>

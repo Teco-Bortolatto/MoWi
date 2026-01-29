@@ -121,6 +121,7 @@
       "porcentagens cartoes"
       "cards-saldo   cartoes"
       "fluxo         proximas"
+      "objetivos     objetivos"
       "extrato       extrato";
     align-items: stretch;
   }
@@ -144,6 +145,11 @@
 
   .dashboard-grid-proximas {
     grid-area: proximas;
+  }
+
+  .dashboard-grid-objetivos {
+    grid-area: objetivos;
+    grid-column: 1 / -1;
   }
 
   .dashboard-grid-extrato {

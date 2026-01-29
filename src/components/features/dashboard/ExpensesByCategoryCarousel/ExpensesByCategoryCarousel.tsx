@@ -113,9 +113,77 @@ export function ExpensesByCategoryCarousel() {
 
   // Verificar se há mais de 3 cards (para mostrar botão lateral)
   const hasMoreThanThreeCards = expensesByCategory.length > 3
+  const isEmpty = expensesByCategory.length === 0
 
-  if (expensesByCategory.length === 0) {
-    return null
+  // Estado vazio: skeleton donut + legenda para indicar onde fica o Carrossel de Gastos por Categoria
+  if (isEmpty) {
+    const size = 131
+    const innerDiameter = 97.09
+    const strokeWidth = size / 2 - innerDiameter / 2
+    const center = size / 2
+
+    return (
+      <div
+        className="relative"
+        style={{ width: '100%' }}
+        aria-label="Gastos por categoria (nenhuma categoria de gasto criada)"
+      >
+        <div
+          className="flex overflow-x-auto scrollbar-hide"
+          style={{
+            width: '100%',
+            gap: 'var(--space-gap-card)',
+            paddingRight: 'var(--space-layout-component)',
+          }}
+        >
+          <div
+            className="flex flex-col items-center justify-center flex-shrink-0"
+            style={{
+              width: 'var(--size-card-donut-width)',
+              padding: 'var(--space-padding-card)',
+              backgroundColor: 'var(--color-background-card)',
+              borderWidth: '1px',
+              borderStyle: 'solid',
+              borderColor: 'var(--color-border-card)',
+              borderRadius: 'var(--shape-radius-card)',
+            }}
+          >
+            {/* Skeleton donut (anel vazio) */}
+            <div
+              className="relative flex items-center justify-center"
+              style={{
+                marginBottom: 'var(--space-32)',
+                width: size,
+                height: size,
+              }}
+            >
+              <svg width={size} height={size} style={{ transform: 'rotate(-90deg)' }} aria-hidden>
+                <circle
+                  cx={center}
+                  cy={center}
+                  r={center - strokeWidth / 2}
+                  fill="none"
+                  stroke="var(--color-background-tertiary)"
+                  strokeWidth={strokeWidth}
+                />
+              </svg>
+            </div>
+            <p
+              style={{
+                fontSize: 'var(--font-size-text-label)',
+                fontWeight: 'var(--font-weight-bold)',
+                lineHeight: 'var(--font-line-height-default)',
+                color: 'var(--color-text-tertiary)',
+                textAlign: 'center',
+                fontFeatureSettings: "'liga' off",
+              }}
+            >
+              Nenhuma categoria de gasto criada
+            </p>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
