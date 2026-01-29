@@ -123,28 +123,39 @@ export function AddGoalValueModal({ isOpen, onClose, goal }: AddGoalValueModalPr
             >
               Transferir de (opcional)
             </label>
-            <select
-              value={selectedAccountId || ''}
-              onChange={(e) => setSelectedAccountId(e.target.value || null)}
-              style={{
-                width: '100%',
-                padding: 'var(--space-padding-input)',
-                borderRadius: 'var(--shape-radius-input)',
-                borderWidth: '1px',
-                borderStyle: 'solid',
-                borderColor: 'var(--color-border-input-default)',
-                fontSize: 'var(--font-size-input-medium)',
-                color: 'var(--color-text-primary)',
-                backgroundColor: 'var(--color-background-input-default)',
-              }}
-            >
-              <option value="">Adicionar sem transferir</option>
-              {bankAccounts.map((account) => (
-                <option key={account.id} value={account.id}>
-                  {account.name} - {formatCurrency(account.balance)}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                value={selectedAccountId || ''}
+                onChange={(e) => setSelectedAccountId(e.target.value || null)}
+                style={{
+                  width: '100%',
+                  padding: 'var(--space-padding-input)',
+                  paddingRight: 'calc(var(--space-12) + 16px)',
+                  borderRadius: 'var(--shape-radius-input)',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: 'var(--color-border-input-default)',
+                  fontSize: 'var(--font-size-input-medium)',
+                  color: 'var(--color-text-primary)',
+                  backgroundColor: 'var(--color-background-input-default)',
+                  appearance: 'none',
+                  WebkitAppearance: 'none',
+                }}
+              >
+                <option value="">Adicionar sem transferir</option>
+                {bankAccounts.map((account) => (
+                  <option key={account.id} value={account.id}>
+                    {account.name} - {formatCurrency(account.balance)}
+                  </option>
+                ))}
+              </select>
+              <div
+                className="absolute pointer-events-none"
+                style={{ right: 'var(--space-12)', top: '50%', transform: 'translateY(-50%)' }}
+              >
+                <Icon name="chevron-down" size={16} color="var(--color-text-secondary)" />
+              </div>
+            </div>
           </div>
         )}
 

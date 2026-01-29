@@ -83,7 +83,7 @@ export function NewCardModal({ isOpen, onClose }: NewCardModalProps) {
             className="flex gap-2 p-1 rounded-xl"
             style={{ backgroundColor: 'var(--color-background-secondary)' }}
           >
-            {(['CHECKING', 'SAVINGS', 'CREDIT_CARD'] as const).map((t) => {
+            {(['CREDIT_CARD', 'CHECKING', 'SAVINGS'] as const).map((t) => {
               const isSelected = type === t
               const isUnselectedHover = !isSelected && tabHovered === t
               return (
@@ -232,27 +232,38 @@ export function NewCardModal({ isOpen, onClose }: NewCardModalProps) {
                   >
                     Fechamento
                   </label>
-                  <select
-                    value={closingDay}
-                    onChange={(e) => setClosingDay(parseInt(e.target.value, 10))}
-                    style={{
-                      width: '100%',
-                      padding: 'var(--space-padding-input)',
-                      borderRadius: 'var(--shape-radius-input)',
-                      borderWidth: '1px',
-                      borderStyle: 'solid',
-                      borderColor: 'var(--color-border-input-default)',
-                      fontSize: 'var(--font-size-input-medium)',
-                      color: 'var(--color-text-primary)',
-                      backgroundColor: 'var(--color-background-input-default)',
-                    }}
-                  >
-                    {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
-                      <option key={day} value={day}>
-                        Dia {day}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select
+                      value={closingDay}
+                      onChange={(e) => setClosingDay(parseInt(e.target.value, 10))}
+                      style={{
+                        width: '100%',
+                        padding: 'var(--space-padding-input)',
+                        paddingRight: 'calc(var(--space-12) + 16px)',
+                        borderRadius: 'var(--shape-radius-input)',
+                        borderWidth: '1px',
+                        borderStyle: 'solid',
+                        borderColor: 'var(--color-border-input-default)',
+                        fontSize: 'var(--font-size-input-medium)',
+                        color: 'var(--color-text-primary)',
+                        backgroundColor: 'var(--color-background-input-default)',
+                        appearance: 'none',
+                        WebkitAppearance: 'none',
+                      }}
+                    >
+                      {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
+                        <option key={day} value={day}>
+                          Dia {day}
+                        </option>
+                      ))}
+                    </select>
+                    <div
+                      className="absolute pointer-events-none"
+                      style={{ right: 'var(--space-12)', top: '50%', transform: 'translateY(-50%)' }}
+                    >
+                      <Icon name="chevron-down" size={16} color="var(--color-text-secondary)" />
+                    </div>
+                  </div>
                 </div>
 
                 <div>
@@ -268,27 +279,38 @@ export function NewCardModal({ isOpen, onClose }: NewCardModalProps) {
                   >
                     Vencimento
                   </label>
-                  <select
-                    value={dueDay}
-                    onChange={(e) => setDueDay(parseInt(e.target.value, 10))}
-                    style={{
-                      width: '100%',
-                      padding: 'var(--space-padding-input)',
-                      borderRadius: 'var(--shape-radius-input)',
-                      borderWidth: '1px',
-                      borderStyle: 'solid',
-                      borderColor: 'var(--color-border-input-default)',
-                      fontSize: 'var(--font-size-input-medium)',
-                      color: 'var(--color-text-primary)',
-                      backgroundColor: 'var(--color-background-input-default)',
-                    }}
-                  >
-                    {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
-                      <option key={day} value={day}>
-                        Dia {day}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select
+                      value={dueDay}
+                      onChange={(e) => setDueDay(parseInt(e.target.value, 10))}
+                      style={{
+                        width: '100%',
+                        padding: 'var(--space-padding-input)',
+                        paddingRight: 'calc(var(--space-12) + 16px)',
+                        borderRadius: 'var(--shape-radius-input)',
+                        borderWidth: '1px',
+                        borderStyle: 'solid',
+                        borderColor: 'var(--color-border-input-default)',
+                        fontSize: 'var(--font-size-input-medium)',
+                        color: 'var(--color-text-primary)',
+                        backgroundColor: 'var(--color-background-input-default)',
+                        appearance: 'none',
+                        WebkitAppearance: 'none',
+                      }}
+                    >
+                      {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
+                        <option key={day} value={day}>
+                          Dia {day}
+                        </option>
+                      ))}
+                    </select>
+                    <div
+                      className="absolute pointer-events-none"
+                      style={{ right: 'var(--space-12)', top: '50%', transform: 'translateY(-50%)' }}
+                    >
+                      <Icon name="chevron-down" size={16} color="var(--color-text-secondary)" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </>
@@ -339,27 +361,38 @@ export function NewCardModal({ isOpen, onClose }: NewCardModalProps) {
             >
               Responsável
             </label>
-            <select
-              value={holderId || ''}
-              onChange={(e) => setHolderId(e.target.value || null)}
-              style={{
-                width: '100%',
-                padding: 'var(--space-padding-input)',
-                borderRadius: 'var(--shape-radius-input)',
-                borderWidth: '1px',
-                borderStyle: 'solid',
-                borderColor: 'var(--color-border-input-default)',
-                fontSize: 'var(--font-size-input-medium)',
-                color: 'var(--color-text-primary)',
-                backgroundColor: 'var(--color-background-input-default)',
-              }}
-            >
-              {familyMembers.map((member: { id: string; name: string }) => (
-                <option key={member.id} value={member.id}>
-                  {member.name}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                value={holderId || ''}
+                onChange={(e) => setHolderId(e.target.value || null)}
+                style={{
+                  width: '100%',
+                  padding: 'var(--space-padding-input)',
+                  paddingRight: 'calc(var(--space-12) + 16px)',
+                  borderRadius: 'var(--shape-radius-input)',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: 'var(--color-border-input-default)',
+                  fontSize: 'var(--font-size-input-medium)',
+                  color: 'var(--color-text-primary)',
+                  backgroundColor: 'var(--color-background-input-default)',
+                  appearance: 'none',
+                  WebkitAppearance: 'none',
+                }}
+              >
+                {familyMembers.map((member: { id: string; name: string }) => (
+                  <option key={member.id} value={member.id}>
+                    {member.name}
+                  </option>
+                ))}
+              </select>
+              <div
+                className="absolute pointer-events-none"
+                style={{ right: 'var(--space-12)', top: '50%', transform: 'translateY(-50%)' }}
+              >
+                <Icon name="chevron-down" size={16} color="var(--color-text-secondary)" />
+              </div>
+            </div>
           </div>
 
           <div>

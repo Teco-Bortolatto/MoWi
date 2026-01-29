@@ -203,27 +203,37 @@ export function TransactionsTable() {
           </div>
 
           {/* Select de tipo */}
-          <select
-            value={localTransactionType}
-            onChange={(e) => setLocalTransactionType(e.target.value as 'all' | 'INCOME' | 'EXPENSE')}
-            style={{
-              width: '140px',
-              height: 'var(--size-input-height-small)',
-              paddingLeft: 'var(--space-layout-component)',
-              paddingRight: 'calc(var(--space-layout-component) + 24px)',
-              borderRadius: '32px',
-              borderWidth: '1px',
-              borderStyle: 'solid',
-              borderColor: 'var(--color-border-input-default)',
-              fontSize: 'var(--font-size-input-small)',
-              color: 'var(--color-text-primary)',
-              backgroundColor: 'var(--color-background-input-default)',
-            }}
-          >
-            <option value="all">Todos</option>
-            <option value="INCOME">Receitas</option>
-            <option value="EXPENSE">Despesas</option>
-          </select>
+          <div className="relative" style={{ width: '140px' }}>
+            <select
+              value={localTransactionType}
+              onChange={(e) => setLocalTransactionType(e.target.value as 'all' | 'INCOME' | 'EXPENSE')}
+              style={{
+                width: '100%',
+                height: 'var(--size-input-height-small)',
+                padding: 'var(--space-padding-button-small)',
+                paddingRight: 'calc(var(--space-12) + 16px)',
+                borderRadius: 'var(--shape-radius-input)',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: 'var(--color-border-input-default)',
+                fontSize: 'var(--font-size-input-small)',
+                color: 'var(--color-text-primary)',
+                backgroundColor: 'var(--color-background-input-default)',
+                appearance: 'none',
+                WebkitAppearance: 'none',
+              }}
+            >
+              <option value="all">Todos</option>
+              <option value="INCOME">Receitas</option>
+              <option value="EXPENSE">Despesas</option>
+            </select>
+            <div
+              className="absolute pointer-events-none"
+              style={{ right: 'var(--space-12)', top: '50%', transform: 'translateY(-50%)' }}
+            >
+              <Icon name="chevron-down" size={16} color="var(--color-text-secondary)" />
+            </div>
+          </div>
         </div>
       </div>
 

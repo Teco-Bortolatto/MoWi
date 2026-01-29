@@ -6,6 +6,7 @@ export type IconName =
   | 'user'
   | 'chevron-left'
   | 'chevron-right'
+  | 'chevron-down'
   | 'menu'
   | 'x'
   | 'search'
@@ -41,6 +42,7 @@ const iconPaths: Record<IconName, string> = {
   user: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
   'chevron-left': 'M15 19l-7-7 7-7',
   'chevron-right': 'M9 5l7 7-7 7',
+  'chevron-down': 'M19 9l-7 7-7-7',
   menu: 'M4 6h16M4 12h16M4 18h16',
   x: 'M6 18L18 6M6 6l12 12',
   search: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',

@@ -16,9 +16,7 @@ export function SidebarNavItem({ path, label, icon, isExpanded }: SidebarNavItem
   const [showTooltip, setShowTooltip] = useState(false)
 
   const handleMouseEnter = () => {
-    if (!isExpanded) {
-      setTimeout(() => setShowTooltip(true), 300)
-    }
+    if (!isExpanded) setShowTooltip(true)
   }
 
   const handleMouseLeave = () => {
@@ -29,7 +27,7 @@ export function SidebarNavItem({ path, label, icon, isExpanded }: SidebarNavItem
     <div className="relative">
       <Link
         to={path}
-        className="flex items-center transition-all duration-200"
+        className="flex items-center"
         style={{
           height: 'var(--size-48)',
           marginBottom: 'var(--space-4)',
@@ -43,7 +41,7 @@ export function SidebarNavItem({ path, label, icon, isExpanded }: SidebarNavItem
         onMouseEnter={(e) => {
           handleMouseEnter()
           if (!isActive) {
-            e.currentTarget.style.backgroundColor = 'var(--color-background-sidebar-hover)'
+            e.currentTarget.style.backgroundColor = 'var(--color-background-tertiary)'
           }
         }}
         onMouseLeave={(e) => {
@@ -81,7 +79,7 @@ export function SidebarNavItem({ path, label, icon, isExpanded }: SidebarNavItem
         )}
       </Link>
 
-      {/* Tooltip quando colapsado */}
+      {/* Tooltip quando colapsado — sem losango nem shadow */}
       {!isExpanded && showTooltip && (
         <div
           className="absolute left-full whitespace-nowrap z-50 pointer-events-none"
@@ -95,23 +93,11 @@ export function SidebarNavItem({ path, label, icon, isExpanded }: SidebarNavItem
             borderRadius: 'var(--shape-8)',
             backgroundColor: isActive ? 'var(--color-background-action-primary)' : 'var(--color-background-card)',
             color: isActive ? 'var(--color-text-action-primary)' : 'var(--color-text-primary)',
-            boxShadow: 'var(--shadow-card-elevated)',
-            animation: 'fadeIn 0.2s ease-out',
             top: '50%',
             transform: 'translateY(-50%)',
           }}
         >
           {label}
-          <div
-            className="absolute left-0 top-1/2"
-            style={{
-              transform: 'translate(-50%, -50%) rotate(45deg)',
-              width: 'var(--space-8)',
-              height: 'var(--space-8)',
-              backgroundColor: isActive ? 'var(--color-background-action-primary)' : 'var(--color-background-card)',
-              zIndex: -1,
-            }}
-          ></div>
         </div>
       )}
     </div>

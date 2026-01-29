@@ -9,7 +9,7 @@ import { NewTransactionModal } from '../../../modals/NewTransactionModal'
  * Componente de widget de próximas despesas
  */
 export function UpcomingExpensesWidget() {
-  const { transactions, accounts, updateTransaction } = useFinance()
+  const { transactions, accounts, updateTransaction, filters } = useFinance()
   const creditCards = useMemo(
     () => accounts.filter((acc) => acc.type === 'CREDIT_CARD'),
     [accounts]
@@ -21,24 +21,27 @@ export function UpcomingExpensesWidget() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false)
 
-  // Buscar despesas pendentes e ordenar por data de vencimento
+  // Buscar despesas pendentes e ordenar por data de vencimento (filtra por perfil quando selecionado)
   const upcomingExpenses = useMemo(() => {
     const now = new Date()
     now.setHours(0, 0, 0, 0)
 
-    return transactions
+    let list = transactions
       .filter((t) => t.type === 'EXPENSE' && t.status === 'PENDING')
       .filter((t) => {
         const dueDate = new Date(t.date)
         dueDate.setHours(0, 0, 0, 0)
         return dueDate >= now
       })
-      .sort((a, b) => {
-        const dateA = new Date(a.date).getTime()
-        const dateB = new Date(b.date).getTime()
-        return dateA - dateB
-      })
-  }, [transactions])
+    if (filters.selectedMember) {
+      list = list.filter((t) => t.memberId === filters.selectedMember)
+    }
+    return list.sort((a, b) => {
+      const dateA = new Date(a.date).getTime()
+      const dateB = new Date(b.date).getTime()
+      return dateA - dateB
+    })
+  }, [transactions, filters.selectedMember])
 
   // Função para obter nome da conta/cartão
   const getAccountName = (accountId: string | null): string => {

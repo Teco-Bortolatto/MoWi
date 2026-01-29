@@ -103,29 +103,40 @@ export function NewFamilyMemberModal({ isOpen, onClose }: NewFamilyMemberModalPr
               >
                 Função / Parentesco
               </label>
-              <select
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: 'var(--space-padding-input)',
-                  borderRadius: 'var(--shape-radius-input)',
-                  borderWidth: '1px',
-                  borderStyle: 'solid',
-                  borderColor: 'var(--color-border-input-default)',
-                  fontSize: 'var(--font-size-input-medium)',
-                  color: 'var(--color-text-primary)',
-                  backgroundColor: 'var(--color-background-input-default)',
-                }}
-              >
-                <option>Membro</option>
-                <option>Pai</option>
-                <option>Mãe</option>
-                <option>Filho</option>
-                <option>Filha</option>
-                <option>Avô</option>
-                <option>Avó</option>
-              </select>
+              <div className="relative">
+                <select
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: 'var(--space-padding-input)',
+                    paddingRight: 'calc(var(--space-12) + 16px)',
+                    borderRadius: 'var(--shape-radius-input)',
+                    borderWidth: '1px',
+                    borderStyle: 'solid',
+                    borderColor: 'var(--color-border-input-default)',
+                    fontSize: 'var(--font-size-input-medium)',
+                    color: 'var(--color-text-primary)',
+                    backgroundColor: 'var(--color-background-input-default)',
+                    appearance: 'none',
+                    WebkitAppearance: 'none',
+                  }}
+                >
+                  <option>Membro</option>
+                  <option>Pai</option>
+                  <option>Mãe</option>
+                  <option>Filho</option>
+                  <option>Filha</option>
+                  <option>Avô</option>
+                  <option>Avó</option>
+                </select>
+                <div
+                  className="absolute pointer-events-none"
+                  style={{ right: 'var(--space-12)', top: '50%', transform: 'translateY(-50%)' }}
+                >
+                  <Icon name="chevron-down" size={16} color="var(--color-text-secondary)" />
+                </div>
+              </div>
             </div>
 
             <div>

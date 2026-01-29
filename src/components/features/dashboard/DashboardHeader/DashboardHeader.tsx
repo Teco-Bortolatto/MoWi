@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect, Fragment } from 'react'
 import { useFinance } from '../../../../contexts'
 import { Icon } from '../../../ui/Icon'
-import { Avatar } from '../../../ui/Avatar'
 import { Button } from '../../../ui/Button'
 import { NewTransactionModal } from '../../../modals/NewTransactionModal'
 import { NewFamilyMemberModal } from '../../../modals/NewFamilyMemberModal'
+import { SelectProfileModal } from '../../../modals/SelectProfileModal'
 import {
   formatDateRange,
   getCurrentMonthRange,
@@ -27,6 +27,7 @@ export function DashboardHeader() {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false)
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false)
   const [isNewFamilyMemberModalOpen, setIsNewFamilyMemberModalOpen] = useState(false)
+  const [isSelectProfileModalOpen, setIsSelectProfileModalOpen] = useState(false)
   const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null)
   const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null)
   const [currentMonth, setCurrentMonth] = useState(new Date())
@@ -799,18 +800,19 @@ export function DashboardHeader() {
     </>
   )
 
-  // Profile avatars component - overlapping for mobile/tablet, spaced for desktop
+  // Profile avatars component - 40x40 com 12px padding no conteúdo (span 40x40 + 12px)
   const ProfileAvatars = ({ overlapping = false }: { overlapping?: boolean }) => (
-    <div 
-      className="flex items-center flex-shrink-0" 
-      style={{ 
+    <div
+      className="flex items-center flex-shrink-0"
+      style={{
         gap: overlapping ? '0px' : '8px',
-        marginRight: '0px', 
-        justifyContent: 'flex-start' 
+        marginRight: '0px',
+        justifyContent: 'flex-start',
       }}
     >
       {familyMembers.slice(0, 3).map((member, idx) => {
         const isSelected = filters.selectedMember === member.id
+        const initial = member.name.charAt(0).toUpperCase()
         return (
           <Fragment key={member.id}>
             <div
@@ -834,8 +836,8 @@ export function DashboardHeader() {
             >
               <div
                 style={{
-                  width: '48px',
-                  height: '48px',
+                  width: '40px',
+                  height: '40px',
                   borderRadius: '50%',
                   borderWidth: '2px',
                   borderStyle: 'solid',
@@ -854,8 +856,11 @@ export function DashboardHeader() {
               >
                 <div
                   style={{
-                    width: '44px',
-                    height: '44px',
+                    width: '40px',
+                    height: '40px',
+                    ...(member.avatarUrl
+                      ? { padding: '12px', boxSizing: 'border-box' as const }
+                      : {}),
                     borderRadius: '50%',
                     overflow: 'hidden',
                     display: 'flex',
@@ -863,7 +868,36 @@ export function DashboardHeader() {
                     justifyContent: 'center',
                   }}
                 >
-                  <Avatar src={member.avatarUrl} alt={member.name} size="md" />
+                  {member.avatarUrl ? (
+                    <img
+                      src={member.avatarUrl}
+                      alt={member.name}
+                      style={{
+                        width: '16px',
+                        height: '16px',
+                        borderRadius: '50%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  ) : (
+                    <span
+                      style={{
+                        width: '40px',
+                        height: '40px',
+                        padding: '12px',
+                        boxSizing: 'border-box',
+                        fontSize: 'var(--font-size-text-label)',
+                        fontWeight: 'var(--font-weight-semibold)',
+                        color: 'var(--color-text-secondary)',
+                        lineHeight: 1,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {initial}
+                    </span>
+                  )}
                 </div>
               </div>
               {isSelected && (
@@ -1011,8 +1045,35 @@ export function DashboardHeader() {
               style={{ height: '40px', width: '40px', minWidth: '40px', flexShrink: 0 }}
             />
 
-            {/* Profiles (overlapping) */}
-            <ProfileAvatars overlapping={true} />
+            {/* Perfis: botão abre modal (mobile) — acessibilidade, alvo de toque ≥ 44px */}
+            <button
+              type="button"
+              onClick={() => setIsSelectProfileModalOpen(true)}
+              className="flex items-center justify-center flex-shrink-0"
+              style={{
+                minHeight: '44px',
+                minWidth: '44px',
+                padding: 'var(--space-12) var(--space-16)',
+                borderRadius: 'var(--shape-radius-button)',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: 'var(--color-border-default)',
+                backgroundColor: 'var(--color-background-tertiary)',
+                fontSize: 'var(--font-size-text-label)',
+                fontWeight: 'var(--font-weight-semibold)',
+                color: 'var(--color-text-primary)',
+                fontFeatureSettings: "'liga' off",
+              }}
+              aria-label={
+                filters.selectedMember
+                  ? `Perfil selecionado: ${familyMembers.find((m) => m.id === filters.selectedMember)?.name ?? 'Perfil'}. Clique para alterar.`
+                  : 'Ver gastos por perfil. Clique para escolher.'
+              }
+            >
+              {filters.selectedMember
+                ? familyMembers.find((m) => m.id === filters.selectedMember)?.name?.charAt(0).toUpperCase() ?? '?'
+                : 'Todos'}
+            </button>
           </div>
 
           {/* Line 3: New Transaction Button (full width) */}
@@ -1141,8 +1202,35 @@ export function DashboardHeader() {
               style={{ height: '40px', width: '40px', minWidth: '40px', flexShrink: 0 }}
             />
 
-            {/* Profiles (overlapping) */}
-            <ProfileAvatars overlapping={true} />
+            {/* Perfis: botão abre modal (tablet) — acessibilidade, alvo de toque ≥ 44px */}
+            <button
+              type="button"
+              onClick={() => setIsSelectProfileModalOpen(true)}
+              className="flex items-center justify-center flex-shrink-0"
+              style={{
+                minHeight: '44px',
+                minWidth: '44px',
+                padding: 'var(--space-12) var(--space-16)',
+                borderRadius: 'var(--shape-radius-button)',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: 'var(--color-border-default)',
+                backgroundColor: 'var(--color-background-tertiary)',
+                fontSize: 'var(--font-size-text-label)',
+                fontWeight: 'var(--font-weight-semibold)',
+                color: 'var(--color-text-primary)',
+                fontFeatureSettings: "'liga' off",
+              }}
+              aria-label={
+                filters.selectedMember
+                  ? `Perfil selecionado: ${familyMembers.find((m) => m.id === filters.selectedMember)?.name ?? 'Perfil'}. Clique para alterar.`
+                  : 'Ver gastos por perfil. Clique para escolher.'
+              }
+            >
+              {filters.selectedMember
+                ? familyMembers.find((m) => m.id === filters.selectedMember)?.name?.charAt(0).toUpperCase() ?? '?'
+                : 'Todos'}
+            </button>
           </div>
 
           {/* New Transaction Button (fit-content) */}
@@ -1304,6 +1392,15 @@ export function DashboardHeader() {
       <NewFamilyMemberModal
         isOpen={isNewFamilyMemberModalOpen}
         onClose={() => setIsNewFamilyMemberModalOpen(false)}
+      />
+
+      {/* Modal Seleção de Perfil (tablet/mobile) */}
+      <SelectProfileModal
+        isOpen={isSelectProfileModalOpen}
+        onClose={() => setIsSelectProfileModalOpen(false)}
+        familyMembers={familyMembers}
+        selectedMemberId={filters.selectedMember}
+        onSelectMember={setSelectedMember}
       />
     </>
   )

@@ -233,6 +233,7 @@ export function NewGoalModal({ isOpen, onClose }: NewGoalModalProps) {
                 onChange={(e) => setDeadline(e.target.value ? new Date(e.target.value) : null)}
                 style={{
                   width: '100%',
+                  minHeight: '58px',
                   padding: 'var(--space-padding-button-small)',
                   paddingRight: 'var(--space-padding-input)',
                   borderRadius: 'var(--shape-radius-input)',
@@ -243,16 +244,6 @@ export function NewGoalModal({ isOpen, onClose }: NewGoalModalProps) {
                   color: 'var(--color-text-primary)',
                 }}
               />
-              <div
-                className="absolute"
-                style={{
-                  right: 'var(--space-padding-button-small)',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                }}
-              >
-                <Icon name="calendar" size={16} color="var(--color-text-secondary)" />
-              </div>
             </div>
           </div>
 
@@ -302,28 +293,39 @@ export function NewGoalModal({ isOpen, onClose }: NewGoalModalProps) {
             >
               Responsável
             </label>
-            <select
-              value={memberId || ''}
-              onChange={(e) => setMemberId(e.target.value || null)}
-              style={{
-                width: '100%',
-                padding: 'var(--space-padding-input)',
-                borderRadius: 'var(--shape-radius-input)',
-                borderWidth: '1px',
-                borderStyle: 'solid',
-                borderColor: 'var(--color-border-input-default)',
-                fontSize: 'var(--font-size-input-medium)',
-                color: 'var(--color-text-primary)',
-                backgroundColor: 'var(--color-background-input-default)',
-              }}
-            >
-              <option value="">Familiar (todos)</option>
-              {familyMembers.map((member) => (
-                <option key={member.id} value={member.id}>
-                  {member.name}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                value={memberId || ''}
+                onChange={(e) => setMemberId(e.target.value || null)}
+                style={{
+                  width: '100%',
+                  padding: 'var(--space-padding-input)',
+                  paddingRight: 'calc(var(--space-12) + 16px)',
+                  borderRadius: 'var(--shape-radius-input)',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: 'var(--color-border-input-default)',
+                  fontSize: 'var(--font-size-input-medium)',
+                  color: 'var(--color-text-primary)',
+                  backgroundColor: 'var(--color-background-input-default)',
+                  appearance: 'none',
+                  WebkitAppearance: 'none',
+                }}
+              >
+                <option value="">Familiar (todos)</option>
+                {familyMembers.map((member) => (
+                  <option key={member.id} value={member.id}>
+                    {member.name}
+                  </option>
+                ))}
+              </select>
+              <div
+                className="absolute pointer-events-none"
+                style={{ right: 'var(--space-12)', top: '50%', transform: 'translateY(-50%)' }}
+              >
+                <Icon name="chevron-down" size={16} color="var(--color-text-secondary)" />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -342,7 +344,7 @@ export function NewGoalModal({ isOpen, onClose }: NewGoalModalProps) {
             Ícone
           </label>
           <div
-            className="grid grid-cols-5 gap-2"
+            className="grid grid-cols-5 gap-4"
             style={{ marginBottom: 'var(--space-layout-component)' }}
           >
             {goalIcons.map((icon) => (

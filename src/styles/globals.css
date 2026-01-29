@@ -99,6 +99,16 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* Hide native date input calendar icon (use custom icon instead) */
+  .hide-native-date-icon::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
 }
 
 @keyframes fadeIn {

@@ -360,39 +360,67 @@ function ProfilePage() {
                 <span style={{ fontSize: 'var(--font-size-text-body-medium)', color: 'var(--color-text-primary)' }}>
                   Moeda padrão
                 </span>
-                <select
-                  disabled
-                  style={{
-                    padding: 'var(--space-layout-element) var(--space-gap-component)',
-                    borderRadius: 'var(--shape-radius-input)',
-                    borderWidth: '1px',
-                    borderStyle: 'solid',
-                    borderColor: 'var(--color-border-input-default)',
-                    fontSize: 'var(--font-size-text-body-small)',
-                    opacity: 0.5,
-                  }}
-                >
-                  <option>Real Brasileiro (R$)</option>
-                </select>
+                <div className="relative" style={{ minWidth: '160px' }}>
+                  <select
+                    disabled
+                    style={{
+                      width: '100%',
+                      padding: 'var(--space-padding-input)',
+                      paddingRight: 'calc(var(--space-12) + 16px)',
+                      borderRadius: 'var(--shape-radius-input)',
+                      borderWidth: '1px',
+                      borderStyle: 'solid',
+                      borderColor: 'var(--color-border-input-default)',
+                      fontSize: 'var(--font-size-text-body-small)',
+                      color: 'var(--color-text-primary)',
+                      backgroundColor: 'var(--color-background-input-default)',
+                      opacity: 0.5,
+                      appearance: 'none',
+                      WebkitAppearance: 'none',
+                    }}
+                  >
+                    <option>Real Brasileiro (R$)</option>
+                  </select>
+                  <div
+                    className="absolute pointer-events-none"
+                    style={{ right: 'var(--space-12)', top: '50%', transform: 'translateY(-50%)' }}
+                  >
+                    <Icon name="chevron-down" size={16} color="var(--color-text-secondary)" />
+                  </div>
+                </div>
               </div>
               <div className="flex items-center justify-between">
                 <span style={{ fontSize: 'var(--font-size-text-body-medium)', color: 'var(--color-text-primary)' }}>
                   Formato de data
                 </span>
-                <select
-                  disabled
-                  style={{
-                    padding: 'var(--space-layout-element) var(--space-gap-component)',
-                    borderRadius: 'var(--shape-radius-input)',
-                    borderWidth: '1px',
-                    borderStyle: 'solid',
-                    borderColor: 'var(--color-border-input-default)',
-                    fontSize: 'var(--font-size-text-body-small)',
-                    opacity: 0.5,
-                  }}
-                >
-                  <option>DD/MM/AAAA</option>
-                </select>
+                <div className="relative" style={{ minWidth: '160px' }}>
+                  <select
+                    disabled
+                    style={{
+                      width: '100%',
+                      padding: 'var(--space-padding-input)',
+                      paddingRight: 'calc(var(--space-12) + 16px)',
+                      borderRadius: 'var(--shape-radius-input)',
+                      borderWidth: '1px',
+                      borderStyle: 'solid',
+                      borderColor: 'var(--color-border-input-default)',
+                      fontSize: 'var(--font-size-text-body-small)',
+                      color: 'var(--color-text-primary)',
+                      backgroundColor: 'var(--color-background-input-default)',
+                      opacity: 0.5,
+                      appearance: 'none',
+                      WebkitAppearance: 'none',
+                    }}
+                  >
+                    <option>DD/MM/AAAA</option>
+                  </select>
+                  <div
+                    className="absolute pointer-events-none"
+                    style={{ right: 'var(--space-12)', top: '50%', transform: 'translateY(-50%)' }}
+                  >
+                    <Icon name="chevron-down" size={16} color="var(--color-text-secondary)" />
+                  </div>
+                </div>
               </div>
             </div>
 

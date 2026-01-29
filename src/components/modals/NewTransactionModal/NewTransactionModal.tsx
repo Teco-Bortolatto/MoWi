@@ -223,13 +223,14 @@ export function NewTransactionModal({
             <div className="relative">
               <input
                 type="date"
+                className="hide-native-date-icon"
                 value={date.toISOString().split('T')[0]}
                 onChange={(e) => setDate(new Date(e.target.value))}
                 required
                 style={{
                   width: '100%',
-                  padding: 'var(--space-padding-button-small)',
-                  paddingRight: 'var(--space-padding-input)', // Mantido para posicionar ícone
+                  padding: 'var(--space-padding-input)',
+                  paddingRight: 'calc(var(--space-12) + 16px)',
                   borderRadius: 'var(--shape-radius-input)',
                   borderWidth: '1px',
                   borderStyle: 'solid',
@@ -238,7 +239,10 @@ export function NewTransactionModal({
                   color: 'var(--color-text-primary)',
                 }}
               />
-              <div className="absolute" style={{ right: 'var(--space-padding-button-small)', top: '50%', transform: 'translateY(-50%)' }}>
+              <div
+                className="absolute pointer-events-none"
+                style={{ right: 'var(--space-12)', top: '50%', transform: 'translateY(-50%)' }}
+              >
                 <Icon name="calendar" size={16} color="var(--color-text-secondary)" />
               </div>
             </div>
@@ -279,7 +283,7 @@ export function NewTransactionModal({
 
           {/* Categoria */}
           <div>
-            <div className="flex items-center justify-between" style={{ marginBottom: 'var(--space-layout-element)' }}>
+            <div className="flex items-center justify-between" style={{ marginBottom: 'var(--space-layout-element)', paddingRight: '8px' }}>
               <label
                 style={{
                   fontSize: 'var(--font-size-text-label)',
@@ -299,33 +303,44 @@ export function NewTransactionModal({
                 Nova
               </button>
             </div>
-            <select
-              value={categoryId}
-              onChange={(e) => setCategoryId(e.target.value)}
-              required
-              disabled={loadingCategories}
-              style={{
-                width: '100%',
-                padding: 'var(--space-padding-input)',
-                borderRadius: 'var(--shape-radius-input)',
-                borderWidth: '1px',
-                borderStyle: 'solid',
-                borderColor: 'var(--color-border-input-default)',
-                fontSize: 'var(--font-size-input-medium)',
-                color: 'var(--color-text-primary)',
-                backgroundColor: 'var(--color-background-input-default)',
-              }}
-            >
-              {loadingCategories ? (
-                <option>Carregando...</option>
-              ) : (
-                categories.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.icon} {cat.name}
-                  </option>
-                ))
-              )}
-            </select>
+            <div className="relative">
+              <select
+                value={categoryId}
+                onChange={(e) => setCategoryId(e.target.value)}
+                required
+                disabled={loadingCategories}
+                style={{
+                  width: '100%',
+                  padding: 'var(--space-padding-input)',
+                  paddingRight: 'calc(var(--space-12) + 16px)',
+                  borderRadius: 'var(--shape-radius-input)',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: 'var(--color-border-input-default)',
+                  fontSize: 'var(--font-size-input-medium)',
+                  color: 'var(--color-text-primary)',
+                  backgroundColor: 'var(--color-background-input-default)',
+                  appearance: 'none',
+                  WebkitAppearance: 'none',
+                }}
+              >
+                {loadingCategories ? (
+                  <option>Carregando...</option>
+                ) : (
+                  categories.map((cat) => (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.icon} {cat.name}
+                    </option>
+                  ))
+                )}
+              </select>
+              <div
+                className="absolute pointer-events-none"
+                style={{ right: 'var(--space-12)', top: '50%', transform: 'translateY(-50%)' }}
+              >
+                <Icon name="chevron-down" size={16} color="var(--color-text-secondary)" />
+              </div>
+            </div>
           </div>
 
           {/* Responsável */}
@@ -342,28 +357,39 @@ export function NewTransactionModal({
             >
               Responsável
             </label>
-            <select
-              value={memberId || ''}
-              onChange={(e) => setMemberId(e.target.value || null)}
-              style={{
-                width: '100%',
-                padding: 'var(--space-padding-input)',
-                borderRadius: 'var(--shape-radius-input)',
-                borderWidth: '1px',
-                borderStyle: 'solid',
-                borderColor: 'var(--color-border-input-default)',
-                fontSize: 'var(--font-size-input-medium)',
-                color: 'var(--color-text-primary)',
-                backgroundColor: 'var(--color-background-input-default)',
-              }}
-            >
-              <option value="">Familiar</option>
-              {familyMembers.map((member: { id: string; name: string }) => (
-                <option key={member.id} value={member.id}>
-                  {member.name}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                value={memberId || ''}
+                onChange={(e) => setMemberId(e.target.value || null)}
+                style={{
+                  width: '100%',
+                  padding: 'var(--space-padding-input)',
+                  paddingRight: 'calc(var(--space-12) + 16px)',
+                  borderRadius: 'var(--shape-radius-input)',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: 'var(--color-border-input-default)',
+                  fontSize: 'var(--font-size-input-medium)',
+                  color: 'var(--color-text-primary)',
+                  backgroundColor: 'var(--color-background-input-default)',
+                  appearance: 'none',
+                  WebkitAppearance: 'none',
+                }}
+              >
+                <option value="">Familiar</option>
+                {familyMembers.map((member: { id: string; name: string }) => (
+                  <option key={member.id} value={member.id}>
+                    {member.name}
+                  </option>
+                ))}
+              </select>
+              <div
+                className="absolute pointer-events-none"
+                style={{ right: 'var(--space-12)', top: '50%', transform: 'translateY(-50%)' }}
+              >
+                <Icon name="chevron-down" size={16} color="var(--color-text-secondary)" />
+              </div>
+            </div>
           </div>
 
           {/* Conta/Cartão */}
@@ -380,28 +406,39 @@ export function NewTransactionModal({
             >
               Conta / cartão
             </label>
-            <select
-              value={accountId || ''}
-              onChange={(e) => setAccountId(e.target.value || null)}
-              style={{
-                width: '100%',
-                padding: 'var(--space-padding-input)',
-                borderRadius: 'var(--shape-radius-input)',
-                borderWidth: '1px',
-                borderStyle: 'solid',
-                borderColor: 'var(--color-border-input-default)',
-                fontSize: 'var(--font-size-input-medium)',
-                color: 'var(--color-text-primary)',
-                backgroundColor: 'var(--color-background-input-default)',
-              }}
-            >
-              <option value="">Selecione</option>
-              {allAccounts.map((acc: { id: string; name: string; type: 'account' | 'card' }) => (
-                <option key={acc.id} value={acc.id}>
-                  {acc.name}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                value={accountId || ''}
+                onChange={(e) => setAccountId(e.target.value || null)}
+                style={{
+                  width: '100%',
+                  padding: 'var(--space-padding-input)',
+                  paddingRight: 'calc(var(--space-12) + 16px)',
+                  borderRadius: 'var(--shape-radius-input)',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: 'var(--color-border-input-default)',
+                  fontSize: 'var(--font-size-input-medium)',
+                  color: 'var(--color-text-primary)',
+                  backgroundColor: 'var(--color-background-input-default)',
+                  appearance: 'none',
+                  WebkitAppearance: 'none',
+                }}
+              >
+                <option value="">Selecione</option>
+                {allAccounts.map((acc: { id: string; name: string; type: 'account' | 'card' }) => (
+                  <option key={acc.id} value={acc.id}>
+                    {acc.name}
+                  </option>
+                ))}
+              </select>
+              <div
+                className="absolute pointer-events-none"
+                style={{ right: 'var(--space-12)', top: '50%', transform: 'translateY(-50%)' }}
+              >
+                <Icon name="chevron-down" size={16} color="var(--color-text-secondary)" />
+              </div>
+            </div>
           </div>
 
           {/* Parcelas */}
@@ -418,27 +455,38 @@ export function NewTransactionModal({
             >
               Parcelas
             </label>
-            <select
-              value={installments}
-              onChange={(e) => setInstallments(parseInt(e.target.value, 10))}
-              style={{
-                width: '100%',
-                padding: 'var(--space-padding-input)',
-                borderRadius: 'var(--shape-radius-input)',
-                borderWidth: '1px',
-                borderStyle: 'solid',
-                borderColor: 'var(--color-border-input-default)',
-                fontSize: 'var(--font-size-input-medium)',
-                color: 'var(--color-text-primary)',
-                backgroundColor: 'var(--color-background-input-default)',
-              }}
-            >
-              {[1, 2, 3, 4, 5, 6, 10, 12].map((num) => (
-                <option key={num} value={num}>
-                  {num === 1 ? 'À vista (1x)' : `${num}x`}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                value={installments}
+                onChange={(e) => setInstallments(parseInt(e.target.value, 10))}
+                style={{
+                  width: '100%',
+                  padding: 'var(--space-padding-input)',
+                  paddingRight: 'calc(var(--space-12) + 16px)',
+                  borderRadius: 'var(--shape-radius-input)',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: 'var(--color-border-input-default)',
+                  fontSize: 'var(--font-size-input-medium)',
+                  color: 'var(--color-text-primary)',
+                  backgroundColor: 'var(--color-background-input-default)',
+                  appearance: 'none',
+                  WebkitAppearance: 'none',
+                }}
+              >
+                {[1, 2, 3, 4, 5, 6, 10, 12].map((num) => (
+                  <option key={num} value={num}>
+                    {num === 1 ? 'À vista (1x)' : `${num}x`}
+                  </option>
+                ))}
+              </select>
+              <div
+                className="absolute pointer-events-none"
+                style={{ right: 'var(--space-12)', top: '50%', transform: 'translateY(-50%)' }}
+              >
+                <Icon name="chevron-down" size={16} color="var(--color-text-secondary)" />
+              </div>
+            </div>
           </div>
         </div>
 

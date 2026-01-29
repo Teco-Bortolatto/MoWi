@@ -14,7 +14,7 @@ const CARD_GAP = 16
  * Carrossel de cards (um por objetivo) ou estado vazio com ícone + texto em borda pontilhada.
  */
 export function FinancialGoalsWidget() {
-  const { goals } = useFinance()
+  const { goals, filters } = useFinance()
   const carouselRef = useRef<HTMLDivElement>(null)
   const [isHovered, setIsHovered] = useState(false)
   const [showLeftArrow, setShowLeftArrow] = useState(false)
@@ -23,10 +23,13 @@ export function FinancialGoalsWidget() {
   const [startX, setStartX] = useState(0)
   const [scrollLeft, setScrollLeft] = useState(0)
 
-  const activeGoals = useMemo(
-    () => goals.filter((g) => !g.isCompleted),
-    [goals]
-  )
+  const activeGoals = useMemo(() => {
+    let list = goals.filter((g) => !g.isCompleted)
+    if (filters.selectedMember) {
+      list = list.filter((g) => g.memberId === filters.selectedMember)
+    }
+    return list
+  }, [goals, filters.selectedMember])
 
   useEffect(() => {
     const checkScroll = () => {

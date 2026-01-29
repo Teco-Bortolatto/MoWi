@@ -322,6 +322,9 @@ export function FinanceProvider({ children }: FinanceProviderProps) {
     (startDate?: Date, endDate?: Date): CategoryExpense[] => {
       let filtered = transactions.filter((t) => t.type === 'EXPENSE' && t.status === 'COMPLETED')
 
+      if (filters.selectedMember) {
+        filtered = filtered.filter((t) => t.memberId === filters.selectedMember)
+      }
       if (startDate) {
         filtered = filtered.filter((t) => t.date >= startDate)
       }
@@ -349,7 +352,7 @@ export function FinanceProvider({ children }: FinanceProviderProps) {
 
       return categoryExpenses.sort((a, b) => b.amount - a.amount)
     },
-    [transactions, calculateIncomeForPeriod]
+    [transactions, calculateIncomeForPeriod, filters.selectedMember]
   )
 
   const calculateCategoryPercentage = useCallback(

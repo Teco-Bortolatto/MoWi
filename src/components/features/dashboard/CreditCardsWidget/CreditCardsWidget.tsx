@@ -9,8 +9,14 @@ import { NewCardModal } from '../../../modals/NewCardModal'
  * Componente de widget de cartões de crédito
  */
 export function CreditCardsWidget() {
-  const { accounts } = useFinance()
-  const creditCards = useMemo(() => accounts.filter(acc => acc.type === 'CREDIT_CARD'), [accounts])
+  const { accounts, filters } = useFinance()
+  const creditCards = useMemo(() => {
+    let list = accounts.filter((acc) => acc.type === 'CREDIT_CARD')
+    if (filters.selectedMember) {
+      list = list.filter((acc) => acc.holderId === filters.selectedMember)
+    }
+    return list
+  }, [accounts, filters.selectedMember])
   const [currentPage, setCurrentPage] = useState(0)
   const [isNewCardModalOpen, setIsNewCardModalOpen] = useState(false)
   const itemsPerPage = 3
