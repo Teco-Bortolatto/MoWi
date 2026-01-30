@@ -50,6 +50,7 @@ export function useAnimatedValue(targetValue: number, duration: number = 800): n
         animationFrameRef.current = null
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- animate on target/duration change only
   }, [targetValue, duration])
 
   return Math.round(animatedValue * 100) / 100

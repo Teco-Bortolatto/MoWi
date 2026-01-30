@@ -57,6 +57,7 @@ export function NewTransactionModal({
     if (isOpen) {
       loadCategories()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- load on open/type change only
   }, [isOpen, transactionType])
 
   const handleSubmit = (e: React.FormEvent) => {

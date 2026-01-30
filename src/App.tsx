@@ -1,15 +1,17 @@
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { FinanceProvider } from './contexts'
 import { Layout } from './components/layout'
 import { ScrollToTop } from './components/ScrollToTop'
-import DashboardPage from './pages/DashboardPage'
-import CardsPage from './pages/CardsPage'
-import TransactionsPage from './pages/TransactionsPage'
-import ProfilePage from './pages/ProfilePage'
-import GoalsPage from './pages/GoalsPage'
-import AuthPage from './pages/AuthPage'
-import ResetPasswordPage from './pages/ResetPasswordPage'
 import { useAuth } from './hooks/useAuth'
+
+const DashboardPage = lazy(() => import('./pages/DashboardPage'))
+const CardsPage = lazy(() => import('./pages/CardsPage'))
+const TransactionsPage = lazy(() => import('./pages/TransactionsPage'))
+const ProfilePage = lazy(() => import('./pages/ProfilePage'))
+const GoalsPage = lazy(() => import('./pages/GoalsPage'))
+const AuthPage = lazy(() => import('./pages/AuthPage'))
+const ResetPasswordPage = lazy(() => import('./pages/ResetPasswordPage'))
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { session, loading } = useAuth()
@@ -29,11 +31,20 @@ function PrivateRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 
+function PageFallback() {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600" />
+    </div>
+  )
+}
+
 function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Routes>
+      <Suspense fallback={<PageFallback />}>
+        <Routes>
         <Route path="/login" element={<AuthPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
 
@@ -55,6 +66,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
+      </Suspense>
     </BrowserRouter>
   )
 }

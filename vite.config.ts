@@ -14,5 +14,14 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 800,
     target: 'es2020',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-supabase': ['@supabase/supabase-js'],
+          'vendor-recharts': ['recharts'],
+        },
+      },
+    },
   },
 })
