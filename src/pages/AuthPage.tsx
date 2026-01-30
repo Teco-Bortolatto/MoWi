@@ -60,7 +60,12 @@ export default function AuthPage() {
       }
       navigate('/')
     } catch (err: any) {
-      setError(err.message || 'Ocorreu um erro durante a autenticação')
+      const msg = err?.message ?? ''
+      const friendlyMessage =
+        msg.toLowerCase().includes('invalid login credentials')
+          ? 'e-mail ou login inválidos'
+          : msg || 'Ocorreu um erro durante a autenticação'
+      setError(friendlyMessage)
     } finally {
       setLoading(false)
     }

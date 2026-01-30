@@ -14,6 +14,7 @@ import { transactionService } from '../services/transactionService'
 import { accountService } from '../services/accountService'
 import { familyMemberService } from '../services/familyMemberService'
 import { goalService } from '../services/goalService'
+import { categoryService, type Category } from '../services/categoryService'
 import { useAuth } from '../hooks/useAuth'
 
 interface FinanceContextType {
@@ -22,6 +23,7 @@ interface FinanceContextType {
   goals: Goal[]
   accounts: Account[]
   familyMembers: FamilyMember[]
+  categories: Category[]
   loading: boolean
 
   // Filtros
@@ -78,6 +80,7 @@ export function FinanceProvider({ children }: FinanceProviderProps) {
   const [goals, setGoals] = useState<Goal[]>([])
   const [accounts, setAccounts] = useState<Account[]>([])
   const [familyMembers, setFamilyMembers] = useState<FamilyMember[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
 
   // Estado dos filtros
@@ -94,17 +97,19 @@ export function FinanceProvider({ children }: FinanceProviderProps) {
     
     setLoading(true)
     try {
-      const [tData, gData, aData, fData] = await Promise.all([
+      const [tData, gData, aData, fData, cData] = await Promise.all([
         transactionService.getAll(),
         goalService.getAll(),
         accountService.getAll(),
         familyMemberService.getAll(),
+        categoryService.getAll().catch(() => [] as Category[]),
       ])
       
       setTransactions(tData)
       setGoals(gData)
       setAccounts(aData)
       setFamilyMembers(fData)
+      setCategories(cData)
 
       // Lógica de recorrência simplificada:
       // Se houver transações recorrentes marcadas, poderíamos gerar as do mês atual aqui
@@ -342,17 +347,34 @@ export function FinanceProvider({ children }: FinanceProviderProps) {
       })
 
       const totalIncome = calculateIncomeForPeriod(startDate, endDate)
-      const categoryExpenses: CategoryExpense[] = Array.from(categoryMap.entries()).map(
-        ([category, amount]) => ({
-          category,
+      const expenseCategoryNames = categories
+        .filter((c) => c.type === 'EXPENSE')
+        .map((c) => c.name)
+
+      const result: CategoryExpense[] = []
+
+      expenseCategoryNames.forEach((name) => {
+        const amount = categoryMap.get(name) ?? 0
+        result.push({
+          category: name,
           amount,
           percentage: totalIncome > 0 ? (amount / totalIncome) * 100 : 0,
         })
-      )
+      })
 
-      return categoryExpenses.sort((a, b) => b.amount - a.amount)
+      categoryMap.forEach((amount, categoryName) => {
+        if (!expenseCategoryNames.includes(categoryName)) {
+          result.push({
+            category: categoryName,
+            amount,
+            percentage: totalIncome > 0 ? (amount / totalIncome) * 100 : 0,
+          })
+        }
+      })
+
+      return result.sort((a, b) => b.amount - a.amount)
     },
-    [transactions, calculateIncomeForPeriod, filters.selectedMember]
+    [transactions, categories, calculateIncomeForPeriod, filters.selectedMember]
   )
 
   const calculateCategoryPercentage = useCallback(
@@ -399,6 +421,7 @@ export function FinanceProvider({ children }: FinanceProviderProps) {
     goals,
     accounts,
     familyMembers,
+    categories,
     loading,
     filters,
     setSelectedMember,

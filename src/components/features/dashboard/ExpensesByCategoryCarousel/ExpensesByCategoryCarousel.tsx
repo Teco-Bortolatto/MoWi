@@ -3,6 +3,8 @@ import { useFinance } from '../../../../contexts'
 import { getCurrentMonthRange } from '../../../../utils/formatDate'
 import { CategoryDonutCard } from './CategoryDonutCard'
 import { Button } from '../../../ui/Button'
+import { Icon } from '../../../ui/Icon'
+import { NewCategoryModal } from '../../../modals/NewCategoryModal/NewCategoryModal'
 
 /**
  * Todos os donuts usam brand-700 para otimizar acessibilidade
@@ -14,9 +16,10 @@ const getCategoryColor = (): string => {
 }
 
 export function ExpensesByCategoryCarousel() {
-  const { calculateExpensesByCategory, filters } = useFinance()
+  const { calculateExpensesByCategory, filters, refreshData } = useFinance()
   const carouselRef = useRef<HTMLDivElement>(null)
   const [isHovered, setIsHovered] = useState(false)
+  const [isNewCategoryModalOpen, setIsNewCategoryModalOpen] = useState(false)
   const [showLeftArrow, setShowLeftArrow] = useState(false)
   const [showRightArrow, setShowRightArrow] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
@@ -111,80 +114,8 @@ export function ExpensesByCategoryCarousel() {
     }
   }
 
-  // Verificar se há mais de 3 cards (para mostrar botão lateral)
-  const hasMoreThanThreeCards = expensesByCategory.length > 3
-  const isEmpty = expensesByCategory.length === 0
-
-  // Estado vazio: skeleton donut + legenda para indicar onde fica o Carrossel de Gastos por Categoria
-  if (isEmpty) {
-    const size = 131
-    const innerDiameter = 97.09
-    const strokeWidth = size / 2 - innerDiameter / 2
-    const center = size / 2
-
-    return (
-      <div
-        className="relative"
-        style={{ width: '100%' }}
-        aria-label="Gastos por categoria (nenhuma categoria de gasto criada)"
-      >
-        <div
-          className="flex overflow-x-auto scrollbar-hide"
-          style={{
-            width: '100%',
-            gap: 'var(--space-gap-card)',
-            paddingRight: 'var(--space-layout-component)',
-          }}
-        >
-          <div
-            className="flex flex-col items-center justify-center flex-shrink-0"
-            style={{
-              width: 'var(--size-card-donut-width)',
-              padding: 'var(--space-padding-card)',
-              backgroundColor: 'var(--color-background-card)',
-              borderWidth: '1px',
-              borderStyle: 'solid',
-              borderColor: 'var(--color-border-card)',
-              borderRadius: 'var(--shape-radius-card)',
-            }}
-          >
-            {/* Skeleton donut (anel vazio) */}
-            <div
-              className="relative flex items-center justify-center"
-              style={{
-                marginBottom: 'var(--space-32)',
-                width: size,
-                height: size,
-              }}
-            >
-              <svg width={size} height={size} style={{ transform: 'rotate(-90deg)' }} aria-hidden>
-                <circle
-                  cx={center}
-                  cy={center}
-                  r={center - strokeWidth / 2}
-                  fill="none"
-                  stroke="var(--color-background-tertiary)"
-                  strokeWidth={strokeWidth}
-                />
-              </svg>
-            </div>
-            <p
-              style={{
-                fontSize: 'var(--font-size-text-label)',
-                fontWeight: 'var(--font-weight-bold)',
-                lineHeight: 'var(--font-line-height-default)',
-                color: 'var(--color-text-tertiary)',
-                textAlign: 'center',
-                fontFeatureSettings: "'liga' off",
-              }}
-            >
-              Nenhuma categoria de gasto criada
-            </p>
-          </div>
-        </div>
-      </div>
-    )
-  }
+  // Card "Nova categoria" + cards de categorias; sempre mostrar o card de criar
+  const hasMoreThanThreeCards = expensesByCategory.length + 1 > 3
 
   return (
     <div
@@ -276,7 +207,64 @@ export function ExpensesByCategoryCarousel() {
             color={getCategoryColor()}
           />
         ))}
+
+        {/* Card permanente para criar categoria (sempre último à direita) */}
+        <div
+          className="flex flex-col items-center justify-center flex-shrink-0"
+          style={{
+            width: 'var(--size-card-donut-width)',
+            padding: 'var(--space-padding-card)',
+            backgroundColor: 'var(--color-background-card)',
+            borderWidth: '1px',
+            borderStyle: 'dashed',
+            borderColor: 'var(--color-border-default)',
+            borderRadius: 'var(--shape-radius-card)',
+          }}
+        >
+          <div
+            className="flex items-center justify-center"
+            style={{
+              marginBottom: 'var(--space-16)',
+              width: 48,
+              height: 48,
+              borderRadius: '50%',
+              backgroundColor: 'var(--color-background-tertiary)',
+            }}
+          >
+            <Icon name="plus" size={24} color="var(--color-text-secondary)" />
+          </div>
+          <p
+            style={{
+              fontSize: 'var(--font-size-text-label)',
+              fontWeight: 'var(--font-weight-bold)',
+              lineHeight: 'var(--font-line-height-default)',
+              color: 'var(--color-text-secondary)',
+              textAlign: 'center',
+              marginBottom: 'var(--space-12)',
+              fontFeatureSettings: "'liga' off",
+            }}
+          >
+            Nova categoria
+          </p>
+          <Button
+            onClick={() => setIsNewCategoryModalOpen(true)}
+            variant="secondary"
+            size="small"
+          >
+            Criar categoria
+          </Button>
+        </div>
       </div>
+
+      <NewCategoryModal
+        isOpen={isNewCategoryModalOpen}
+        onClose={() => setIsNewCategoryModalOpen(false)}
+        type="EXPENSE"
+        onSuccess={() => {
+          refreshData()
+          setIsNewCategoryModalOpen(false)
+        }}
+      />
     </div>
   )
 }
