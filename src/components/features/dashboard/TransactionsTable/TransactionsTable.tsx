@@ -421,11 +421,13 @@ export function TransactionsTable() {
                       <td style={{ padding: 'var(--space-gap-component)' }}>
                         <div className="flex items-center" style={{ gap: 'var(--space-layout-element)' }}>
                           <div
-                            className="flex items-center justify-center"
+                            className="flex items-center justify-center flex-shrink-0"
                             style={{
                               width: '24px',
                               height: '24px',
-                              borderRadius: 'var(--shape-radius-avatar)',
+                              minWidth: '24px',
+                              minHeight: '24px',
+                              borderRadius: '50%',
                               backgroundColor:
                                 transaction.type === 'INCOME'
                                   ? 'var(--color-background-success)'
