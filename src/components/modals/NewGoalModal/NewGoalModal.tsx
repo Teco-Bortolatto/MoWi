@@ -4,8 +4,6 @@ import { Modal } from '../../ui/Modal'
 import { Icon } from '../../ui/Icon'
 import { Button } from '../../ui/Button'
 import { formatCurrency } from '../../../utils/formatCurrency'
-import { storageService } from '../../../services/storageService'
-import { STORAGE_MAX_GOAL_THUMB_BYTES } from '../../../constants'
 
 interface NewGoalModalProps {
   isOpen: boolean
@@ -25,32 +23,8 @@ export function NewGoalModal({ isOpen, onClose }: NewGoalModalProps) {
   const [selectedIcon, setSelectedIcon] = useState(goalIcons[0])
   const [memberId, setMemberId] = useState<string | null>(null)
   const [category, setCategory] = useState('')
-  const [thumbFile, setThumbFile] = useState<File | null>(null)
-  const [thumbPreview, setThumbPreview] = useState<string | null>(null)
-  const [thumbError, setThumbError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
 
-  const handleThumbChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    setThumbError(null)
-    if (!file) {
-      setThumbFile(null)
-      setThumbPreview(null)
-      return
-    }
-    if (!file.type.startsWith('image/')) {
-      setThumbError('Selecione uma imagem (JPG, PNG ou WebP).')
-      return
-    }
-    if (file.size > STORAGE_MAX_GOAL_THUMB_BYTES) {
-      setThumbError(`Imagem muito grande. Máximo: ${(STORAGE_MAX_GOAL_THUMB_BYTES / 1024).toFixed(0)} KB`)
-      return
-    }
-    setThumbFile(file)
-    setThumbPreview(URL.createObjectURL(file))
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!title || !targetAmount) {
@@ -66,45 +40,28 @@ export function NewGoalModal({ isOpen, onClose }: NewGoalModalProps) {
       return
     }
 
-    setLoading(true)
-    setThumbError(null)
+    addGoal({
+      title,
+      description: description || title,
+      targetAmount: targetValue,
+      currentAmount: currentValue,
+      deadline,
+      category: category || 'Outros',
+      memberId,
+      isCompleted: false,
+    })
 
-    try {
-      let imageUrl: string | null = null
-      if (thumbFile) {
-        imageUrl = await storageService.uploadFile('goal-thumbs', thumbFile)
-      }
+    // Reset form
+    setTitle('')
+    setDescription('')
+    setTargetAmount('')
+    setCurrentAmount('')
+    setDeadline(null)
+    setSelectedIcon(goalIcons[0])
+    setMemberId(null)
+    setCategory('')
 
-      await addGoal({
-        title,
-        description: description || title,
-        targetAmount: targetValue,
-        currentAmount: currentValue,
-        deadline,
-        category: category || 'Outros',
-        memberId,
-        imageUrl,
-        isCompleted: false,
-      })
-
-      // Reset form
-      setTitle('')
-      setDescription('')
-      setTargetAmount('')
-      setCurrentAmount('')
-      setDeadline(null)
-      setSelectedIcon(goalIcons[0])
-      setMemberId(null)
-      setCategory('')
-      setThumbFile(null)
-      setThumbPreview(null)
-      onClose()
-    } catch (err) {
-      console.error(err)
-      setThumbError(err instanceof Error ? err.message : 'Erro ao salvar.')
-    } finally {
-      setLoading(false)
-    }
+    onClose()
   }
 
   const formatAmountInput = (value: string) => {
@@ -186,60 +143,6 @@ export function NewGoalModal({ isOpen, onClose }: NewGoalModalProps) {
               color: 'var(--color-text-primary)',
             }}
           />
-        </div>
-
-        {/* Thumb horizontal do objetivo (opcional) */}
-        <div style={{ marginBottom: 'var(--space-layout-component)' }}>
-          <label
-            style={{
-              display: 'block',
-              fontSize: 'var(--font-size-text-label)',
-              fontWeight: 'var(--font-weight-bold)',
-              color: 'var(--color-text-primary)',
-              marginBottom: 'var(--space-layout-element)',
-              fontFeatureSettings: "'liga' off",
-            }}
-          >
-            Thumb do objetivo (opcional, máx. 256 KB)
-          </label>
-          <div className="flex items-center" style={{ gap: 'var(--space-layout-component)' }}>
-            {thumbPreview && (
-              <img
-                src={thumbPreview}
-                alt="Preview thumb"
-                style={{
-                  width: 160,
-                  height: 80,
-                  objectFit: 'cover',
-                  borderRadius: 'var(--shape-radius-button)',
-                  border: '1px solid var(--color-border-default)',
-                }}
-              />
-            )}
-            <label
-              className="cursor-pointer"
-              style={{
-                padding: 'var(--space-padding-button-small)',
-                borderRadius: 'var(--shape-radius-button)',
-                border: '1px dashed var(--color-border-default)',
-                fontSize: 'var(--font-size-text-body-small)',
-                color: 'var(--color-text-secondary)',
-              }}
-            >
-              {thumbPreview ? 'Trocar imagem' : 'Escolher imagem'}
-              <input
-                type="file"
-                className="hidden"
-                accept="image/jpeg,image/png,image/webp"
-                onChange={handleThumbChange}
-              />
-            </label>
-          </div>
-          {thumbError && (
-            <p style={{ fontSize: 'var(--font-size-text-body-small)', color: 'var(--color-text-error)', marginTop: 'var(--space-8)' }}>
-              {thumbError}
-            </p>
-          )}
         </div>
 
         {/* Grid de campos */}
@@ -390,39 +293,28 @@ export function NewGoalModal({ isOpen, onClose }: NewGoalModalProps) {
             >
               Responsável
             </label>
-            <div className="relative">
-              <select
-                value={memberId || ''}
-                onChange={(e) => setMemberId(e.target.value || null)}
-                style={{
-                  width: '100%',
-                  padding: 'var(--space-padding-input)',
-                  paddingRight: 'calc(var(--space-12) + 16px)',
-                  borderRadius: 'var(--shape-radius-input)',
-                  borderWidth: '1px',
-                  borderStyle: 'solid',
-                  borderColor: 'var(--color-border-input-default)',
-                  fontSize: 'var(--font-size-input-medium)',
-                  color: 'var(--color-text-primary)',
-                  backgroundColor: 'var(--color-background-input-default)',
-                  appearance: 'none',
-                  WebkitAppearance: 'none',
-                }}
-              >
-                <option value="">Familiar (todos)</option>
-                {familyMembers.map((member) => (
-                  <option key={member.id} value={member.id}>
-                    {member.name}
-                  </option>
-                ))}
-              </select>
-              <div
-                className="absolute pointer-events-none"
-                style={{ right: 'var(--space-12)', top: '50%', transform: 'translateY(-50%)' }}
-              >
-                <Icon name="chevron-down" size={16} color="var(--color-text-secondary)" />
-              </div>
-            </div>
+            <select
+              value={memberId || ''}
+              onChange={(e) => setMemberId(e.target.value || null)}
+              style={{
+                width: '100%',
+                padding: 'var(--space-padding-input)',
+                borderRadius: 'var(--shape-radius-input)',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: 'var(--color-border-input-default)',
+                fontSize: 'var(--font-size-input-medium)',
+                color: 'var(--color-text-primary)',
+                backgroundColor: 'var(--color-background-input-default)',
+              }}
+            >
+              <option value="">Familiar (todos)</option>
+              {familyMembers.map((member) => (
+                <option key={member.id} value={member.id}>
+                  {member.name}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
@@ -495,8 +387,8 @@ export function NewGoalModal({ isOpen, onClose }: NewGoalModalProps) {
           <Button type="button" onClick={onClose} variant="secondary" size="medium">
             Cancelar
           </Button>
-          <Button type="submit" variant="primary" size="medium" disabled={loading}>
-            {loading ? 'Criando…' : 'Criar Objetivo'}
+          <Button type="submit" variant="primary" size="medium">
+            Criar Objetivo
           </Button>
         </div>
       </form>

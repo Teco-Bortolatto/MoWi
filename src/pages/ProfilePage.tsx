@@ -7,7 +7,6 @@ import { Avatar } from '../components/ui/Avatar'
 import { NewFamilyMemberModal } from '../components/modals/NewFamilyMemberModal/NewFamilyMemberModal'
 import { storageService } from '../services/storageService'
 import { useAuth } from '../hooks/useAuth'
-import type { FamilyMember } from '../types'
 
 type Tab = 'info' | 'settings'
 
@@ -16,7 +15,6 @@ function ProfilePage() {
   const { signOut, user } = useAuth()
   const [activeTab, setActiveTab] = useState<Tab>('info')
   const [isNewMemberModalOpen, setIsNewMemberModalOpen] = useState(false)
-  const [editingMember, setEditingMember] = useState<FamilyMember | null>(null)
   const [uploading, setUploading] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
   const [reminderEnabled, setReminderEnabled] = useState(true)
@@ -192,10 +190,7 @@ function ProfilePage() {
                   Membros da Família
                 </h3>
                 <Button
-                  onClick={() => {
-                    setEditingMember(null)
-                    setIsNewMemberModalOpen(true)
-                  }}
+                  onClick={() => setIsNewMemberModalOpen(true)}
                   variant="primary"
                   size="small"
                 >
@@ -221,10 +216,7 @@ function ProfilePage() {
                     Adicione outros membros da família para participar do controle financeiro.
                   </p>
                   <button
-                    onClick={() => {
-                      setEditingMember(null)
-                      setIsNewMemberModalOpen(true)
-                    }}
+                    onClick={() => setIsNewMemberModalOpen(true)}
                     style={{
                       padding: 'var(--space-padding-button-medium)',
                       borderRadius: 'var(--shape-radius-button)',
@@ -244,21 +236,9 @@ function ProfilePage() {
                   {familyMembers.map((member) => (
                     <div
                       key={member.id}
-                      role="button"
-                      tabIndex={0}
-                      onClick={() => {
-                        setEditingMember(member)
-                        setIsNewMemberModalOpen(true)
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault()
-                          setEditingMember(member)
-                          setIsNewMemberModalOpen(true)
-                        }
-                      }}
                       className="flex items-center justify-between"
                       style={{
+                        minHeight: '72px',
                         paddingTop: 'var(--space-layout-component)',
                         paddingBottom: 'var(--space-layout-component)',
                         paddingLeft: '32px',
@@ -276,8 +256,8 @@ function ProfilePage() {
                         e.currentTarget.style.backgroundColor = 'var(--color-background-secondary)'
                       }}
                     >
-                      <div className="flex items-center" style={{ gap: '32px' }}>
-                        <Avatar src={member.avatarUrl} alt={member.name} size="md" />
+                      <div className="flex items-center" style={{ gap: '32px', minHeight: 0 }}>
+                        <Avatar src={member.avatarUrl} alt={member.name} size="sm" />
                         <div>
                           <p
                             style={{
@@ -381,67 +361,39 @@ function ProfilePage() {
                 <span style={{ fontSize: 'var(--font-size-text-body-medium)', color: 'var(--color-text-primary)' }}>
                   Moeda padrão
                 </span>
-                <div className="relative" style={{ minWidth: '160px' }}>
-                  <select
-                    disabled
-                    style={{
-                      width: '100%',
-                      padding: 'var(--space-padding-input)',
-                      paddingRight: 'calc(var(--space-12) + 16px)',
-                      borderRadius: 'var(--shape-radius-input)',
-                      borderWidth: '1px',
-                      borderStyle: 'solid',
-                      borderColor: 'var(--color-border-input-default)',
-                      fontSize: 'var(--font-size-text-body-small)',
-                      color: 'var(--color-text-primary)',
-                      backgroundColor: 'var(--color-background-input-default)',
-                      opacity: 0.5,
-                      appearance: 'none',
-                      WebkitAppearance: 'none',
-                    }}
-                  >
-                    <option>Real Brasileiro (R$)</option>
-                  </select>
-                  <div
-                    className="absolute pointer-events-none"
-                    style={{ right: 'var(--space-12)', top: '50%', transform: 'translateY(-50%)' }}
-                  >
-                    <Icon name="chevron-down" size={16} color="var(--color-text-secondary)" />
-                  </div>
-                </div>
+                <select
+                  disabled
+                  style={{
+                    padding: 'var(--space-layout-element) var(--space-gap-component)',
+                    borderRadius: 'var(--shape-radius-input)',
+                    borderWidth: '1px',
+                    borderStyle: 'solid',
+                    borderColor: 'var(--color-border-input-default)',
+                    fontSize: 'var(--font-size-text-body-small)',
+                    opacity: 0.5,
+                  }}
+                >
+                  <option>Real Brasileiro (R$)</option>
+                </select>
               </div>
               <div className="flex items-center justify-between">
                 <span style={{ fontSize: 'var(--font-size-text-body-medium)', color: 'var(--color-text-primary)' }}>
                   Formato de data
                 </span>
-                <div className="relative" style={{ minWidth: '160px' }}>
-                  <select
-                    disabled
-                    style={{
-                      width: '100%',
-                      padding: 'var(--space-padding-input)',
-                      paddingRight: 'calc(var(--space-12) + 16px)',
-                      borderRadius: 'var(--shape-radius-input)',
-                      borderWidth: '1px',
-                      borderStyle: 'solid',
-                      borderColor: 'var(--color-border-input-default)',
-                      fontSize: 'var(--font-size-text-body-small)',
-                      color: 'var(--color-text-primary)',
-                      backgroundColor: 'var(--color-background-input-default)',
-                      opacity: 0.5,
-                      appearance: 'none',
-                      WebkitAppearance: 'none',
-                    }}
-                  >
-                    <option>DD/MM/AAAA</option>
-                  </select>
-                  <div
-                    className="absolute pointer-events-none"
-                    style={{ right: 'var(--space-12)', top: '50%', transform: 'translateY(-50%)' }}
-                  >
-                    <Icon name="chevron-down" size={16} color="var(--color-text-secondary)" />
-                  </div>
-                </div>
+                <select
+                  disabled
+                  style={{
+                    padding: 'var(--space-layout-element) var(--space-gap-component)',
+                    borderRadius: 'var(--shape-radius-input)',
+                    borderWidth: '1px',
+                    borderStyle: 'solid',
+                    borderColor: 'var(--color-border-input-default)',
+                    fontSize: 'var(--font-size-text-body-small)',
+                    opacity: 0.5,
+                  }}
+                >
+                  <option>DD/MM/AAAA</option>
+                </select>
               </div>
             </div>
 
@@ -631,14 +583,10 @@ function ProfilePage() {
         )}
       </div>
 
-      {/* Modal novo/editar membro */}
+      {/* Modal */}
       <NewFamilyMemberModal
         isOpen={isNewMemberModalOpen}
-        onClose={() => {
-          setIsNewMemberModalOpen(false)
-          setEditingMember(null)
-        }}
-        member={editingMember}
+        onClose={() => setIsNewMemberModalOpen(false)}
       />
     </div>
   )

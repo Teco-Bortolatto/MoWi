@@ -18,16 +18,32 @@ export function Avatar({ src, alt = 'Avatar', size = 'md', className = '' }: Ava
 
   if (src) {
     return (
-      <img
-        src={src}
-        alt={alt}
-        className={`object-cover ${className}`}
+      <div
+        className={className}
         style={{
           width: avatarSize,
           height: avatarSize,
+          minWidth: avatarSize,
+          minHeight: avatarSize,
+          maxWidth: avatarSize,
+          maxHeight: avatarSize,
           borderRadius: 'var(--shape-radius-avatar)',
+          overflow: 'hidden',
+          flexShrink: 0,
         }}
-      />
+      >
+        <img
+          src={src}
+          alt={alt}
+          className="object-cover"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            display: 'block',
+          }}
+        />
+      </div>
     )
   }
 
