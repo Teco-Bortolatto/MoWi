@@ -23,7 +23,7 @@ export function TotalSavedCard({ totalSaved }: TotalSavedCardProps) {
           marginBottom: 'var(--space-layout-element)',
         }}
       >
-        Total Poupa do
+        Total Poupado
       </p>
       <p
         style={{

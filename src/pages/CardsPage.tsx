@@ -5,12 +5,14 @@ import { Icon } from '../components/ui/Icon'
 import { Button } from '../components/ui/Button'
 import { NewCardModal } from '../components/modals/NewCardModal/NewCardModal'
 import { NewTransactionModal } from '../components/modals/NewTransactionModal'
+import { AdjustBalanceModal, type AdjustBalanceAccount } from '../components/modals/AdjustBalanceModal'
 
 function CardsPage() {
-  const { accounts, updateAccount, refreshData } = useFinance()
+  const { accounts } = useFinance()
   const [isNewCardModalOpen, setIsNewCardModalOpen] = useState(false)
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false)
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null)
+  const [adjustBalanceAccount, setAdjustBalanceAccount] = useState<AdjustBalanceAccount | null>(null)
 
   const creditCards = useMemo(() => accounts.filter(acc => acc.type === 'CREDIT_CARD'), [accounts])
   const bankAccounts = useMemo(() => accounts.filter(acc => acc.type !== 'CREDIT_CARD'), [accounts])
@@ -25,15 +27,8 @@ function CardsPage() {
     setIsNewTransactionModalOpen(true)
   }
 
-  const handleUpdateBalance = async (accountId: string, currentBalance: number) => {
-    const newBalance = prompt('Digite o novo saldo:', currentBalance.toString())
-    if (newBalance !== null) {
-      const balanceValue = parseFloat(newBalance.replace(/[^\d.-]/g, ''))
-      if (!isNaN(balanceValue)) {
-        await updateAccount(accountId, { balance: balanceValue })
-        await refreshData()
-      }
-}
+  const handleOpenAdjustBalance = (account: { id: string; name: string; balance: number }) => {
+    setAdjustBalanceAccount(account)
   }
 
   // Todos os cards seguem o padrão do XP (branco) para consistência
@@ -129,7 +124,7 @@ function CardsPage() {
                   </p>
                 </div>
                 <Button
-                  onClick={() => handleUpdateBalance(account.id, account.balance)}
+                  onClick={() => handleOpenAdjustBalance({ id: account.id, name: account.name, balance: account.balance })}
                   variant="secondary"
                   size="small"
                   fullWidth
@@ -376,6 +371,11 @@ function CardsPage() {
           setSelectedCardId(null)
         }}
         initialAccountId={selectedCardId}
+      />
+      <AdjustBalanceModal
+        isOpen={adjustBalanceAccount !== null}
+        onClose={() => setAdjustBalanceAccount(null)}
+        account={adjustBalanceAccount}
       />
       </div>
     </div>
