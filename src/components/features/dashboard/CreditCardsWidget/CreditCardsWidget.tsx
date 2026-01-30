@@ -6,12 +6,17 @@ import { Button } from '../../../ui/Button'
 import { NewCardModal } from '../../../modals/NewCardModal'
 
 /**
- * Componente de widget de cartões de crédito
+ * Widget de Cartões e Contas: cartões de crédito + contas (corrente/poupança)
  */
 export function CreditCardsWidget() {
   const { accounts, filters } = useFinance()
-  const creditCards = useMemo(() => {
-    let list = accounts.filter((acc) => acc.type === 'CREDIT_CARD')
+  const displayItems = useMemo(() => {
+    let list = accounts.filter(
+      (acc) =>
+        acc.type === 'CREDIT_CARD' ||
+        acc.type === 'CHECKING' ||
+        acc.type === 'SAVINGS'
+    )
     if (filters.selectedMember) {
       list = list.filter((acc) => acc.holderId === filters.selectedMember)
     }
@@ -21,8 +26,8 @@ export function CreditCardsWidget() {
   const [isNewCardModalOpen, setIsNewCardModalOpen] = useState(false)
   const itemsPerPage = 3
 
-  const totalPages = Math.ceil(creditCards.length / itemsPerPage)
-  const currentCards = creditCards.slice(
+  const totalPages = Math.ceil(displayItems.length / itemsPerPage)
+  const currentItems = displayItems.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
   )
@@ -69,6 +74,8 @@ export function CreditCardsWidget() {
   return (
     <div
       style={{
+        display: 'flex',
+        flexDirection: 'column',
         backgroundColor: 'var(--color-background-card)',
         borderRadius: 'var(--shape-radius-card)',
         padding: 'var(--space-padding-card)',
@@ -77,6 +84,7 @@ export function CreditCardsWidget() {
         borderColor: 'var(--color-border-card)',
         width: '100%',
         height: '100%',
+        minHeight: 0,
       }}
     >
       {/* Header */}
@@ -96,7 +104,7 @@ export function CreditCardsWidget() {
               fontFeatureSettings: "'liga' off",
             }}
           >
-            Cartões
+            Cartões e Contas
           </h3>
         </div>
         <Button
@@ -109,7 +117,7 @@ export function CreditCardsWidget() {
         />
       </div>
 
-      {creditCards.length === 0 ? (
+      {displayItems.length === 0 ? (
         /* Estado vazio */
         <div
           className="flex flex-col items-center justify-center"
@@ -139,129 +147,154 @@ export function CreditCardsWidget() {
               color: 'var(--color-text-secondary)',
             }}
           >
-            Nenhum cartão registrado
+            Nenhum cartão ou conta registrado
           </p>
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
-          {/* Lista de Cartões */}
-          {currentCards.map((card) => {
-          const themeStyles = getCardThemeStyles(card.theme as 'black' | 'lime' | 'white')
-          const limit = card.creditLimit || 0
-          const usagePercentage = calculateUsagePercentage(card.currentBill, limit)
-
-          return (
-            <div
-              key={card.id}
-              className="flex items-center"
-              style={{
-                backgroundColor: 'var(--color-background-card)',
-                borderRadius: 'var(--shape-radius-card)',
-                paddingTop: 'var(--space-padding-icon)',
-                paddingRight: '24px',
-                paddingBottom: 'var(--space-padding-icon)',
-                paddingLeft: '24px',
-                gap: '16px',
-                cursor: 'pointer',
-                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                borderWidth: '0px',
-                borderStyle: 'none',
-                borderColor: 'rgba(0, 0, 0, 0)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)'
-                e.currentTarget.style.boxShadow = 'var(--shadow-card-hover)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)'
-                e.currentTarget.style.boxShadow = 'none'
-              }}
-            >
-              {/* Ícone à esquerda */}
-              <div
-                className="flex items-center justify-center"
-                style={{
-                  width: '24px',
-                  height: '24px',
-                  borderRadius: 'var(--shape-8)',
-                  backgroundColor: 'var(--color-background-action-primary)',
-                  borderWidth: card.theme === 'white' ? '1px' : '0',
-                  borderStyle: card.theme === 'white' ? 'solid' : 'none',
-                  borderColor: themeStyles.borderColor || 'transparent',
-                  color: 'rgba(247, 247, 248, 1)',
-                }}
-              >
-                <Icon name="credit-card" size={16} color="rgba(255, 255, 255, 1)" />
-              </div>
-
-              {/* Informações ao centro */}
-              <div className="flex-1" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-                <p
+        <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0, overflow: 'hidden' }}>
+          {/* Lista de Cartões e Contas */}
+          <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
+          {currentItems.map((item) => {
+            if (item.type === 'CREDIT_CARD') {
+              const themeStyles = getCardThemeStyles(item.theme as 'black' | 'lime' | 'white')
+              const limit = item.creditLimit || 0
+              const usagePercentage = calculateUsagePercentage(item.currentBill, limit)
+              return (
+                <div
+                  key={item.id}
+                  className="flex items-center"
                   style={{
-                    fontSize: 'var(--font-size-text-body)',
-                    color: 'var(--color-text-primary)',
-                    letterSpacing: '0.3px',
+                    backgroundColor: 'var(--color-background-card)',
+                    borderRadius: 'var(--shape-radius-card)',
+                    paddingTop: 'var(--space-padding-icon)',
+                    paddingRight: '24px',
+                    paddingBottom: 'var(--space-padding-icon)',
+                    paddingLeft: '24px',
+                    gap: '16px',
+                    cursor: 'pointer',
+                    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                    borderWidth: '0px',
+                    borderStyle: 'none',
+                    borderColor: 'rgba(0, 0, 0, 0)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)'
+                    e.currentTarget.style.boxShadow = 'var(--shadow-card-hover)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.boxShadow = 'none'
                   }}
                 >
-                  {card.name}
-                </p>
-                <p
-                  style={{
-                    fontSize: 'var(--font-size-value-large)',
-                    fontWeight: 'var(--font-weight-bold)',
-                    color: 'var(--color-text-primary)',
-                    fontFeatureSettings: "'liga' off",
-                  }}
-                >
-                  {formatCurrency(card.currentBill)}
-                </p>
-                {card.lastDigits && (
-                  <p
+                  <div
+                    className="flex items-center justify-center"
                     style={{
-                      fontSize: 'var(--font-size-text-small)',
-                      color: 'var(--color-text-secondary)',
-                      letterSpacing: '0.3px',
+                      width: '24px',
+                      height: '24px',
+                      borderRadius: 'var(--shape-8)',
+                      backgroundColor: 'var(--color-background-action-primary)',
+                      borderWidth: item.theme === 'white' ? '1px' : '0',
+                      borderStyle: item.theme === 'white' ? 'solid' : 'none',
+                      borderColor: themeStyles.borderColor || 'transparent',
                     }}
                   >
-                    •••• {card.lastDigits}
-                  </p>
-                )}
-              </div>
-
-              {/* Badge de uso à direita */}
+                    <Icon name="credit-card" size={16} color="rgba(255, 255, 255, 1)" />
+                  </div>
+                  <div className="flex-1 min-w-0" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+                    <p style={{ fontSize: 'var(--font-size-text-body)', color: 'var(--color-text-primary)', letterSpacing: '0.3px' }}>
+                      {item.name}
+                    </p>
+                    <p style={{ fontSize: 'var(--font-size-value-large)', fontWeight: 'var(--font-weight-bold)', color: 'var(--color-text-primary)', fontFeatureSettings: "'liga' off" }}>
+                      {formatCurrency(item.currentBill)}
+                    </p>
+                    {item.lastDigits && (
+                      <p style={{ fontSize: 'var(--font-size-text-small)', color: 'var(--color-text-secondary)', letterSpacing: '0.3px' }}>
+                        •••• {item.lastDigits}
+                      </p>
+                    )}
+                  </div>
+                  <div
+                    className="flex items-center justify-center"
+                    style={{
+                      minWidth: '48px',
+                      height: '24px',
+                      borderRadius: 'var(--shape-radius-badge)',
+                      backgroundColor: themeStyles.badgeColor,
+                      paddingLeft: 'var(--space-8)',
+                      paddingRight: 'var(--space-8)',
+                    }}
+                  >
+                    <span style={{ fontSize: 'var(--font-size-text-label)', fontWeight: 'var(--font-weight-bold)', color: themeStyles.badgeTextColor, fontFeatureSettings: "'liga' off" }}>
+                      {usagePercentage}%
+                    </span>
+                  </div>
+                </div>
+              )
+            }
+            return (
               <div
-                className="flex items-center justify-center"
+                key={item.id}
+                className="flex items-center"
                 style={{
-                  minWidth: '48px',
-                  height: '24px',
-                  borderRadius: 'var(--shape-radius-badge)',
-                  backgroundColor: themeStyles.badgeColor,
-                  paddingLeft: 'var(--space-8)',
-                  paddingRight: 'var(--space-8)',
+                  backgroundColor: 'var(--color-background-card)',
+                  borderRadius: 'var(--shape-radius-card)',
+                  paddingTop: 'var(--space-padding-icon)',
+                  paddingRight: '24px',
+                  paddingBottom: 'var(--space-padding-icon)',
+                  paddingLeft: '24px',
+                  gap: '16px',
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                  borderWidth: '0px',
+                  borderStyle: 'none',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px)'
+                  e.currentTarget.style.boxShadow = 'var(--shadow-card-hover)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = 'none'
                 }}
               >
-                <span
+                <div
+                  className="flex items-center justify-center"
                   style={{
-                    fontSize: 'var(--font-size-text-label)',
-                    fontWeight: 'var(--font-weight-bold)',
-                    color: 'var(--color-text-action-primary)',
-                    fontFeatureSettings: "'liga' off",
+                    width: '24px',
+                    height: '24px',
+                    borderRadius: 'var(--shape-8)',
+                    backgroundColor: 'var(--color-background-tertiary)',
                   }}
                 >
-                  {usagePercentage}%
-                </span>
+                  <Icon name="wallet" size={16} color="var(--color-text-secondary)" />
+                </div>
+                <div className="flex-1 min-w-0" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+                  <p style={{ fontSize: 'var(--font-size-text-body)', color: 'var(--color-text-primary)', letterSpacing: '0.3px' }}>
+                    {item.name}
+                  </p>
+                  <p style={{ fontSize: 'var(--font-size-value-large)', fontWeight: 'var(--font-weight-bold)', color: 'var(--color-text-primary)', fontFeatureSettings: "'liga' off" }}>
+                    {formatCurrency(item.balance)}
+                  </p>
+                  {item.lastDigits && (
+                    <p style={{ fontSize: 'var(--font-size-text-small)', color: 'var(--color-text-secondary)', letterSpacing: '0.3px' }}>
+                      •••• {item.lastDigits}
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
-          )
+            )
           })}
+          </div>
 
-          {/* Paginação */}
+          {/* Paginação - colada na borda inferior do card */}
           {totalPages > 1 && (
         <div
           className="flex items-center justify-center"
           style={{
-            marginTop: 'var(--space-16)',
+            marginTop: 'auto',
+            paddingTop: 'var(--space-16)',
             gap: 'var(--space-8)',
+            flexShrink: 0,
           }}
         >
           <Button
