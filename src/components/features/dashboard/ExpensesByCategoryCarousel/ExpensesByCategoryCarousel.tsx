@@ -174,7 +174,7 @@ export function ExpensesByCategoryCarousel() {
           className="hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 z-20"
           style={{
             boxShadow: 'var(--shadow-card-hover)',
-            marginRight: 'var(--space-layout-component)',
+            marginRight: 'var(--space-8)',
           }}
           aria-label="Scroll direita"
         />

@@ -839,9 +839,9 @@ export function DashboardHeader() {
                   width: '40px',
                   height: '40px',
                   borderRadius: '50%',
-                  borderWidth: '2px',
+                  borderWidth: '1px',
                   borderStyle: 'solid',
-                  borderColor: '#FFFFFF',
+                  borderColor: 'var(--color-border-card)',
                   backgroundColor: isSelected
                     ? 'var(--color-background-action-primary)'
                     : 'var(--color-background-surface)',
@@ -856,11 +856,8 @@ export function DashboardHeader() {
               >
                 <div
                   style={{
-                    width: '40px',
-                    height: '40px',
-                    ...(member.avatarUrl
-                      ? { padding: '12px', boxSizing: 'border-box' as const }
-                      : {}),
+                    width: '100%',
+                    height: '100%',
                     borderRadius: '50%',
                     overflow: 'hidden',
                     display: 'flex',
@@ -873,17 +870,18 @@ export function DashboardHeader() {
                       src={member.avatarUrl}
                       alt={member.name}
                       style={{
-                        width: '16px',
-                        height: '16px',
+                        width: '100%',
+                        height: '100%',
                         borderRadius: '50%',
                         objectFit: 'cover',
+                        display: 'block',
                       }}
                     />
                   ) : (
                     <span
                       style={{
-                        width: '40px',
-                        height: '40px',
+                        width: '100%',
+                        height: '100%',
                         padding: '12px',
                         boxSizing: 'border-box',
                         fontSize: 'var(--font-size-text-label)',

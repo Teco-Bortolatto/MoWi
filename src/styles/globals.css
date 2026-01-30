@@ -138,6 +138,7 @@
 
   .dashboard-grid-porcentagens {
     grid-area: porcentagens;
+    min-width: 0; /* coluna 1fr usa todo o espaço; carrossel ocupa 100% */
   }
 
   .dashboard-grid-cards-saldo {
@@ -165,11 +166,6 @@
   .dashboard-grid-extrato {
     grid-area: extrato;
     grid-column: 1 / -1;
-  }
-
-  /* Limitar largura do carrossel de despesas por categoria para mostrar 3 cards */
-  .expenses-carousel-desktop {
-    max-width: 706px; /* 3 cards (214px cada) + 2 gaps (16px cada) + padding left/right (16px cada) */
   }
 }
 

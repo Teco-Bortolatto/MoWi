@@ -53,16 +53,19 @@ export function Sidebar() {
         {/* User Info */}
         <SidebarUserInfo isExpanded={isExpanded} />
 
-        {/* Toggle Button */}
+        {/* Toggle Button - parte inferior da sidebar, encostado no canto (área do user info) */}
         <Button
           onClick={toggle}
           variant="tertiary"
           size="small"
           icon={isExpanded ? 'chevron-left' : 'chevron-right'}
           iconOnly
-          className="absolute top-1/2 -translate-y-1/2"
+          className="absolute bottom-0"
           style={{
-            right: 'var(--space-negative-16)',
+            ...(isExpanded
+              ? { right: 'var(--space-negative-16)', left: 'auto' }
+              : { left: 'var(--space-24)', right: 'auto' }),
+            marginBottom: 'var(--space-24)',
             boxShadow: 'var(--shadow-card-hover)',
             backgroundColor: 'var(--color-background-card)',
           }}
