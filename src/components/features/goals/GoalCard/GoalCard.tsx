@@ -129,6 +129,31 @@ export function GoalCard({ goal, onAddValue, onEdit }: GoalCardProps) {
       }}
       onClick={() => onEdit(goal.id)}
     >
+      {/* Thumb horizontal do objetivo (se houver imagem) */}
+      {goal.imageUrl && (
+        <div
+          style={{
+            width: '100%',
+            height: 80,
+            marginBottom: 'var(--space-layout-component)',
+            borderRadius: 'var(--shape-radius-button)',
+            overflow: 'hidden',
+            backgroundColor: 'var(--color-background-tertiary)',
+          }}
+        >
+          <img
+            src={goal.imageUrl}
+            alt=""
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+            }}
+          />
+        </div>
+      )}
+
       {/* Cabeçalho */}
       <div
         className="flex items-center"

@@ -9,6 +9,7 @@ export interface CreateGoalInput {
   deadline?: Date | null
   category?: string | null
   memberId?: string | null
+  imageUrl?: string | null
 }
 
 export interface UpdateGoalInput {
@@ -19,6 +20,7 @@ export interface UpdateGoalInput {
   deadline?: Date | null
   category?: string | null
   memberId?: string | null
+  imageUrl?: string | null
   isCompleted?: boolean
 }
 
@@ -90,6 +92,7 @@ export const goalService = {
         deadline: input.deadline ? input.deadline.toISOString().split('T')[0] : null,
         category: input.category,
         member_id: input.memberId,
+        image_url: input.imageUrl ?? null,
       })
       .select()
       .single()
@@ -115,6 +118,7 @@ export const goalService = {
     if (input.deadline !== undefined) updateData.deadline = input.deadline ? input.deadline.toISOString().split('T')[0] : null
     if (input.category !== undefined) updateData.category = input.category
     if (input.memberId !== undefined) updateData.member_id = input.memberId
+    if (input.imageUrl !== undefined) updateData.image_url = input.imageUrl
     if (input.isCompleted !== undefined) updateData.is_completed = input.isCompleted
 
     const { data, error } = await supabase
@@ -162,6 +166,7 @@ function mapGoal(data: any): Goal {
     deadline: data.deadline ? new Date(data.deadline) : null,
     category: data.category,
     memberId: data.member_id,
+    imageUrl: data.image_url ?? null,
     isCompleted: data.is_completed,
     createdAt: new Date(data.created_at),
     updatedAt: new Date(data.updated_at),

@@ -44,3 +44,10 @@ export const CREDIT_CARD_THEMES = ['black', 'lime', 'white'] as const
 export const DATE_FORMAT = 'DD/MM/YYYY'
 export const CURRENCY_FORMAT = 'pt-BR'
 export const CURRENCY_CODE = 'BRL'
+
+/**
+ * Limites de upload para plano Supabase gratuito (uso modesto de storage).
+ * Avatares: 512 KB. Thumbs de objetivos: 256 KB.
+ */
+export const STORAGE_MAX_AVATAR_BYTES = 512 * 1024 // 512 KB
+export const STORAGE_MAX_GOAL_THUMB_BYTES = 256 * 1024 // 256 KB

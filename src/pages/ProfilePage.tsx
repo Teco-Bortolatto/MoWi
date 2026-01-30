@@ -7,6 +7,7 @@ import { Avatar } from '../components/ui/Avatar'
 import { NewFamilyMemberModal } from '../components/modals/NewFamilyMemberModal/NewFamilyMemberModal'
 import { storageService } from '../services/storageService'
 import { useAuth } from '../hooks/useAuth'
+import type { FamilyMember } from '../types'
 
 type Tab = 'info' | 'settings'
 
@@ -15,6 +16,7 @@ function ProfilePage() {
   const { signOut, user } = useAuth()
   const [activeTab, setActiveTab] = useState<Tab>('info')
   const [isNewMemberModalOpen, setIsNewMemberModalOpen] = useState(false)
+  const [editingMember, setEditingMember] = useState<FamilyMember | null>(null)
   const [uploading, setUploading] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
   const [reminderEnabled, setReminderEnabled] = useState(true)
@@ -190,7 +192,10 @@ function ProfilePage() {
                   Membros da Família
                 </h3>
                 <Button
-                  onClick={() => setIsNewMemberModalOpen(true)}
+                  onClick={() => {
+                    setEditingMember(null)
+                    setIsNewMemberModalOpen(true)
+                  }}
                   variant="primary"
                   size="small"
                 >
@@ -216,7 +221,10 @@ function ProfilePage() {
                     Adicione outros membros da família para participar do controle financeiro.
                   </p>
                   <button
-                    onClick={() => setIsNewMemberModalOpen(true)}
+                    onClick={() => {
+                      setEditingMember(null)
+                      setIsNewMemberModalOpen(true)
+                    }}
                     style={{
                       padding: 'var(--space-padding-button-medium)',
                       borderRadius: 'var(--shape-radius-button)',
@@ -236,6 +244,19 @@ function ProfilePage() {
                   {familyMembers.map((member) => (
                     <div
                       key={member.id}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => {
+                        setEditingMember(member)
+                        setIsNewMemberModalOpen(true)
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault()
+                          setEditingMember(member)
+                          setIsNewMemberModalOpen(true)
+                        }
+                      }}
                       className="flex items-center justify-between"
                       style={{
                         paddingTop: 'var(--space-layout-component)',
@@ -610,10 +631,14 @@ function ProfilePage() {
         )}
       </div>
 
-      {/* Modal */}
+      {/* Modal novo/editar membro */}
       <NewFamilyMemberModal
         isOpen={isNewMemberModalOpen}
-        onClose={() => setIsNewMemberModalOpen(false)}
+        onClose={() => {
+          setIsNewMemberModalOpen(false)
+          setEditingMember(null)
+        }}
+        member={editingMember}
       />
     </div>
   )

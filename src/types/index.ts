@@ -39,6 +39,7 @@ export interface Goal {
   deadline: Date | null;
   category: string | null;
   memberId: string | null;
+  imageUrl: string | null;
   isCompleted: boolean;
   createdAt: Date;
   updatedAt: Date;
