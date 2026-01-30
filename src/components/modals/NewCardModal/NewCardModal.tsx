@@ -13,7 +13,7 @@ interface NewCardModalProps {
 export function NewCardModal({ isOpen, onClose }: NewCardModalProps) {
   const { addAccount, familyMembers } = useFinance()
 
-  const [type, setType] = useState<'CHECKING' | 'SAVINGS' | 'CREDIT_CARD'>('CHECKING')
+  const [type, setType] = useState<'CHECKING' | 'SAVINGS' | 'CREDIT_CARD'>('CREDIT_CARD')
   const [name, setName] = useState('')
   const [bank, setBank] = useState('')
   const [holderId, setHolderId] = useState<string | null>(null)
@@ -238,13 +238,14 @@ export function NewCardModal({ isOpen, onClose }: NewCardModalProps) {
                       onChange={(e) => setClosingDay(parseInt(e.target.value, 10))}
                       style={{
                         width: '100%',
-                        padding: 'var(--space-padding-input)',
+                        height: 'var(--size-input-height-small)',
+                        padding: 'var(--space-padding-button-small)',
                         paddingRight: 'calc(var(--space-12) + 16px)',
                         borderRadius: 'var(--shape-radius-input)',
                         borderWidth: '1px',
                         borderStyle: 'solid',
                         borderColor: 'var(--color-border-input-default)',
-                        fontSize: 'var(--font-size-input-medium)',
+                        fontSize: 'var(--font-size-input-small)',
                         color: 'var(--color-text-primary)',
                         backgroundColor: 'var(--color-background-input-default)',
                         appearance: 'none',
@@ -285,13 +286,14 @@ export function NewCardModal({ isOpen, onClose }: NewCardModalProps) {
                       onChange={(e) => setDueDay(parseInt(e.target.value, 10))}
                       style={{
                         width: '100%',
-                        padding: 'var(--space-padding-input)',
+                        height: 'var(--size-input-height-small)',
+                        padding: 'var(--space-padding-button-small)',
                         paddingRight: 'calc(var(--space-12) + 16px)',
                         borderRadius: 'var(--shape-radius-input)',
                         borderWidth: '1px',
                         borderStyle: 'solid',
                         borderColor: 'var(--color-border-input-default)',
-                        fontSize: 'var(--font-size-input-medium)',
+                        fontSize: 'var(--font-size-input-small)',
                         color: 'var(--color-text-primary)',
                         backgroundColor: 'var(--color-background-input-default)',
                         appearance: 'none',
@@ -367,13 +369,14 @@ export function NewCardModal({ isOpen, onClose }: NewCardModalProps) {
                 onChange={(e) => setHolderId(e.target.value || null)}
                 style={{
                   width: '100%',
-                  padding: 'var(--space-padding-input)',
+                  height: 'var(--size-input-height-small)',
+                  padding: 'var(--space-padding-button-small)',
                   paddingRight: 'calc(var(--space-12) + 16px)',
                   borderRadius: 'var(--shape-radius-input)',
                   borderWidth: '1px',
                   borderStyle: 'solid',
                   borderColor: 'var(--color-border-input-default)',
-                  fontSize: 'var(--font-size-input-medium)',
+                  fontSize: 'var(--font-size-input-small)',
                   color: 'var(--color-text-primary)',
                   backgroundColor: 'var(--color-background-input-default)',
                   appearance: 'none',

@@ -16,8 +16,6 @@ interface NewTransactionModalProps {
 /**
  * Modal para criar nova transação
  */
-import { NewCategoryModal } from '../NewCategoryModal/NewCategoryModal'
-
 export function NewTransactionModal({
   isOpen,
   onClose,
@@ -37,7 +35,6 @@ export function NewTransactionModal({
   const [installments, setInstallments] = useState(1)
   const [isRecurring, setIsRecurring] = useState(false)
   const [loadingCategories, setLoadingCategories] = useState(false)
-  const [isNewCategoryModalOpen, setIsNewCategoryModalOpen] = useState(false)
 
   // Carregar categorias reais do Supabase
   const loadCategories = async () => {
@@ -173,7 +170,10 @@ export function NewTransactionModal({
         </div>
 
         {/* Campos do formulário */}
-        <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 'var(--space-layout-component)' }}>
+        <div
+          className="grid grid-cols-1 md:grid-cols-2"
+          style={{ gap: 'var(--space-layout-component)', alignItems: 'center' }}
+        >
           {/* Valor */}
           <div>
             <label
@@ -284,26 +284,18 @@ export function NewTransactionModal({
 
           {/* Categoria */}
           <div>
-            <div className="flex items-center justify-between" style={{ marginBottom: 'var(--space-layout-element)', paddingRight: '8px' }}>
-              <label
-                style={{
-                  fontSize: 'var(--font-size-text-label)',
-                  fontWeight: 'var(--font-weight-bold)',
-                  color: 'var(--color-text-primary)',
-                  fontFeatureSettings: "'liga' off",
-                }}
-              >
-                Categoria
-              </label>
-              <button
-                type="button"
-                onClick={() => setIsNewCategoryModalOpen(true)}
-                className="text-primary-600 hover:text-primary-700 text-xs font-bold flex items-center gap-1"
-              >
-                <Icon name="plus" size={12} />
-                Nova
-              </button>
-            </div>
+            <label
+              style={{
+                display: 'block',
+                fontSize: 'var(--font-size-text-label)',
+                fontWeight: 'var(--font-weight-bold)',
+                color: 'var(--color-text-primary)',
+                marginBottom: 'var(--space-layout-element)',
+                fontFeatureSettings: "'liga' off",
+              }}
+            >
+              Categoria
+            </label>
             <div className="relative">
               <select
                 value={categoryId}
@@ -312,13 +304,14 @@ export function NewTransactionModal({
                 disabled={loadingCategories}
                 style={{
                   width: '100%',
-                  padding: 'var(--space-padding-input)',
+                  height: 'var(--size-input-height-small)',
+                  padding: 'var(--space-padding-button-small)',
                   paddingRight: 'calc(var(--space-12) + 16px)',
                   borderRadius: 'var(--shape-radius-input)',
                   borderWidth: '1px',
                   borderStyle: 'solid',
                   borderColor: 'var(--color-border-input-default)',
-                  fontSize: 'var(--font-size-input-medium)',
+                  fontSize: 'var(--font-size-input-small)',
                   color: 'var(--color-text-primary)',
                   backgroundColor: 'var(--color-background-input-default)',
                   appearance: 'none',
@@ -364,13 +357,14 @@ export function NewTransactionModal({
                 onChange={(e) => setMemberId(e.target.value || null)}
                 style={{
                   width: '100%',
-                  padding: 'var(--space-padding-input)',
+                  height: 'var(--size-input-height-small)',
+                  padding: 'var(--space-padding-button-small)',
                   paddingRight: 'calc(var(--space-12) + 16px)',
                   borderRadius: 'var(--shape-radius-input)',
                   borderWidth: '1px',
                   borderStyle: 'solid',
                   borderColor: 'var(--color-border-input-default)',
-                  fontSize: 'var(--font-size-input-medium)',
+                  fontSize: 'var(--font-size-input-small)',
                   color: 'var(--color-text-primary)',
                   backgroundColor: 'var(--color-background-input-default)',
                   appearance: 'none',
@@ -413,13 +407,14 @@ export function NewTransactionModal({
                 onChange={(e) => setAccountId(e.target.value || null)}
                 style={{
                   width: '100%',
-                  padding: 'var(--space-padding-input)',
+                  height: 'var(--size-input-height-small)',
+                  padding: 'var(--space-padding-button-small)',
                   paddingRight: 'calc(var(--space-12) + 16px)',
                   borderRadius: 'var(--shape-radius-input)',
                   borderWidth: '1px',
                   borderStyle: 'solid',
                   borderColor: 'var(--color-border-input-default)',
-                  fontSize: 'var(--font-size-input-medium)',
+                  fontSize: 'var(--font-size-input-small)',
                   color: 'var(--color-text-primary)',
                   backgroundColor: 'var(--color-background-input-default)',
                   appearance: 'none',
@@ -462,13 +457,14 @@ export function NewTransactionModal({
                 onChange={(e) => setInstallments(parseInt(e.target.value, 10))}
                 style={{
                   width: '100%',
-                  padding: 'var(--space-padding-input)',
+                  height: 'var(--size-input-height-small)',
+                  padding: 'var(--space-padding-button-small)',
                   paddingRight: 'calc(var(--space-12) + 16px)',
                   borderRadius: 'var(--shape-radius-input)',
                   borderWidth: '1px',
                   borderStyle: 'solid',
                   borderColor: 'var(--color-border-input-default)',
-                  fontSize: 'var(--font-size-input-medium)',
+                  fontSize: 'var(--font-size-input-small)',
                   color: 'var(--color-text-primary)',
                   backgroundColor: 'var(--color-background-input-default)',
                   appearance: 'none',
@@ -558,13 +554,6 @@ export function NewTransactionModal({
           </Button>
         </div>
       </form>
-
-      <NewCategoryModal
-        isOpen={isNewCategoryModalOpen}
-        onClose={() => setIsNewCategoryModalOpen(false)}
-        type={transactionType}
-        onSuccess={loadCategories}
-      />
     </Modal>
   )
 }
