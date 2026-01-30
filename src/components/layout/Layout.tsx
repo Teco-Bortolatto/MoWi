@@ -25,20 +25,22 @@ export function Layout() {
     }
 
     scrollToTop()
-    
-    // Executar após múltiplos delays para garantir
     const timeoutIds = [
       setTimeout(scrollToTop, 0),
       setTimeout(scrollToTop, 50),
       setTimeout(scrollToTop, 100),
     ]
 
-    requestAnimationFrame(() => {
-      requestAnimationFrame(scrollToTop)
+    let rafId1: number | null = null
+    let rafId2: number | null = null
+    rafId1 = requestAnimationFrame(() => {
+      rafId2 = requestAnimationFrame(scrollToTop)
     })
 
     return () => {
       timeoutIds.forEach(id => clearTimeout(id))
+      if (rafId1 !== null) cancelAnimationFrame(rafId1)
+      if (rafId2 !== null) cancelAnimationFrame(rafId2)
     }
   }, [])
 

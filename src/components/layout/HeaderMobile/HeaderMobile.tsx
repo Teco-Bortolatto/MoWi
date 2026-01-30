@@ -182,17 +182,22 @@ export function HeaderMobile({
                     borderStyle: 'solid',
                     borderColor: 'var(--color-border-card)',
                     boxShadow: 'var(--shadow-card-elevated)',
-                    paddingTop: 'var(--space-8)',
-                    paddingBottom: 'var(--space-8)',
+                    paddingTop: '8px',
+                    paddingBottom: '8px',
+                    paddingLeft: '8px',
+                    paddingRight: '8px',
                   }}
                 >
                   <button
                     onClick={handleNavigateToProfile}
                     className="w-full flex items-center transition-colors duration-200 focus:outline-none"
                     style={{
-                      height: 'var(--size-button-height-large)',
-                      paddingLeft: 'var(--space-layout-component)',
-                      paddingRight: 'var(--space-layout-component)',
+                      height: '40px',
+                      paddingTop: '16px',
+                      paddingBottom: '16px',
+                      paddingLeft: '16px',
+                      paddingRight: '16px',
+                      borderRadius: '40px',
                       backgroundColor: 'transparent',
                       color: 'var(--color-text-primary)',
                     }}
@@ -222,9 +227,12 @@ export function HeaderMobile({
                     onClick={handleNavigateToSettings}
                     className="w-full flex items-center transition-colors duration-200 focus:outline-none"
                     style={{
-                      height: 'var(--size-button-height-large)',
-                      paddingLeft: 'var(--space-layout-component)',
-                      paddingRight: 'var(--space-layout-component)',
+                      height: '40px',
+                      paddingTop: '16px',
+                      paddingBottom: '16px',
+                      paddingLeft: '16px',
+                      paddingRight: '16px',
+                      borderRadius: '40px',
                       backgroundColor: 'transparent',
                       color: 'var(--color-text-primary)',
                     }}
@@ -254,9 +262,12 @@ export function HeaderMobile({
                     onClick={handleLogoutClick}
                     className="w-full flex items-center transition-colors duration-200 focus:outline-none"
                     style={{
-                      height: 'var(--size-button-height-large)',
-                      paddingLeft: 'var(--space-layout-component)',
-                      paddingRight: 'var(--space-layout-component)',
+                      height: '40px',
+                      paddingTop: '16px',
+                      paddingBottom: '16px',
+                      paddingLeft: '16px',
+                      paddingRight: '16px',
+                      borderRadius: '40px',
                       backgroundColor: 'transparent',
                       color: 'var(--color-text-error)',
                     }}

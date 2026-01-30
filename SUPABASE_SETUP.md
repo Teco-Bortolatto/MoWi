@@ -26,6 +26,20 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 - Vá em **Settings** → **API**
 - Copie a **URL** e a **anon/public key**
 
+### Deploy no Vercel (mowi.vercel.app)
+
+Para o site funcionar em produção, as variáveis **precisam estar configuradas no Vercel** (o Vite injeta `VITE_*` no build):
+
+1. Acesse [Vercel Dashboard](https://vercel.com) → seu projeto MoWi
+2. **Settings** → **Environment Variables**
+3. Adicione:
+   - `VITE_SUPABASE_URL` = URL do seu projeto Supabase (ex: `https://xxxxx.supabase.co`)
+   - `VITE_SUPABASE_ANON_KEY` = chave anônima (anon/public key) do Supabase
+4. Marque **Production**, **Preview** e **Development** se quiser que valha para todos os ambientes
+5. **Redeploy** o projeto (Deployments → ⋮ → Redeploy) para o build usar as novas variáveis
+
+Sem isso, os usuários verão "O serviço está temporariamente indisponível" na tela de login.
+
 ---
 
 ## 🗄️ Passo 2: Aplicar Migrations

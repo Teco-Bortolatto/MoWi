@@ -46,13 +46,17 @@ export function ScrollToTop() {
       setTimeout(scrollToTop, 200),
     ]
 
-    // Executar após o próximo frame de renderização
-    requestAnimationFrame(() => {
-      requestAnimationFrame(scrollToTop)
+    // Executar após o próximo frame de renderização (com cleanup para unload)
+    let rafId1: number | null = null
+    let rafId2: number | null = null
+    rafId1 = requestAnimationFrame(() => {
+      rafId2 = requestAnimationFrame(scrollToTop)
     })
 
     return () => {
       timeoutIds.forEach(id => clearTimeout(id))
+      if (rafId1 !== null) cancelAnimationFrame(rafId1)
+      if (rafId2 !== null) cancelAnimationFrame(rafId2)
     }
   }, [pathname])
 

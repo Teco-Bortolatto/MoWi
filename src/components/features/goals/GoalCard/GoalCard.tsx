@@ -42,28 +42,34 @@ export function GoalCard({ goal, onAddValue, onEdit }: GoalCardProps) {
   const progress = goal.targetAmount > 0 ? (goal.currentAmount / goal.targetAmount) * 100 : 0
   const progressPercentage = Math.min(Math.max(progress, 0), 100)
 
-  // Animação da barra de progresso
+  // Animação da barra de progresso (com cleanup para permitir unload correto)
   useEffect(() => {
     const duration = 800 // ms
     const startTime = Date.now()
     const startProgress = 0
     const endProgress = progressPercentage
+    let rafId: number | null = null
+    let cancelled = false
 
     const animate = () => {
+      if (cancelled) return
       const elapsed = Date.now() - startTime
       const progress = Math.min(elapsed / duration, 1)
-      // Easing function (ease-out)
       const eased = 1 - Math.pow(1 - progress, 3)
       setAnimatedProgress(startProgress + (endProgress - startProgress) * eased)
 
       if (progress < 1) {
-        requestAnimationFrame(animate)
+        rafId = requestAnimationFrame(animate)
       } else {
         setAnimatedProgress(endProgress)
       }
     }
 
-    requestAnimationFrame(animate)
+    rafId = requestAnimationFrame(animate)
+    return () => {
+      cancelled = true
+      if (rafId !== null) cancelAnimationFrame(rafId)
+    }
   }, [progressPercentage])
 
   // Calcular quanto falta por mês

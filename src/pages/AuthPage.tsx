@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
+import { isSupabaseConfigured } from '../lib/supabase'
 import { Button } from '../components/ui/Button'
 
 export default function AuthPage() {
@@ -15,6 +16,7 @@ export default function AuthPage() {
   const [error, setError] = useState<string | null>(null)
   const [forgotSuccess, setForgotSuccess] = useState(false)
 
+  const isConfigured = isSupabaseConfigured()
   const { signIn, signUp, resetPassword } = useAuth()
   const navigate = useNavigate()
 
@@ -29,6 +31,7 @@ export default function AuthPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
+    if (!isConfigured) return
 
     if (isForgotPassword) {
       setLoading(true)
@@ -127,7 +130,22 @@ export default function AuthPage() {
                 : 'Comece a organizar sua vida financeira hoje'}
           </p>
 
-          {forgotSuccess ? (
+          {!isConfigured ? (
+            <div className="flex flex-col gap-16 pt-4 pb-0">
+              <div
+                className="p-4 rounded-xl text-sm text-center"
+                style={{
+                  backgroundColor: 'var(--color-background-secondary)',
+                  color: 'var(--color-text-primary)',
+                }}
+              >
+                O serviço está temporariamente indisponível. Tente novamente em alguns minutos.
+              </div>
+              <p className="text-center text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+                Se o problema continuar, entre em contato com o suporte.
+              </p>
+            </div>
+          ) : forgotSuccess ? (
             <div className="flex flex-col gap-16 pt-4 pb-0">
               <div className="p-4 rounded-xl bg-green-50 text-green-800 text-sm text-center">
                 Se existir uma conta com esse e-mail, você receberá um link para redefinir sua senha. Verifique sua caixa de entrada e o spam.
@@ -236,7 +254,7 @@ export default function AuthPage() {
                   type="submit"
                   fullWidth
                   className="w-full rounded-xl"
-                  disabled={loading}
+                  disabled={loading || !isConfigured}
                 >
                   {loading
                     ? 'Processando...'
@@ -262,7 +280,7 @@ export default function AuthPage() {
         </div>
 
         <div className="px-8 pt-8 pb-16 bg-[var(--color-background-card)] flex justify-center">
-          {!forgotSuccess && (
+          {!forgotSuccess && isConfigured && (
             <button
               type="button"
               onClick={() => {
